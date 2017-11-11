@@ -20,10 +20,11 @@ module.exports = {
   },
 
   target  : "node",
-  entry   : "./src/index.js",
+  entry   : path.resolve("src/index.js"),
   devtool : !IS_PRODUCTION ? "source-map" : undefined,
 
   output  : {
+    libraryTarget: "commonjs2",
     filename : "index.js",
     path     : path.resolve("./")
   },

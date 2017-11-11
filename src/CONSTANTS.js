@@ -1,5 +1,6 @@
 var STYLE_NAME = {};
-var BODY_CSS   = window.getComputedStyle(document.body);
+var window     = window || undefined;
+var BODY_CSS   = window ? window.getComputedStyle(document.body) : {};
 
 STYLE_NAME.transform = (
   BODY_CSS.webkitTransform
@@ -83,7 +84,7 @@ var IS_TRANSFORM = [
   "translateZ"
 ];
 
-export {
+module.exports = {
   STYLE_NAME,
   IS_OFFSET,
   XLINK_NS,

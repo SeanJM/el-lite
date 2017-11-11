@@ -1,6 +1,6 @@
 const propertyUnit = require("./propertyUnit");
 
-function transformValue(name, value) {
+module.exports = function transformValue(name, value) {
   var result = [];
 
   if (typeof value === "object") {
@@ -28,6 +28,4 @@ function transformValue(name, value) {
   }
 
   return name + "(" + result.join(", ") + ")";
-}
-
-module.exports = transformValue;
+};
