@@ -19,6 +19,7 @@ module.exports = {
     ],
   },
 
+  target  : "node",
   entry   : "./src/index.js",
   devtool : !IS_PRODUCTION ? "source-map" : undefined,
 

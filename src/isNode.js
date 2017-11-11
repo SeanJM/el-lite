@@ -3,4 +3,4 @@ function isNode(node) {
   return str.indexOf("HTML") === 0 || str.indexOf("SVG") === 0;
 }
 
-export default isNode;
+module.exports = isNode;

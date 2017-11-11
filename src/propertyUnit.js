@@ -1,4 +1,4 @@
-import { IS_VALUE_PX, IS_VALUE_DEG } from "./CONSTANTS";
+const { IS_VALUE_PX, IS_VALUE_DEG } = require("./CONSTANTS");
 
 function propertyUnit(property, a) {
   if (IS_VALUE_PX.indexOf(property) > -1) {
@@ -10,4 +10,4 @@ function propertyUnit(property, a) {
   return a.toString();
 }
 
-export default propertyUnit;
+module.exports = propertyUnit;

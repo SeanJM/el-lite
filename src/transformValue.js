@@ -1,4 +1,4 @@
-import propertyUnit from "./propertyUnit";
+const propertyUnit = require("./propertyUnit");
 
 function transformValue(name, value) {
   var result = [];
@@ -30,4 +30,4 @@ function transformValue(name, value) {
   return name + "(" + result.join(", ") + ")";
 }
 
-export default transformValue;
+module.exports = transformValue;

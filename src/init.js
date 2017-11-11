@@ -1,7 +1,7 @@
-import isNode from "./isNode";
-import isObject from "./isObject";
-import Bus from "./Bus";
-import { SVG_NS } from "./CONSTANTS";
+const isNode     = require("./isNode");
+const isObject   = require("./isObject");
+const Bus        = require("./Bus");
+const { SVG_NS } = require("./CONSTANTS");
 
 function set(self, x) {
   if (typeof x === "string") {
@@ -47,4 +47,4 @@ function init(self, a, b, c) {
   }
 }
 
-export default init;
+module.exports = init;

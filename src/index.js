@@ -1,11 +1,17 @@
-import isObject from "./isObject";
-import init from "./init";
-import isNode from "./isNode";
-import mount from "./mount";
-import bind from "./bind";
-import transformValue from "./transformValue";
-import propertyUnit from "./propertyUnit";
-import { IS_TRANSFORM, STYLE_NAME, IS_OFFSET, XLINK_NS } from "./CONSTANTS";
+const isObject       = require("./isObject");
+const init           = require("./init");
+const isNode         = require("./isNode");
+const mount          = require("./mount");
+const bind           = require("./bind");
+const transformValue = require("./transformValue");
+const propertyUnit   = require("./propertyUnit");
+
+const {
+  IS_TRANSFORM,
+  STYLE_NAME,
+  IS_OFFSET,
+  XLINK_NS
+} = require("./CONSTANTS");
 
 function El(a, b, c) {
   var self = this;
@@ -411,4 +417,4 @@ el.fn = function (name, callback) {
 
 el.create = Component.create;
 
-export default el;
+module.exports = el;
