@@ -14,7 +14,8 @@ const {
 } = require("./CONSTANTS");
 
 function El(a, b, c) {
-  var self = this;
+  var self    = this;
+  var IS_NODE = isNode(a);
 
   init(this, a, b, c);
 
@@ -25,7 +26,7 @@ function El(a, b, c) {
     El.__onCreate[i].call(this);
   }
 
-  if (self.isNode) {
+  if (IS_NODE) {
     for (i = 0, n = this.node.childNodes.length; i < n; i++) {
       if (isNode(this.node.childNodes[i])) {
         bind.call(this, this.node.childNodes[i]);
