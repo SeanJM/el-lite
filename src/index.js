@@ -375,7 +375,7 @@ Component.create = function (name, obj) {
 
     if (obj.render) {
       this.node = obj.render.call(this, props);
-      this.ref  = this.props.ref;
+      this.ref  = this.props.ref || this.node.ref;
       Object.assign(this.refs, this.node.refs);
       this.append(children);
     }
