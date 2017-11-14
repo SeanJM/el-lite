@@ -390,6 +390,9 @@ Component.create = function (name, obj) {
       if (children) {
         children = [].concat(children);
         obj.append.call(this, children);
+        for (var i = 0, n = children.length; i < n; i++) {
+          this.setRefs(children[i]);
+        }
       }
     };
   }
