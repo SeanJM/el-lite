@@ -184,9 +184,7 @@ El.prototype.append = function (children) {
           : new Text(children[i])
       );
 
-      if (isEl) {
-        this.setRefs(children[i]);
-      }
+      this.setRefs(children[i]);
     }
 
     mount(children);
@@ -378,6 +376,7 @@ Component.create = function (name, obj) {
     if (obj.render) {
       this.node = obj.render.call(this, props);
       this.ref  = this.props.ref;
+      Object.assign(this.refs, this.node.refs);
       this.append(children);
     }
   }

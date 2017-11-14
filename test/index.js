@@ -457,9 +457,7 @@ El.prototype.append = function (children) {
           : new Text(children[i])
       );
 
-      if (isEl) {
-        this.setRefs(children[i]);
-      }
+      this.setRefs(children[i]);
     }
 
     mount(children);
@@ -651,6 +649,7 @@ Component.create = function (name, obj) {
     if (obj.render) {
       this.node = obj.render.call(this, props);
       this.ref  = this.props.ref;
+      Object.assign(this.refs, this.node.refs);
       this.append(children);
     }
   }
@@ -833,17 +832,6 @@ module.exports = function bind(child) {
     child.on("removeChild", function () {
       self.removeChild(child);
     });
-
-    child.on("appended", function () {
-      for (var i = 0, n = child.children.length; i < n; i++) {
-        if (child.children[i].trigger) {
-          child.children[i].trigger("appended");
-        }
-      }
-      if (document.body.contains(this.getRoot())) {
-        this.getEl().trigger("mount");
-      }
-    });
   }
   return child;
 };
@@ -899,6 +887,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__removeClass__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__elementRef__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__componentRef__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__onMount__ = __webpack_require__(6);
+
 
 
 
@@ -991,12 +981,35 @@ __WEBPACK_IMPORTED_MODULE_0__index___default.a.create("y", {
   }
 });
 
+__WEBPACK_IMPORTED_MODULE_0__index___default.a.create("Modal", {
+  append(children) {
+    this.refs.content.append(children);
+  },
+
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+      class: "modal"
+    }, [
+      __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+        class: "modal_chrome"
+      }, [
+        __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+          ref : "content",
+          class: "modal_content"
+        })
+      ])
+    ]);
+  }
+});
+
 function test() {
   var a = __WEBPACK_IMPORTED_MODULE_0__index___default()("x", { ref: "a" });
   var b = __WEBPACK_IMPORTED_MODULE_0__index___default()("x", [ a ]);
 
   var c = __WEBPACK_IMPORTED_MODULE_0__index___default()("y", { ref: "c" }, [ b ]);
   var d = __WEBPACK_IMPORTED_MODULE_0__index___default()("y", [ c ]);
+
+  var m = __WEBPACK_IMPORTED_MODULE_0__index___default()("Modal", [ d ]);
 
   console.log(
     "Component reference", (
@@ -1007,6 +1020,41 @@ function test() {
 }
 
 test();
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index__);
+
+
+var isMounted = [ false, false ];
+
+__WEBPACK_IMPORTED_MODULE_0__index___default()(document.body).append(__WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+  onMount: function () {
+    isMounted[0] = true;
+  }
+}));
+
+__WEBPACK_IMPORTED_MODULE_0__index___default.a.create("x", {
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+      onMount: function () {
+        isMounted[1] = true;
+      }
+    });
+  }
+});
+
+__WEBPACK_IMPORTED_MODULE_0__index___default()(document.body).append(__WEBPACK_IMPORTED_MODULE_0__index___default()("x"));
+
+console.log(
+  "onMount", (
+    isMounted[0] === isMounted[1]
+  )
+);
 
 /***/ })
 /******/ ]);
