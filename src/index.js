@@ -185,7 +185,10 @@ El.prototype.append = function (children) {
 
 El.prototype.prepend = function (element) {
   var first = this.node.childNodes[0];
-  first.parentNode.insertBefore(element.getRoot(), first);
+  var children = [].concat(element);
+  for (var i = 0, n = children.length; i < n; i++) {
+    first.parentNode.insertBefore(children[i].getRoot(), first);
+  }
 };
 
 El.prototype.attr = function (attr) {
