@@ -109,24 +109,31 @@ El.prototype.offset = function () {
   return this.node.getBoundingClientRect();
 };
 
+El.prototype.classList = function (x) {
+  var className = this.node.getAttribute("class");
+  return className ? className.split(" ") : [];
+};
+
 El.prototype.removeClass = function (x) {
-  var c = (this.node.getAttribute("class") || "").split(" ");
-  var i = c.indexOf(x);
-  if (i > -1) {
-    c.splice(i, 1);
+  var classList = this.classList();
+  var index     = classList.indexOf(x);
+
+  if (index > -1) {
+    classList.splice(index, 1);
   }
-  this.node.setAttribute("class", c.join(" "));
+
+  this.node.setAttribute("class", classList.join(" "));
   return this;
 };
 
 El.prototype.addClass = function (x) {
-  var c = (this.node.getAttribute("class") || "").split(" ").map(x => x.trim());
+  var classList = this.classList();
 
-  if (c.indexOf(x) === -1) {
-    c.push(x);
+  if (classList.indexOf(x) === -1) {
+    classList.push(x);
   }
 
-  this.node.setAttribute("class", c.join(" "));
+  this.node.setAttribute("class", classList.join(" "));
   return this;
 };
 
@@ -151,6 +158,16 @@ El.prototype.focus = function () {
   return this;
 };
 
+El.prototype.setRefs = function (child) {
+  if (child.ref && !this.refs[child.ref]) {
+    this.refs[child.ref] = child;
+  }
+
+  for (var k in child.refs) {
+    this.refs[k] = child.refs[k];
+  }
+};
+
 El.prototype.append = function (children) {
   var isEl;
 
@@ -168,13 +185,7 @@ El.prototype.append = function (children) {
       );
 
       if (isEl) {
-        if (!this.refs[children[i].ref]) {
-          this.refs[children[i].ref] = children[i];
-        }
-
-        for (var k in children[i].refs) {
-          this.refs[k] = children[i].refs[k];
-        }
+        this.setRefs(children[i]);
       }
     }
 
@@ -188,6 +199,7 @@ El.prototype.prepend = function (element) {
   var children = [].concat(element);
   for (var i = 0, n = children.length; i < n; i++) {
     first.parentNode.insertBefore(children[i].getRoot(), first);
+    this.setRefs(children[i]);
   }
 };
 
@@ -320,6 +332,7 @@ for (var k in El.prototype) {
 Component.prototype.append = function (children) {
   this.node.append(children);
   this.children = this.node.children;
+  Object.assign(this.refs, this.node.refs);
   return this;
 };
 
@@ -365,7 +378,6 @@ Component.create = function (name, obj) {
     if (obj.render) {
       this.node = obj.render.call(this, props);
       this.ref  = this.props.ref;
-      Object.assign(this.refs, this.node.refs);
       this.append(children);
     }
   }
