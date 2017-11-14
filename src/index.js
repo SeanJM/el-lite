@@ -1,6 +1,7 @@
 const isObject       = require("./isObject");
 const init           = require("./init");
 const isNode         = require("./isNode");
+const setRefs        = require("./setRefs");
 const mount          = require("./mount");
 const bind           = require("./bind");
 const transformValue = require("./transformValue");
@@ -158,16 +159,6 @@ El.prototype.focus = function () {
   return this;
 };
 
-El.prototype.setRefs = function (child) {
-  if (child.ref && !this.refs[child.ref]) {
-    this.refs[child.ref] = child;
-  }
-
-  for (var k in child.refs) {
-    this.refs[k] = child.refs[k];
-  }
-};
-
 El.prototype.append = function (children) {
   var isEl;
 
@@ -184,7 +175,7 @@ El.prototype.append = function (children) {
           : new Text(children[i])
       );
 
-      this.setRefs(children[i]);
+      setRefs.call(this, children[i]);
     }
 
     mount(children);
@@ -197,7 +188,7 @@ El.prototype.prepend = function (element) {
   var children = [].concat(element);
   for (var i = 0, n = children.length; i < n; i++) {
     first.parentNode.insertBefore(children[i].getRoot(), first);
-    this.setRefs(children[i]);
+    setRefs.call(this, children[i]);
   }
 };
 
@@ -391,7 +382,7 @@ Component.create = function (name, obj) {
         children = [].concat(children);
         obj.append.call(this, children);
         for (var i = 0, n = children.length; i < n; i++) {
-          this.setRefs(children[i]);
+          setRefs.call(this, children[i]);
         }
       }
     };

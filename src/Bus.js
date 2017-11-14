@@ -1,6 +1,6 @@
 function Bus(props) {
-  this.target = props.target || this;
-  this.subscribers = {};
+  this.__t = props.target || this;
+  this.__s = {};
 }
 
 Bus.prototype.once = function (name, callback) {
@@ -15,9 +15,9 @@ Bus.prototype.once = function (name, callback) {
 Bus.prototype.off = function (name, callback) {
   name = name.toLowerCase();
   if (name && callback) {
-    this.subscribers[name].splice(this.subscribers[name].indexOf(callback), 1);
+    this.__s[name].splice(this.__s[name].indexOf(callback), 1);
   } else {
-    this.subscribers[name] = [];
+    this.__s[name] = [];
   }
   return this;
 };
@@ -25,15 +25,15 @@ Bus.prototype.off = function (name, callback) {
 Bus.prototype.on = function (name, callback) {
   name = name.toLowerCase();
   if (typeof callback === "function") {
-    this.subscribers[name] = (this.subscribers[name] || []).concat(callback);
+    this.__s[name] = (this.__s[name] || []).concat(callback);
   }
   return this;
 };
 
 Bus.prototype.trigger = function (name, value) {
-  var arr = (this.subscribers[name.toLowerCase()] || []);
+  var arr = (this.__s[name.toLowerCase()] || []);
   for (var i = 0, n = arr.length; i < n; i++) {
-    arr[i].call(this.target, value);
+    arr[i].call(this.__t, value);
   }
   return this;
 };
