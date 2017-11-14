@@ -2,21 +2,23 @@ const path           = require("path");
 const IS_PRODUCTION  = process.env.NODE_ENV === "production";
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-module.exports = {
+const loaders = [
+  {
+    loader : "babel-loader",
+    test   : /\.js$/,
+    include : [ "./src/" ],
+    query : {
+      presets : [
+        "env",
+        { targets : { browsers : [ "last 2 versions" ] } }
+      ]
+    }
+  }
+];
+
+module.exports = [{
   module : {
-    loaders : [
-      {
-        loader : "babel-loader",
-        test   : /\.js$/,
-        include : [ "./src/" ],
-        query : {
-          presets : [
-            "env",
-            { targets : { browsers : [ "last 2 versions" ] } }
-          ]
-        }
-      }
-    ],
+    loaders : loaders,
   },
 
   target  : "node",
@@ -34,4 +36,15 @@ module.exports = {
       ? [new UglifyJsPlugin()]
       : []
   )
-};
+}, {
+  module : {
+    loaders : loaders,
+  },
+
+  entry : path.resolve("test/tests/index.js"),
+  devtool : !IS_PRODUCTION ? "source-map" : undefined,
+  output  : {
+    filename : "index.js",
+    path     : path.resolve("./test/")
+  }
+}];
