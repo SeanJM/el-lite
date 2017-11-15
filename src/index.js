@@ -238,6 +238,11 @@ El.prototype.attr = function (attr) {
   return this;
 };
 
+El.prototype.closest = function (selector) {
+  var node = this.node.closest(selector);
+  return el(node);
+};
+
 El.prototype.find = function (selector) {
   var node = this.node.querySelector(selector);
   return bind.call(this, el(node));
