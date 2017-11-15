@@ -3,6 +3,7 @@ const init           = require("./init");
 const isNode         = require("./isNode");
 const setRefs        = require("./setRefs");
 const mount          = require("./mount");
+const unmount        = require("./unmount");
 const bind           = require("./bind");
 const transformValue = require("./transformValue");
 const propertyUnit   = require("./propertyUnit");
@@ -146,6 +147,14 @@ El.prototype.getEl = function () {
   return this;
 };
 
+El.prototype.unmount = function () {
+  if (this.isMounted) {
+    this.trigger("unmount");
+    this.isMounted = false;
+  }
+  return this;
+};
+
 El.prototype.mount = function () {
   if (!this.isMounted) {
     this.trigger("mount");
@@ -261,10 +270,10 @@ El.prototype.html = function (value) {
 El.prototype.removeChild = function (child) {
   this.children.splice(this.children.indexOf(child), 1);
   this.node.removeChild(child.node);
+  unmount(this.children);
 };
 
 El.prototype.remove = function () {
-  this.isMounted = false;
   this.trigger("removeChild");
   this.off("removeChild");
   return this;
