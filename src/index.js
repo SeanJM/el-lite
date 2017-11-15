@@ -266,6 +266,7 @@ El.prototype.removeChild = function (child) {
 El.prototype.remove = function () {
   this.isMounted = false;
   this.trigger("removeChild");
+  this.off("removeChild");
   return this;
 };
 
