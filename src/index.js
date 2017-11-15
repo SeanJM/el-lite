@@ -264,6 +264,11 @@ El.prototype.html = function (value) {
         delete this.children[i];
       }
       this.children = [];
+    } else {
+      this.children = Array.prototype.map.call(
+        this.node.childNodes,
+        node => bind.call(this, el(node))
+      );
     }
   } else {
     return this.node.innerHTML;
