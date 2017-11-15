@@ -37,14 +37,6 @@ function init(self, a, b, c) {
   set(self, a);
   set(self, b);
   set(self, c);
-
-  for (var k in self.props) {
-    if (k.substring(0, 4) === "once") {
-      self.once(k.substring(4), self.props[k]);
-    } else if (k.substring(0, 2) === "on") {
-      self.on(k.substring(2), self.props[k]);
-    }
-  }
 }
 
 module.exports = init;

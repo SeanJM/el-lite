@@ -482,6 +482,10 @@ El.prototype.attr = function (attr) {
       this.setStyle(attr[k]);
     } else if (this.isSvg && k === "href") {
       this.node.setAttributeNS(XLINK_NS, k, attr[k]);
+    } else if (k.substring(0, 4) === "once") {
+      this.once(k.substring(4), this.props[k]);
+    } else if (k.substring(0, 2) === "on") {
+      this.on(k.substring(2), this.props[k]);
     } else if (k === "class") {
       this.node.setAttribute(
         "class",
@@ -748,14 +752,6 @@ function init(self, a, b, c) {
   set(self, a);
   set(self, b);
   set(self, c);
-
-  for (var k in self.props) {
-    if (k.substring(0, 4) === "once") {
-      self.once(k.substring(4), self.props[k]);
-    } else if (k.substring(0, 2) === "on") {
-      self.on(k.substring(2), self.props[k]);
-    }
-  }
 }
 
 module.exports = init;
@@ -1102,7 +1098,7 @@ console.log(
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index__);
 
 
-var isMounted = [ false, false ];
+var isMounted = [ false, false, false ];
 
 var a = __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
   onClick: function () {
@@ -1113,16 +1109,34 @@ var a = __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
   }
 });
 
+__WEBPACK_IMPORTED_MODULE_0__index___default.a.create("x", {
+  constructor(props) {
+    this.on("click", props.onClick);
+  },
+
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0__index___default()("div");
+  }
+});
+
+var b = __WEBPACK_IMPORTED_MODULE_0__index___default()("x", {
+  onClick: function () {
+    isMounted[2] = !isMounted[2];
+  }
+});
+
 a.trigger("click");
 a.off("click");
 a.trigger("click");
 a.trigger("clack");
 a.trigger("clack");
+b.trigger("click");
 
 console.log(
   "on_off", (
     isMounted[0] === true
     && isMounted[1] === true
+    && isMounted[2] === true
   )
 );
 
