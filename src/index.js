@@ -271,6 +271,7 @@ El.prototype.removeChild = function (child) {
   this.children.splice(this.children.indexOf(child), 1);
   this.node.removeChild(child.node);
   unmount(this.children);
+  return this;
 };
 
 El.prototype.remove = function () {
