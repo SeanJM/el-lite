@@ -265,11 +265,12 @@ El.prototype.remove = function () {
   return this;
 };
 
-El.prototype.on = function (a, b) {
+El.prototype.on = function (name, callback) {
   var self = this;
-  this.bus.on(a, b);
-  this.node.addEventListener(a, function (e) {
-    self.trigger(a, e);
+  var nameLower   = name.toLowerCase();
+  this.bus.on(nameLower, callback);
+  this.node.addEventListener(nameLower, function (e) {
+    self.trigger(nameLower, e);
   }, false);
   return this;
 };
@@ -284,14 +285,15 @@ El.prototype.once = function (a, b) {
 };
 
 El.prototype.off = function (a, b) {
+  var al = a.toLowerCase();
   if (!b) {
     for (var i = this.bus.__s.length - 1; i >= 0; i--) {
-      this.node.removeEventListener(a, this.bus.__s[i], false);
+      this.node.removeEventListener(al, this.bus.__s[i], false);
     }
   } else {
-    this.node.removeEventListener(a, b, false);
+    this.node.removeEventListener(al, b, false);
   }
-  this.bus.off(a, b);
+  this.bus.off(al, b);
   return this;
 };
 

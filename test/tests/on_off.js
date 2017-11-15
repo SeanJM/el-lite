@@ -7,7 +7,7 @@ var a = el("div", {
     isMounted[0] = !isMounted[0];
   },
   onceClack: function () {
-    isMounted[1] = !isMounted[0];
+    isMounted[1] = !isMounted[1];
   }
 });
 
