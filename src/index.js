@@ -268,9 +268,9 @@ El.prototype.html = function (value) {
 };
 
 El.prototype.removeChild = function (child) {
+  unmount(this.children);
   this.children.splice(this.children.indexOf(child), 1);
   this.node.removeChild(child.node);
-  unmount(this.children);
   return this;
 };
 
