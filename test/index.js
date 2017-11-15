@@ -796,7 +796,7 @@ Bus.prototype.on = function (name, callback) {
 };
 
 Bus.prototype.trigger = function (name, value) {
-  var arr = (this.__s[name.toLowerCase()] || []);
+  var arr = (this.__s[name.toLowerCase()] || []).slice();
   for (var i = 0, n = arr.length; i < n; i++) {
     arr[i].call(this.__t, value);
   }
@@ -900,6 +900,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__elementRef__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__onMount__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__on_off__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__on_once__ = __webpack_require__(9);
+
 
 
 
@@ -1118,7 +1120,37 @@ a.trigger("clack");
 console.log(
   "on_off", (
     isMounted[0] === true
-    && isMounted[0] === true
+    && isMounted[1] === true
+  )
+);
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index__);
+
+
+var isMounted = [ false, false ];
+
+var a = __WEBPACK_IMPORTED_MODULE_0__index___default()("div");
+
+a.once("click", function () {
+  isMounted[0] = true;
+});
+
+a.on("click", function () {
+  isMounted[1] = true;
+});
+
+a.trigger("click");
+
+console.log(
+  "on_once", (
+    isMounted[0] === true
+    && isMounted[1] === true
   )
 );
 

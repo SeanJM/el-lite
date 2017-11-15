@@ -20,6 +20,6 @@ a.trigger("clack");
 console.log(
   "on_off", (
     isMounted[0] === true
-    && isMounted[0] === true
+    && isMounted[1] === true
   )
 );

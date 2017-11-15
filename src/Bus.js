@@ -32,7 +32,7 @@ Bus.prototype.on = function (name, callback) {
 };
 
 Bus.prototype.trigger = function (name, value) {
-  var arr = (this.__s[name.toLowerCase()] || []);
+  var arr = (this.__s[name.toLowerCase()] || []).slice();
   for (var i = 0, n = arr.length; i < n; i++) {
     arr[i].call(this.__t, value);
   }
