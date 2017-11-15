@@ -210,9 +210,9 @@ El.prototype.attr = function (attr) {
     } else if (this.isSvg && k === "href") {
       this.node.setAttributeNS(XLINK_NS, k, attr[k]);
     } else if (k.substring(0, 4) === "once") {
-      this.once(k.substring(4), this.props[k]);
+      this.once(k.substring(4), attr[k]);
     } else if (k.substring(0, 2) === "on") {
-      this.on(k.substring(2), this.props[k]);
+      this.on(k.substring(2), attr[k]);
     } else if (k === "class") {
       this.node.setAttribute(
         "class",
