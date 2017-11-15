@@ -13,11 +13,12 @@ Bus.prototype.once = function (name, callback) {
 };
 
 Bus.prototype.off = function (name, callback) {
-  name = name.toLowerCase();
-  if (name && callback) {
-    this.__s[name].splice(this.__s[name].indexOf(callback), 1);
+  const nl    = name.toLowerCase();
+  const index = this.__s[nl].indexOf(callback);
+  if (index > -1) {
+    this.__s[nl].splice(index, 1);
   } else {
-    this.__s[name] = [];
+    this.__s[nl] = [];
   }
   return this;
 };

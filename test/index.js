@@ -274,10 +274,10 @@ module.exports = function propertyUnit(property, a) {
 const isObject       = __webpack_require__(1);
 const init           = __webpack_require__(5);
 const isNode         = __webpack_require__(2);
-const setRefs        = __webpack_require__(10);
-const mount          = __webpack_require__(7);
-const bind           = __webpack_require__(8);
-const transformValue = __webpack_require__(9);
+const setRefs        = __webpack_require__(7);
+const mount          = __webpack_require__(8);
+const bind           = __webpack_require__(9);
+const transformValue = __webpack_require__(10);
 const propertyUnit   = __webpack_require__(3);
 
 const {
@@ -478,8 +478,6 @@ El.prototype.attr = function (attr) {
       this.ref = attr[k];
     } else if (El.__onAttr[x]) {
       El.__onAttr[x].call(this, attr[k]);
-    } else if (k.substring(0, 2) === "on") {
-      this.on(k.substring(2).toLowerCase(), attr[k]);
     } else if (k === "style") {
       this.setStyle(attr[k]);
     } else if (this.isSvg && k === "href") {
@@ -493,7 +491,7 @@ El.prototype.attr = function (attr) {
           .map(a => a.trim())
           .join(" ")
       );
-    } else {
+    } else if (k.substring(0, 4) !== "once" && k.substring(0, 2) !== "on") {
       this.node.setAttribute(k, attr[k]);
     }
   }
@@ -550,14 +548,18 @@ El.prototype.on = function (a, b) {
 };
 
 El.prototype.once = function (a, b) {
-  this.bus.once(a, b);
+  const once = function () {
+    b.call(this);
+    this.off(a, once);
+  };
+  this.on(a, once);
   return this;
 };
 
 El.prototype.off = function (a, b) {
   if (!b) {
-    for (var i = this.bus.subscribers.length - 1; i >= 0; i--) {
-      this.node.removeEventListener(a, this.bus.subscribers[i], false);
+    for (var i = this.bus.__s.length - 1; i >= 0; i--) {
+      this.node.removeEventListener(a, this.bus.__s[i], false);
     }
   } else {
     this.node.removeEventListener(a, b, false);
@@ -749,7 +751,7 @@ function init(self, a, b, c) {
     if (k.substring(0, 4) === "once") {
       self.once(k.substring(4), self.props[k]);
     } else if (k.substring(0, 2) === "on") {
-      self.on(k.substring(4), self.props[k]);
+      self.on(k.substring(2), self.props[k]);
     }
   }
 }
@@ -775,11 +777,12 @@ Bus.prototype.once = function (name, callback) {
 };
 
 Bus.prototype.off = function (name, callback) {
-  name = name.toLowerCase();
-  if (name && callback) {
-    this.__s[name].splice(this.__s[name].indexOf(callback), 1);
+  const nl    = name.toLowerCase();
+  const index = this.__s[nl].indexOf(callback);
+  if (index > -1) {
+    this.__s[nl].splice(index, 1);
   } else {
-    this.__s[name] = [];
+    this.__s[nl] = [];
   }
   return this;
 };
@@ -806,6 +809,19 @@ module.exports = Bus;
 /* 7 */
 /***/ (function(module, exports) {
 
+module.exports = function setRefs(child) {
+  const cr = child.ref;
+  if (cr && !this.refs[cr]) {
+    this.refs[cr] = child;
+  }
+  Object.assign(this.refs, child.refs);
+};
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
 module.exports = function mount(children) {
   children = [].concat(children);
   for (var i = 0, n = children.length; i < n; i++) {
@@ -817,7 +833,7 @@ module.exports = function mount(children) {
 };
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = function bind(child) {
@@ -832,7 +848,7 @@ module.exports = function bind(child) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 const propertyUnit = __webpack_require__(3);
@@ -867,19 +883,6 @@ module.exports = function transformValue(name, value) {
   return name + "(" + result.join(", ") + ")";
 };
 
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = function setRefs(child) {
-  const cr = child.ref;
-  if (cr && !this.refs[cr]) {
-    this.refs[cr] = child;
-  }
-  Object.assign(this.refs, child.refs);
-};
-
-
 /***/ })
 /******/ ]);
 //# sourceMappingURL=index.js.map
@@ -896,6 +899,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__removeClass__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__elementRef__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__onMount__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__on_off__ = __webpack_require__(8);
+
 
 
 
@@ -1081,6 +1086,39 @@ __WEBPACK_IMPORTED_MODULE_0__index___default()(document.body).append(__WEBPACK_I
 console.log(
   "onMount", (
     isMounted[0] === isMounted[1]
+  )
+);
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index__);
+
+
+var isMounted = [ false, false ];
+
+var a = __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+  onClick: function () {
+    isMounted[0] = !isMounted[0];
+  },
+  onceClack: function () {
+    isMounted[1] = !isMounted[0];
+  }
+});
+
+a.trigger("click");
+a.off("click");
+a.trigger("click");
+a.trigger("clack");
+a.trigger("clack");
+
+console.log(
+  "on_off", (
+    isMounted[0] === true
+    && isMounted[0] === true
   )
 );
 

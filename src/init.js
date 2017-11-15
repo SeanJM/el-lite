@@ -42,7 +42,7 @@ function init(self, a, b, c) {
     if (k.substring(0, 4) === "once") {
       self.once(k.substring(4), self.props[k]);
     } else if (k.substring(0, 2) === "on") {
-      self.on(k.substring(4), self.props[k]);
+      self.on(k.substring(2), self.props[k]);
     }
   }
 }

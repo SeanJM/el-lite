@@ -4,3 +4,4 @@ import "./addClass";
 import "./removeClass";
 import "./elementRef";
 import "./onMount";
+import "./on_off";

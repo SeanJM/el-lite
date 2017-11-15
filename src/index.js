@@ -205,8 +205,6 @@ El.prototype.attr = function (attr) {
       this.ref = attr[k];
     } else if (El.__onAttr[x]) {
       El.__onAttr[x].call(this, attr[k]);
-    } else if (k.substring(0, 2) === "on") {
-      this.on(k.substring(2).toLowerCase(), attr[k]);
     } else if (k === "style") {
       this.setStyle(attr[k]);
     } else if (this.isSvg && k === "href") {
@@ -220,7 +218,7 @@ El.prototype.attr = function (attr) {
           .map(a => a.trim())
           .join(" ")
       );
-    } else {
+    } else if (k.substring(0, 4) !== "once" && k.substring(0, 2) !== "on") {
       this.node.setAttribute(k, attr[k]);
     }
   }
@@ -277,14 +275,18 @@ El.prototype.on = function (a, b) {
 };
 
 El.prototype.once = function (a, b) {
-  this.bus.once(a, b);
+  const once = function () {
+    b.call(this);
+    this.off(a, once);
+  };
+  this.on(a, once);
   return this;
 };
 
 El.prototype.off = function (a, b) {
   if (!b) {
-    for (var i = this.bus.subscribers.length - 1; i >= 0; i--) {
-      this.node.removeEventListener(a, this.bus.subscribers[i], false);
+    for (var i = this.bus.__s.length - 1; i >= 0; i--) {
+      this.node.removeEventListener(a, this.bus.__s[i], false);
     }
   } else {
     this.node.removeEventListener(a, b, false);
