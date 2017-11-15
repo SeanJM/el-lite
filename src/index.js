@@ -257,12 +257,16 @@ El.prototype.findAll = function (selector) {
 };
 
 El.prototype.html = function (value) {
-  this.node.innerHTML = value;
-  if (value && !value.length) {
-    for (var i = 0, n = this.children.length; i < n; i++) {
-      delete this.children[i];
+  if (typeof value === "string") {
+    this.node.innerHTML = value;
+    if (value.length === 0) {
+      for (var i = 0, n = this.children.length; i < n; i++) {
+        delete this.children[i];
+      }
+      this.children = [];
     }
-    this.children = [];
+  } else {
+    return this.node.innerHTML;
   }
   return this;
 };
