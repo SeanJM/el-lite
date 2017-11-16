@@ -223,7 +223,7 @@ El.prototype.attr = function (attr) {
           .map(a => a.trim())
           .join(" ")
       );
-    } else if (k.substring(0, 4) !== "once" && k.substring(0, 2) !== "on") {
+    } else if (attr[k]) {
       this.node.setAttribute(k, attr[k]);
     }
   }
