@@ -14,7 +14,7 @@ Bus.prototype.once = function (name, callback) {
 
 Bus.prototype.off = function (name, callback) {
   const nl    = name.toLowerCase();
-  const index = this.__s[nl].indexOf(callback);
+  const index = (this.__s[nl] || []).indexOf(callback);
   if (index > -1) {
     this.__s[nl].splice(index, 1);
   } else {
