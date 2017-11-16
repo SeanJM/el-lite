@@ -27,15 +27,15 @@ function El(a, b, c) {
 
   this.on("__mount", e => {
     if (!this.isMounted) {
-      this.trigger("mount", e);
       this.isMounted = true;
+      this.trigger("mount", e);
     }
   });
 
   this.on("__unmount", e => {
     if (this.isMounted) {
-      this.trigger("unmount", e);
       this.isMounted = false;
+      this.trigger("unmount", e);
     }
   });
 

@@ -1,24 +1,27 @@
 import el from "../../index";
 
-var isMounted = [ false, false ];
+var isMounted = [ false, false, false ];
 
-el(document.body).append(el("div", {
+var a         = el("div", {
   onMount: function () {
-    isMounted[0] = true;
-  }
-}));
-
-el.create("x", {
-  render() {
-    return el("div", {
-      onMount: function () {
-        isMounted[1] = true;
-      }
-    });
+    isMounted[0] = !isMounted[0];
   }
 });
 
-el(document.body).append(el("x"));
+var b         = el("div", {
+  onMount: function () {
+    isMounted[1] = !isMounted[1];
+  }
+});
+
+var c         = el("div", {
+  onMount: function () {
+    isMounted[2] = !isMounted[2];
+  }
+});
+
+a.append([b, c]);
+el(document.body).append(a);
 
 console.log(
   "onMount", (

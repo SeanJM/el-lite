@@ -300,15 +300,15 @@ function El(a, b, c) {
 
   this.on("__mount", e => {
     if (!this.isMounted) {
-      this.trigger("mount", e);
       this.isMounted = true;
+      this.trigger("mount", e);
     }
   });
 
   this.on("__unmount", e => {
     if (this.isMounted) {
-      this.trigger("unmount", e);
       this.isMounted = false;
+      this.trigger("unmount", e);
     }
   });
 
@@ -1127,25 +1127,28 @@ test();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index__);
 
 
-var isMounted = [ false, false ];
+var isMounted = [ false, false, false ];
 
-__WEBPACK_IMPORTED_MODULE_0__index___default()(document.body).append(__WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+var a         = __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
   onMount: function () {
-    isMounted[0] = true;
-  }
-}));
-
-__WEBPACK_IMPORTED_MODULE_0__index___default.a.create("x", {
-  render() {
-    return __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
-      onMount: function () {
-        isMounted[1] = true;
-      }
-    });
+    isMounted[0] = !isMounted[0];
   }
 });
 
-__WEBPACK_IMPORTED_MODULE_0__index___default()(document.body).append(__WEBPACK_IMPORTED_MODULE_0__index___default()("x"));
+var b         = __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+  onMount: function () {
+    isMounted[1] = !isMounted[1];
+  }
+});
+
+var c         = __WEBPACK_IMPORTED_MODULE_0__index___default()("div", {
+  onMount: function () {
+    isMounted[2] = !isMounted[2];
+  }
+});
+
+a.append([b, c]);
+__WEBPACK_IMPORTED_MODULE_0__index___default()(document.body).append(a);
 
 console.log(
   "onMount", (
