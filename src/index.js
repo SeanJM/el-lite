@@ -351,7 +351,13 @@ for (var k in El.prototype) {
 Component.prototype.append = function (children) {
   this.node.append(children);
   this.children = this.node.children;
-  Object.assign(this.refs, this.node.refs);
+
+  for (var k in this.node.refs) {
+    if (!this.refs[k]) {
+      this.refs[k] = this.node.refs[k];
+    }
+  }
+
   return this;
 };
 
@@ -397,7 +403,13 @@ Component.create = function (name, obj) {
     if (obj.render) {
       this.node = obj.render.call(this, props);
       this.ref  = this.props.ref || this.node.ref;
-      Object.assign(this.refs, this.node.refs);
+
+      for (var k in this.node.refs) {
+        if (!this.refs[k]) {
+          this.refs[k] = this.node.refs[k];
+        }
+      }
+
       this.append(children);
     }
   }
