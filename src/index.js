@@ -26,6 +26,7 @@ function El(a, b, c) {
   this.isMounted = false;
 
   this.on("__mount", e => {
+    e.stopPropagation();
     if (!this.isMounted) {
       this.isMounted = true;
       this.trigger("mount", e);
@@ -33,6 +34,7 @@ function El(a, b, c) {
   });
 
   this.on("__unmount", e => {
+    e.stopPropagation();
     if (this.isMounted) {
       this.isMounted = false;
       this.trigger("unmount", e);

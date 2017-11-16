@@ -20,8 +20,8 @@ var c         = el("div", {
   }
 });
 
-a.append([b, c]);
 el(document.body).append(a);
+a.append([b, c]);
 
 console.log(
   "onMount", (
