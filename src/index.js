@@ -284,13 +284,18 @@ El.prototype.html = function (value) {
 El.prototype.removeChild = function (child) {
   unmount(this.children);
   this.children.splice(this.children.indexOf(child), 1);
-  this.node.removeChild(child.node);
+  if (this.node.contains(child.node)) {
+    this.node.removeChild(child.node);
+  }
   return this;
 };
 
 El.prototype.remove = function () {
   this.trigger("removeChild");
   this.off("removeChild");
+  if (this.node.parentNode) {
+    this.node.parentNode.removeChild(this.node);
+  }
   return this;
 };
 
