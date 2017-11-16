@@ -14,17 +14,13 @@ var b         = el("div", {
   }
 });
 
-var c         = el("div", {
-  onMount: function () {
-    isMounted[2] = !isMounted[2];
-  }
-});
+var c = el("div");
 
-el(document.body).append(a);
-a.append([b, c]);
+el(document.body).append([ a, c ]);
+a.append(b);
 
 console.log(
   "onMount", (
-    isMounted[0] === isMounted[1]
+    isMounted[0] === true && isMounted[1] === true
   )
 );
