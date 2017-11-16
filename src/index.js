@@ -29,14 +29,6 @@ function El(a, b, c) {
   }
 
   if (IS_NODE) {
-    for (i = 0, n = this.node.childNodes.length; i < n; i++) {
-      if (isNode(this.node.childNodes[i])) {
-        bind.call(this, this.node.childNodes[i]);
-        this.children.push(
-          el(this.node.childNodes[i])
-        );
-      }
-    }
     setTimeout(function () {
       mount(self);
     }, 0);
