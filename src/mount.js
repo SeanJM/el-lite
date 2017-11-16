@@ -1,9 +1,13 @@
-module.exports = function mount(children) {
-  children = [].concat(children);
-  for (var i = 0, n = children.length; i < n; i++) {
-    if (children[i].getRoot && document.body.contains(children[i].getRoot())) {
-      children[i].mount();
-      mount(children[i].children);
+module.exports = function mount(node) {
+  const children = node.childNodes;
+
+  if (document.body.contains(node)) {
+    node.dispatchEvent(
+      new Event("__mount")
+    );
+
+    for (var i = 0, n = children.length; i < n; i++) {
+      mount(children[i]);
     }
   }
 };

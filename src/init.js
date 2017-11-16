@@ -22,7 +22,6 @@ function init(self, a, b, c) {
   self.props       = {};
   self.children    = [];
 
-  self.isMounted = false;
   self.tagName = IS_NODE ? a.tagName.toLowerCase() : a;
   self.isSvg = [ "use", "svg" ].indexOf(self.tagName) !== -1;
 

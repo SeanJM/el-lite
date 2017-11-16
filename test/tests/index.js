@@ -5,5 +5,6 @@ import "./html";
 import "./removeClass";
 import "./elementRef";
 import "./onMount";
+import "./onUnmount";
 import "./on_off";
 import "./on_once";

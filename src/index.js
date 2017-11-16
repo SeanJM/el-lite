@@ -23,6 +23,21 @@ function El(a, b, c) {
 
   this.append(this.children);
   this.attr(this.props);
+  this.isMounted = false;
+
+  this.on("__mount", e => {
+    if (!this.isMounted) {
+      this.trigger("mount", e);
+      this.isMounted = true;
+    }
+  });
+
+  this.on("__unmount", e => {
+    if (this.isMounted) {
+      this.trigger("unmount", e);
+      this.isMounted = false;
+    }
+  });
 
   for (var i = 0, n = El.__onCreate.length; i < n; i++) {
     El.__onCreate[i].call(this);
@@ -30,7 +45,7 @@ function El(a, b, c) {
 
   if (IS_NODE) {
     setTimeout(function () {
-      mount(self);
+      mount(self.node);
     }, 0);
   }
 }
@@ -139,22 +154,6 @@ El.prototype.getEl = function () {
   return this;
 };
 
-El.prototype.unmount = function () {
-  if (this.isMounted) {
-    this.trigger("unmount");
-    this.isMounted = false;
-  }
-  return this;
-};
-
-El.prototype.mount = function () {
-  if (!this.isMounted) {
-    this.trigger("mount");
-    this.isMounted = true;
-  }
-  return this;
-};
-
 El.prototype.focus = function () {
   this.node.focus();
   return this;
@@ -162,6 +161,7 @@ El.prototype.focus = function () {
 
 El.prototype.append = function (children) {
   var isEl;
+  var child;
 
   if (children) {
     children      = [].concat(children);
@@ -169,17 +169,13 @@ El.prototype.append = function (children) {
 
     for (var i = 0, n = children.length; i < n; i++) {
       isEl = children[i].getRoot;
+      child = isEl ? children[i].getRoot() : new Text(children[i]);
       bind.call(this, children[i]);
-      this.getRoot().appendChild(
-        isEl
-          ? children[i].getRoot()
-          : new Text(children[i])
-      );
-
+      this.getRoot().appendChild(child);
+      mount(child);
       setRefs.call(this, children[i]);
     }
 
-    mount(children);
   }
   return this;
 };
@@ -274,9 +270,9 @@ El.prototype.html = function (value) {
 };
 
 El.prototype.removeChild = function (child) {
-  unmount(this.children);
   this.children.splice(this.children.indexOf(child), 1);
   if (this.node.contains(child.node)) {
+    unmount(this.node);
     this.node.removeChild(child.node);
   }
   return this;
