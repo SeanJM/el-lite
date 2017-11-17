@@ -266,8 +266,8 @@ El.prototype.html = function (value) {
 
 El.prototype.removeChild = function (child) {
   this.children.splice(this.children.indexOf(child), 1);
+  unmount(this.node);
   if (this.node.contains(child.node)) {
-    unmount(this.node);
     this.node.removeChild(child.node);
   }
   return this;
