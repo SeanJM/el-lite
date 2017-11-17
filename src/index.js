@@ -98,11 +98,7 @@ El.prototype.style = function (props) {
     this.setStyle(props);
     return this;
   } else if (typeof props === "string") {
-    if (IS_OFFSET.indexOf(props) > -1) {
-      return this.offset()[props];
-    } else {
-      return window.getComputedStyle(this.node)[STYLE_NAME[props] || props];
-    }
+    return window.getComputedStyle(this.node)[STYLE_NAME[props] || props];
   } else {
     return window.getComputedStyle(this.node);
   }
