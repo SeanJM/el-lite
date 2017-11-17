@@ -9,7 +9,11 @@ var a         = el("div", {
 });
 
 var b         = el("div", {
+  onUnMount: function () {
+    console.log("UNMOUNT");
+  },
   onMount: function () {
+    console.log("MOUNT");
     isMounted[1] = !isMounted[1];
   }
 });
@@ -18,9 +22,11 @@ var c = el("div");
 
 el(document.body).append([ a, c ]);
 a.append(b);
+a.removeChild(b);
+a.append(b);
 
 console.log(
   "onMount", (
-    isMounted[0] === true && isMounted[1] === true
+    isMounted[0] === true && isMounted[1] === false
   )
 );

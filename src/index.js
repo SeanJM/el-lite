@@ -11,7 +11,6 @@ const propertyUnit   = require("./propertyUnit");
 const {
   IS_TRANSFORM,
   STYLE_NAME,
-  IS_OFFSET,
   XLINK_NS
 } = require("./CONSTANTS");
 
@@ -26,7 +25,6 @@ function El(a, b, c) {
   this.isMounted = false;
 
   this.on("__mount", e => {
-    e.stopPropagation();
     if (!this.isMounted) {
       this.isMounted = true;
       this.trigger("mount", e);
@@ -34,7 +32,6 @@ function El(a, b, c) {
   });
 
   this.on("__unmount", e => {
-    e.stopPropagation();
     if (this.isMounted) {
       this.isMounted = false;
       this.trigger("unmount", e);
@@ -116,7 +113,7 @@ El.prototype.offset = function () {
   return this.node.getBoundingClientRect();
 };
 
-El.prototype.classList = function (x) {
+El.prototype.classList = function () {
   var className = this.node.getAttribute("class");
   return className ? className.split(" ") : [];
 };
