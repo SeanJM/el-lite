@@ -278,6 +278,7 @@ El.prototype.remove = function () {
   this.trigger("removeChild");
   this.off("removeChild");
   if (this.node.parentNode) {
+    unmount(this.node);
     this.node.parentNode.removeChild(this.node);
   }
   return this;
