@@ -206,14 +206,16 @@ El.prototype.attr = function (attr) {
     } else if (k.substring(0, 2) === "on") {
       this.on(k.substring(2), attr[k]);
     } else if (k === "class") {
-      this.node.setAttribute(
-        "class",
-        attr[k]
-          .split(" ")
-          .filter(a => a.length)
-          .map(a => a.trim())
-          .join(" ")
-      );
+      if (typeof attr[k] === "string") {
+        this.node.setAttribute(
+          "class",
+          attr[k]
+            .split(" ")
+            .filter(a => a.length)
+            .map(a => a.trim())
+            .join(" ")
+        );
+      }
     } else if (attr[k]) {
       this.node.setAttribute(k, attr[k]);
     }
