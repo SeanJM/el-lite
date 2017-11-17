@@ -265,10 +265,11 @@ El.prototype.html = function (value) {
 };
 
 El.prototype.removeChild = function (child) {
+  const childNode = child.getRoot();
   this.children.splice(this.children.indexOf(child), 1);
-  unmount(this.node);
-  if (this.node.contains(child.node)) {
-    this.node.removeChild(child.node);
+  if (this.node.contains(childNode)) {
+    unmount(childNode);
+    this.node.removeChild(childNode);
   }
   return this;
 };
