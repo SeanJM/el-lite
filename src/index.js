@@ -286,6 +286,14 @@ El.prototype.remove = function () {
   return this;
 };
 
+El.prototype.replaceWith = function (child) {
+  const childNode = child.getRoot();
+  this.node.parentNode.replaceChild(childNode, this.node);
+  unmount(this.node);
+  mount(childNode);
+  return this;
+};
+
 El.prototype.on = function (name, callback) {
   var self = this;
   var nameLower   = name.toLowerCase();
