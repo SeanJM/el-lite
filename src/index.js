@@ -4,7 +4,6 @@ const isNode         = require("./isNode");
 const setRefs        = require("./setRefs");
 const mount          = require("./mount");
 const unmount        = require("./unmount");
-const bind           = require("./bind");
 const transformValue = require("./transformValue");
 const propertyUnit   = require("./propertyUnit");
 
@@ -22,7 +21,6 @@ function El(a, b, c) {
 
   this.append(this.children);
   this.attr(this.props);
-  this.isMounted = false;
 
   for (var i = 0, n = El.__onCreate.length; i < n; i++) {
     El.__onCreate[i].call(this);
@@ -151,7 +149,6 @@ El.prototype.append = function (children) {
     for (var i = 0, n = children.length; i < n; i++) {
       isEl = children[i].getRoot;
       child = isEl ? children[i].getRoot() : new Text(children[i]);
-      bind.call(this, children[i]);
       this.getRoot().appendChild(child);
       mount(child);
       setRefs.call(this, children[i]);
@@ -216,7 +213,7 @@ El.prototype.closest = function (selector) {
 
 El.prototype.find = function (selector) {
   var node = this.node.querySelector(selector);
-  return bind.call(this, el(node));
+  return el(node);
 };
 
 El.prototype.findAll = function (selector) {
@@ -225,7 +222,7 @@ El.prototype.findAll = function (selector) {
 
   for (var i = 0, n = nodes.length; i < n; i++) {
     result.push(
-      bind.call(this, el(nodes[i]))
+      el(nodes[i])
     );
   }
 
@@ -243,7 +240,7 @@ El.prototype.html = function (value) {
     } else {
       this.children = Array.prototype.map.call(
         this.node.childNodes,
-        node => bind.call(this, el(node))
+        node => el(node)
       );
     }
   } else {
@@ -263,8 +260,6 @@ El.prototype.removeChild = function (child) {
 };
 
 El.prototype.remove = function () {
-  this.trigger("removeChild");
-  this.off("removeChild");
   if (this.node.parentNode) {
     unmount(this.node);
     this.node.parentNode.removeChild(this.node);
@@ -284,9 +279,25 @@ El.prototype.on = function (name, callback) {
   var self = this;
   var nameLower   = name.toLowerCase();
   this.bus.on(nameLower, callback);
-  this.node.addEventListener(nameLower, function (e) {
-    self.trigger(nameLower, e);
-  }, false);
+  if (nameLower === "mount") {
+    this.node.addEventListener(nameLower, function (e) {
+      if (!self.isMounted) {
+        self.trigger(nameLower, e);
+        self.isMounted = true;
+      }
+    }, false);
+  } else if (nameLower === "unmount") {
+    this.node.addEventListener(nameLower, function (e) {
+      if (self.isMounted) {
+        self.trigger(nameLower, e);
+        self.isMounted = false;
+      }
+    }, false);
+  } else {
+    this.node.addEventListener(nameLower, function (e) {
+      self.trigger(nameLower, e);
+    }, false);
+  }
   return this;
 };
 
