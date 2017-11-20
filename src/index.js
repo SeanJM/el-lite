@@ -24,14 +24,14 @@ function El(a, b, c) {
   this.attr(this.props);
   this.isMounted = false;
 
-  this.on("__mount", e => {
+  this.node.addEventListener("__mount", e => {
     if (!this.isMounted) {
       this.isMounted = true;
       this.trigger("mount", e);
     }
   });
 
-  this.on("__unmount", e => {
+  this.node.addEventListener("__unmount", e => {
     if (this.isMounted) {
       this.isMounted = false;
       this.trigger("unmount", e);
