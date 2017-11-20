@@ -24,20 +24,6 @@ function El(a, b, c) {
   this.attr(this.props);
   this.isMounted = false;
 
-  this.node.addEventListener("__mount", e => {
-    if (!this.isMounted) {
-      this.isMounted = true;
-      this.trigger("mount", e);
-    }
-  });
-
-  this.node.addEventListener("__unmount", e => {
-    if (this.isMounted) {
-      this.isMounted = false;
-      this.trigger("unmount", e);
-    }
-  });
-
   for (var i = 0, n = El.__onCreate.length; i < n; i++) {
     El.__onCreate[i].call(this);
   }

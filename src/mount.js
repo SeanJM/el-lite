@@ -3,7 +3,7 @@ module.exports = function mount(node) {
 
   if (document.body.contains(node)) {
     node.dispatchEvent(
-      new Event("__mount", { bubbles: false })
+      new Event("mount", { bubbles: false })
     );
 
     for (var i = 0, n = children.length; i < n; i++) {
