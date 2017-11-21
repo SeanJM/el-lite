@@ -20,7 +20,7 @@ STYLE_NAME.userSelect = (
       ? "MozUserSelect"
       : BODY_CSS.msUserSelect
         ? "msUserSelect"
-        : "transform"
+        : "userSelect"
 );
 
 var XLINK_NS = "http://www.w3.org/1999/xlink";
