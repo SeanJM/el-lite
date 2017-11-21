@@ -1,28 +1,54 @@
 const isObject       = require("./isObject");
-const init           = require("./init");
 const isNode         = require("./isNode");
 const setRefs        = require("./setRefs");
 const mount          = require("./mount");
 const unmount        = require("./unmount");
 const transformValue = require("./transformValue");
 const propertyUnit   = require("./propertyUnit");
+const Bus            = require("./Bus");
 
 const {
+  SVG_NS,
   IS_TRANSFORM,
   STYLE_NAME,
   XLINK_NS
 } = require("./CONSTANTS");
 
-function El(a, b, c) {
-  var self    = this;
-  var IS_NODE = isNode(a);
+function El() {
+  var self     = this;
+  var args     = [ arguments[0], arguments[1], arguments[2] ];
+  var IS_NODE  = isNode(args[0]);
+  var props    = {};
+  var children = [];
 
-  init(this, a, b, c);
+  this.isMounted = false;
+  this.tagName   = IS_NODE ? arguments[0].tagName : "div";
+  this.bus       = new Bus({ target: this });
+  this.refs      = {};
+  this.isSvg     = [ "use", "svg" ].indexOf(this.tagName) !== -1;
 
-  this.append(this.children);
-  this.attr(this.props);
+  for (var i = 0, n = args.length; i < n; i++) {
+    if (typeof args[i] === "string") {
+      this.tagName = args[i];
+    } else if (isObject(args[i])) {
+      props = args[i];
+    } else if (Array.isArray(args[i])) {
+      children = args[i];
+    }
+  }
 
-  for (var i = 0, n = El.__onCreate.length; i < n; i++) {
+  if (IS_NODE) {
+    this.node = args[0];
+  } else if (this.isSvg) {
+    this.node = document.createElementNS(SVG_NS, this.tagName);
+  } else {
+    this.node = document.createElement(this.tagName);
+  }
+
+  this.append(children);
+  this.attr(props);
+
+  for (i = 0, n = El.__onCreate.length; i < n; i++) {
     El.__onCreate[i].call(this);
   }
 
@@ -143,11 +169,10 @@ El.prototype.append = function (children) {
   var child;
 
   if (children) {
-    children      = [].concat(children);
-    this.children = this.children.concat(children);
+    children = [].concat(children);
 
     for (var i = 0, n = children.length; i < n; i++) {
-      isEl = children[i].getRoot;
+      isEl  = children[i].getRoot;
       child = isEl ? children[i].getRoot() : new Text(children[i]);
       this.getRoot().appendChild(child);
       mount(child);
@@ -249,16 +274,6 @@ El.prototype.html = function (value) {
   return this;
 };
 
-El.prototype.removeChild = function (child) {
-  const childNode = child.getRoot();
-  this.children.splice(this.children.indexOf(child), 1);
-  if (this.node.contains(childNode)) {
-    unmount(childNode);
-    this.node.removeChild(childNode);
-  }
-  return this;
-};
-
 El.prototype.remove = function () {
   if (this.node.parentNode) {
     unmount(this.node);
@@ -268,7 +283,7 @@ El.prototype.remove = function () {
 };
 
 El.prototype.replaceWith = function (child) {
-  const childNode = child.getRoot();
+  var childNode = child.getRoot();
   this.node.parentNode.replaceChild(childNode, this.node);
   unmount(this.node);
   mount(childNode);
@@ -276,28 +291,16 @@ El.prototype.replaceWith = function (child) {
 };
 
 El.prototype.on = function (name, callback) {
-  var self = this;
-  var nameLower   = name.toLowerCase();
-  this.bus.on(nameLower, callback);
-  if (nameLower === "mount") {
-    this.node.addEventListener(nameLower, function (e) {
-      if (!self.isMounted) {
-        self.trigger(nameLower, e);
-        self.isMounted = true;
-      }
-    }, false);
-  } else if (nameLower === "unmount") {
-    this.node.addEventListener(nameLower, function (e) {
-      if (self.isMounted) {
-        self.trigger(nameLower, e);
-        self.isMounted = false;
-      }
-    }, false);
-  } else {
+  var self      = this;
+  var nameLower = name.toLowerCase();
+
+  if (typeof callback === "function") {
+    this.bus.on(nameLower, callback);
     this.node.addEventListener(nameLower, function (e) {
       self.trigger(nameLower, e);
     }, false);
   }
+
   return this;
 };
 
@@ -332,25 +335,8 @@ function Component() {}
 
 Component.lib = {};
 
-Component.__extend = function (fn) {
-  return function () {
-    var element = this.getEl();
-    var out     = fn.call(element, arguments[0], arguments[1]);
-    return (
-      out === element || typeof out === "undefined"
-        ? this
-        : out
-    );
-  };
-};
-
-for (var k in El.prototype) {
-  Component.prototype[k] = Component.__extend(El.prototype[k]);
-}
-
 Component.prototype.append = function (children) {
   this.node.append(children);
-  this.children = this.node.children;
 
   for (var k in this.node.refs) {
     if (!this.refs[k]) {
@@ -391,17 +377,19 @@ Component.prototype.trigger = function (a, b) {
 
 Component.create = function (name, obj) {
   function C(a, b) {
-    let props    = isObject(a) ? a : {};
     let children = Array.isArray(a) ? a : b || [];
 
-    init(this, name, props, children);
+    this.props = isObject(a) ? a : {};
+    this.bus   = new Bus({ target: this });
+    this.refs  = {};
+    this.ref   = this.props.ref;
 
     if (obj.constructor) {
-      obj.constructor.call(this, props);
+      obj.constructor.call(this, this.props);
     }
 
     if (obj.render) {
-      this.node = obj.render.call(this, props);
+      this.node = obj.render.call(this, this.props);
       this.ref  = this.props.ref || this.node.ref;
 
       for (var k in this.node.refs) {

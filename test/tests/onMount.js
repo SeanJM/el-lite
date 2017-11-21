@@ -22,7 +22,7 @@ var c = el("div");
 
 el(document.body).append([ a, c ]);
 a.append(b);
-a.removeChild(b);
+b.remove(b);
 a.append(b);
 
 console.log(

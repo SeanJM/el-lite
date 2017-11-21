@@ -1,6 +1,7 @@
 var STYLE_NAME = {};
 var window     = window || undefined;
 var BODY_CSS   = window ? window.getComputedStyle(document.body) : {};
+var MOUNTED    = [];
 
 STYLE_NAME.transform = (
   BODY_CSS.webkitTransform
@@ -85,6 +86,7 @@ var IS_TRANSFORM = [
 ];
 
 module.exports = {
+  MOUNTED,
   STYLE_NAME,
   IS_OFFSET,
   XLINK_NS,
