@@ -448,7 +448,12 @@ el.onCreate = function (callback) {
 
 el.fn = function (name, callback) {
   El.prototype[name] = callback;
-  Component.prototype[name] = Component.__extend(El.prototype[name]);
+
+  Component.prototype[name] = function (a, b, c) {
+    this.node[name](a, b, c);
+    return this;
+  };
+
   for (var k in Component.lib) {
     Component.lib[k].prototype[name] = Component.prototype[name];
   }

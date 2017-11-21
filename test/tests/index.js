@@ -8,3 +8,4 @@ import "./onMount";
 import "./onUnmount";
 import "./on_off";
 import "./on_once";
+import "./fn";
