@@ -8,5 +8,6 @@ import "./elementRef";
 import "./onMount";
 import "./onUnmount";
 import "./on_off";
+import "./svg";
 import "./on_once";
 import "./fn";

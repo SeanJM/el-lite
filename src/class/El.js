@@ -8,6 +8,7 @@ const propertyUnit   = require("../propertyUnit");
 const Bus            = require("./Bus");
 
 const {
+  XLINK_NS,
   SVG_NS,
   IS_TRANSFORM,
   STYLE_NAME
@@ -23,7 +24,6 @@ function El() {
   this.tagName   = IS_NODE ? arguments[0].tagName : "div";
   this.bus       = new Bus({ target: this });
   this.refs      = {};
-  this.isSvg     = [ "use", "svg" ].indexOf(this.tagName) !== -1;
 
   for (var i = 0, n = args.length; i < n; i++) {
     if (typeof args[i] === "string") {
@@ -34,6 +34,8 @@ function El() {
       children = args[i];
     }
   }
+
+  this.isSvg = [ "use", "svg" ].indexOf(this.tagName) !== -1;
 
   if (IS_NODE) {
     this.node = args[0];
@@ -196,8 +198,6 @@ El.prototype.attr = function (attr) {
       El.__onAttr[x].call(this, attr[k]);
     } else if (k === "style") {
       this.setStyle(attr[k]);
-    } else if (this.isSvg && k === "href") {
-      this.node.setAttributeNS(SVG_NS, k, attr[k]);
     } else if (k.substring(0, 4) === "once") {
       this.once(k.substring(4), attr[k]);
     } else if (k.substring(0, 2) === "on") {
@@ -214,7 +214,11 @@ El.prototype.attr = function (attr) {
         );
       }
     } else if (attr[k]) {
-      this.node.setAttribute(k, attr[k]);
+      if (this.isSvg) {
+        this.node.setAttributeNS(k === "href" ? XLINK_NS : SVG_NS, k, attr[k]);
+      } else {
+        this.node.setAttribute(k, attr[k]);
+      }
     }
   }
   return this;
