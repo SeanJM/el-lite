@@ -10,15 +10,13 @@ const Bus            = require("./Bus");
 const {
   SVG_NS,
   IS_TRANSFORM,
-  STYLE_NAME,
-  XLINK_NS
+  STYLE_NAME
 } = require("../CONSTANTS");
 
 function El() {
   var self     = this;
   var args     = [ arguments[0], arguments[1], arguments[2] ];
   var IS_NODE  = isNode(args[0]);
-  var props    = {};
   var children = [];
 
   this.isMounted = false;
@@ -31,7 +29,7 @@ function El() {
     if (typeof args[i] === "string") {
       this.tagName = args[i];
     } else if (isObject(args[i])) {
-      props = args[i];
+      this.props = args[i];
     } else if (Array.isArray(args[i])) {
       children = args[i];
     }
@@ -46,7 +44,7 @@ function El() {
   }
 
   this.append(children);
-  this.attr(props);
+  this.attr(this.props);
 
   for (i = 0, n = El.__onCreate.length; i < n; i++) {
     El.__onCreate[i].call(this);
