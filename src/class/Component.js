@@ -5,9 +5,9 @@ const El       = require("./El");
 
 function Component() {}
 
-function extend(fn) {
+function extend(name) {
   return function (a, b, c) {
-    let o = fn.call(this.node, a, b, c);
+    let o = this.node[name](a, b, c);
     return o === this.node ? this : o;
   };
 }
@@ -15,7 +15,7 @@ function extend(fn) {
 Component.lib = {};
 
 for (var k in El.prototype) {
-  Component.prototype[k] = extend(Component.prototype[k]);
+  Component.prototype[k] = extend(k);
 }
 
 Component.prototype.append = function (children) {

@@ -1,5 +1,6 @@
 import "./componentRef_deeper";
 import "./componentRef";
+import "./componentAppend";
 import "./addClass";
 import "./html";
 import "./removeClass";
