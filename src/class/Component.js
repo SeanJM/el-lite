@@ -1,10 +1,22 @@
 const isObject = require("../isObject");
 const setRefs  = require("../setRefs");
 const Bus      = require("./Bus");
+const El       = require("./El");
 
 function Component() {}
 
+function extend(fn) {
+  return function (a, b, c) {
+    let o = fn.call(this.node, a, b, c);
+    return o === this.node ? this : o;
+  };
+}
+
 Component.lib = {};
+
+for (var k in El.prototype) {
+  Component.prototype[k] = extend(Component.prototype[k]);
+}
 
 Component.prototype.append = function (children) {
   this.node.append(children);
@@ -16,29 +28,6 @@ Component.prototype.append = function (children) {
   }
 
   return this;
-};
-
-Component.prototype.getRoot = function () {
-  return this.node.getRoot();
-};
-
-Component.prototype.addClass = function (a) {
-  this.node.addClass(a);
-  return this;
-};
-
-Component.prototype.removeClass = function (a) {
-  this.node.removeClass(a);
-  return this;
-};
-
-Component.prototype.remove = function () {
-  this.node.remove();
-  return this;
-};
-
-Component.prototype.getEl = function () {
-  return this.node.getEl();
 };
 
 Component.prototype.on = function (a, b) {
