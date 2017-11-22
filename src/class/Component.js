@@ -22,6 +22,21 @@ Component.prototype.getRoot = function () {
   return this.node.getRoot();
 };
 
+Component.prototype.addClass = function (a) {
+  this.node.addClass(a);
+  return this;
+};
+
+Component.prototype.removeClass = function (a) {
+  this.node.removeClass(a);
+  return this;
+};
+
+Component.prototype.remove = function () {
+  this.node.remove();
+  return this;
+};
+
 Component.prototype.getEl = function () {
   return this.node.getEl();
 };
