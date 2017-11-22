@@ -50,10 +50,11 @@ Component.create = function (name, obj) {
   function C(a, b) {
     let children = Array.isArray(a) ? a : b || [];
 
-    this.props = isObject(a) ? a : {};
-    this.bus   = new Bus({ target: this });
-    this.refs  = {};
-    this.ref   = this.props.ref;
+    this.props   = isObject(a) ? a : {};
+    this.bus     = new Bus({ target: this });
+    this.refs    = {};
+    this.ref     = this.props.ref;
+    this.tagName = name;
 
     if (obj.constructor) {
       obj.constructor.call(this, this.props);
