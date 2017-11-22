@@ -199,7 +199,7 @@ El.prototype.attr = function (attr) {
     } else if (k === "style") {
       this.setStyle(attr[k]);
     } else if (this.isSvg && k === "href") {
-      this.node.setAttributeNS(XLINK_NS, k, attr[k]);
+      this.node.setAttributeNS(SVG_NS, k, attr[k]);
     } else if (k.substring(0, 4) === "once") {
       this.once(k.substring(4), attr[k]);
     } else if (k.substring(0, 2) === "on") {
