@@ -21,7 +21,7 @@ function El() {
   var children = [];
 
   this.isMounted = false;
-  this.tagName   = IS_NODE ? arguments[0].tagName : "div";
+  this.tagName   = IS_NODE ? arguments[0].tagName.toLowerCase() : "div";
   this.bus       = new Bus({ target: this });
   this.refs      = {};
 
