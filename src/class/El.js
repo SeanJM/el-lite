@@ -268,6 +268,20 @@ El.prototype.findAll = function (selector) {
   return result;
 };
 
+El.prototype.children = function (index) {
+  const children   = [];
+  const childNodes = this.node.childNodes;
+  for (var i = 0, n = childNodes.length; i < n; i++) {
+    if (isNode(childNodes[i])) {
+      children.push(new El(childNodes[i]));
+      if (children[index]) {
+        return children[index];
+      }
+    }
+  }
+  return children;
+};
+
 El.prototype.html = function (value) {
   if (typeof value === "string") {
     this.node.innerHTML = value;
