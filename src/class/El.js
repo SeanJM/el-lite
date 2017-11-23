@@ -68,6 +68,8 @@ El.prototype.setStyle = function (props) {
     default   : []
   };
 
+  var style = [];
+
   for (var k in props) {
     if (IS_TRANSFORM.indexOf(k) > -1) {
       if (typeof props[k] === "object") {
@@ -82,13 +84,27 @@ El.prototype.setStyle = function (props) {
         );
       }
     } else {
-      this.node.style[STYLE_NAME[k] || k] = propertyUnit(k, props[k]);
+      style.push({
+        name  : k,
+        value : propertyUnit(k, props[k])
+      });
     }
   }
 
   if (values.transform.length) {
-    this.node.style[STYLE_NAME.transform] = values.transform.join(" ");
+    style.push({
+      name  : "transform",
+      value : values.transform.join(" ")
+    });
   }
+
+  for (var i = 0, n = style.length; i < n; i++) {
+    this.node.style[STYLE_NAME[style[i].name] || style[i].name] = style[i].value;
+  }
+
+  this.trigger("style", {
+    value : style
+  });
 };
 
 El.prototype.style = function (props) {
