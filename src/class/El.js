@@ -68,7 +68,9 @@ El.prototype.setStyle = function (props) {
     default   : []
   };
 
-  var style = [];
+  var list  = [];
+  var value = {};
+  var name;
 
   for (var k in props) {
     if (IS_TRANSFORM.indexOf(k) > -1) {
@@ -84,7 +86,7 @@ El.prototype.setStyle = function (props) {
         );
       }
     } else {
-      style.push({
+      list.push({
         name  : k,
         value : propertyUnit(k, props[k])
       });
@@ -92,18 +94,21 @@ El.prototype.setStyle = function (props) {
   }
 
   if (values.transform.length) {
-    style.push({
+    list.push({
       name  : "transform",
       value : values.transform.join(" ")
     });
   }
 
-  for (var i = 0, n = style.length; i < n; i++) {
-    this.node.style[STYLE_NAME[style[i].name] || style[i].name] = style[i].value;
+  for (var i = 0, n = list.length; i < n; i++) {
+    name = STYLE_NAME[list[i].name] || list[i].name;
+    this.node.style[name] = list[i].value;
+    value[name]           = list[i].value;
   }
 
   this.trigger("style", {
-    value : style
+    list  : list,
+    value : value
   });
 };
 
