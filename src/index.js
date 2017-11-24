@@ -1,11 +1,14 @@
 const El        = require("./class/El");
 const Component = require("./class/Component");
+const body      = el(document.body);
 
 function el(a, b, c) {
   if (Component.lib[a]) {
     return new Component.lib[a](b, c);
   } else if (a instanceof Text || a instanceof Comment) {
     return a;
+  } else if (a === "body") {
+    return body;
   } else {
     return new El(a, b, c);
   }
