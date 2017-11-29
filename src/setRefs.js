@@ -3,5 +3,9 @@ module.exports = function setRefs(child) {
   if (cr && !this.refs[cr]) {
     this.refs[cr] = child;
   }
-  Object.assign(this.refs, child.refs);
+  for (var k in child.refs) {
+    if (!this.refs[k]) {
+      this.refs[k] = child.refs[k];
+    }
+  }
 };
