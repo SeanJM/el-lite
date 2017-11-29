@@ -2,6 +2,7 @@ import "./componentRef_deeper";
 import "./componentRef";
 import "./componentAppend";
 import "./addClass";
+import "./contains";
 import "./html";
 import "./removeClass";
 import "./elementRef";
