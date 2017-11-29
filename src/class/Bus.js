@@ -17,7 +17,7 @@ Bus.prototype.off = function (name, callback) {
   const index = (this.__s[nl] || []).indexOf(callback);
   if (index > -1) {
     this.__s[nl].splice(index, 1);
-  } else {
+  } else if (typeof callback === "undefined") {
     this.__s[nl] = [];
   }
   return this;
