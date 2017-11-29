@@ -314,6 +314,11 @@ El.prototype.on = function (name, callback) {
   if (typeof callback === "function") {
     this.bus.on(nameLower, callback);
     this.node.addEventListener(nameLower, function (e) {
+      if (nameLower === "mount") {
+        self.isMounted = true;
+      } else if (nameLower === "unmount") {
+        self.isMounted = false;
+      }
       self.trigger(nameLower, e);
     }, false);
   }
