@@ -20,10 +20,9 @@ function El() {
   var IS_NODE  = isNode(args[0]);
   var children = [];
 
-  this.isMounted = false;
-  this.tagName   = IS_NODE ? arguments[0].tagName.toLowerCase() : "div";
-  this.bus       = new Bus({ target: this });
-  this.refs      = {};
+  this.tagName = IS_NODE ? arguments[0].tagName.toLowerCase() : "div";
+  this.bus     = new Bus({ target: this });
+  this.refs    = {};
 
   for (var i = 0, n = args.length; i < n; i++) {
     if (typeof args[i] === "string") {
@@ -314,11 +313,6 @@ El.prototype.on = function (name, callback) {
   if (typeof callback === "function") {
     this.bus.on(nameLower, callback);
     this.node.addEventListener(nameLower, function (e) {
-      if (nameLower === "mount") {
-        self.isMounted = true;
-      } else if (nameLower === "unmount") {
-        self.isMounted = false;
-      }
       self.trigger(nameLower, e);
     }, false);
   }
