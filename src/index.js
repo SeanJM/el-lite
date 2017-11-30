@@ -31,7 +31,9 @@ el.fn = function (name, callback) {
   };
 
   for (var k in Component.lib) {
-    Component.lib[k].prototype[name] = Component.prototype[name];
+    if (!Component.lib[k].prototype[name]) {
+      Component.lib[k].prototype[name] = Component.prototype[name];
+    }
   }
 };
 

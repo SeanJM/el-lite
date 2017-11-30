@@ -4,12 +4,12 @@ function Bus(props) {
 }
 
 Bus.prototype.once = function (name, callback) {
-  var self = this;
-  var once = function (a) {
+  const self = this;
+  const once = function (a) {
     self.off(name, once);
     callback.call(self.target, a);
   };
-  this.on(name, once);
+  return this.on(name, once);
 };
 
 Bus.prototype.off = function (name, callback) {
@@ -20,7 +20,7 @@ Bus.prototype.off = function (name, callback) {
   } else if (typeof callback === "undefined") {
     this.__s[nl] = [];
   }
-  return this;
+  return this.__t;
 };
 
 Bus.prototype.on = function (name, callback) {
@@ -28,7 +28,7 @@ Bus.prototype.on = function (name, callback) {
   if (typeof callback === "function") {
     this.__s[name] = (this.__s[name] || []).concat(callback);
   }
-  return this;
+  return this.__t;
 };
 
 Bus.prototype.trigger = function (name, value) {
@@ -36,7 +36,7 @@ Bus.prototype.trigger = function (name, value) {
   for (var i = 0, n = arr.length; i < n; i++) {
     arr[i].call(this.__t, value);
   }
-  return this;
+  return this.__t;
 };
 
 module.exports = Bus;

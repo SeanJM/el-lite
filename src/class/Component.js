@@ -31,23 +31,19 @@ Component.prototype.append = function (children) {
 };
 
 Component.prototype.on = function (a, b) {
-  this.bus.on(a, b);
-  return this;
+  return this.bus.on(a, b);
 };
 
 Component.prototype.once = function (a, b) {
-  this.bus.once(a, b);
-  return this;
+  return this.bus.once(a, b);
 };
 
 Component.prototype.off = function (a, b) {
-  this.bus.off(a, b);
-  return this;
+  return this.bus.off(a, b);
 };
 
 Component.prototype.trigger = function (a, b) {
-  this.bus.trigger(a, b);
-  return this;
+  return this.bus.trigger(a, b);
 };
 
 Component.create = function (name, obj) {
@@ -66,6 +62,11 @@ Component.create = function (name, obj) {
 
     if (obj.render) {
       this.node = obj.render.call(this, this.props);
+
+      if (typeof this.node === "undefined") {
+        throw new Error("Component \"" + name + "\" does not return a valid element.");
+      }
+
       this.ref  = this.props.ref || this.node.ref;
 
       for (var k in this.node.refs) {

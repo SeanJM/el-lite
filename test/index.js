@@ -97,9 +97,9 @@ module.exports = function (t) {
     var t = this,
         e = [arguments[0], arguments[1], arguments[2]],
         o = s(e[0]),
-        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new c({ target: this }), this.refs = {};for (var u = 0, a = e.length; u < a; u++) {
+        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new c({ target: this }), this.refs = {};for (var u = 0, p = e.length; u < p; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (r = e[u]);
-    }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, a = n.__onCreate.length; u < a; u++) {
+    }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, p = n.__onCreate.length; u < p; u++) {
       n.__onCreate[u].call(this);
     }o && setTimeout(function () {
       f(t.node);
@@ -113,8 +113,8 @@ module.exports = function (t) {
       s = o(7),
       u = o(3),
       f = o(8),
-      a = o(9),
-      p = o(10),
+      p = o(9),
+      a = o(10),
       h = o(4),
       c = o(5),
       l = o(0),
@@ -128,10 +128,10 @@ module.exports = function (t) {
         i = {};for (var s in t) {
       if (g.indexOf(s) > -1) {
         if ("object" === r(t[s])) for (var u in t[s]) {
-          o.transform.push(p(u, t[s][u]));
-        } else o.transform.push(p(s, t[s]));
+          o.transform.push(a(u, t[s][u]));
+        } else o.transform.push(a(s, t[s]));
       } else n.push({ name: s, value: h(s, t[s]) });
-    }o.transform.length && n.push({ name: "transform", value: o.transform.join(" ") });for (var f = 0, a = n.length; f < a; f++) {
+    }o.transform.length && n.push({ name: "transform", value: o.transform.join(" ") });for (var f = 0, p = n.length; f < p; f++) {
       e = m[n[f].name] || n[f].name, this.node.style[e] = n[f].value, i[e] = n[f].value;
     }this.trigger("style", { list: n, value: i });
   }, n.prototype.style = function (t) {
@@ -184,9 +184,9 @@ module.exports = function (t) {
   }, n.prototype.html = function (t) {
     return "string" != typeof t ? this.node.innerHTML : (this.node.innerHTML = t, this);
   }, n.prototype.remove = function () {
-    return this.node.parentNode && (a(this.node), this.node.parentNode.removeChild(this.node)), this;
+    return this.node.parentNode && (p(this.node), this.node.parentNode.removeChild(this.node)), this;
   }, n.prototype.replaceWith = function (t) {
-    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), a(this.node), f(e), this;
+    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), p(this.node), f(e), this;
   }, n.prototype.on = function (t, e) {
     var o = this,
         n = t.toLowerCase();return "function" == typeof e && (this.bus.on(n, e), this.node.addEventListener(n, function (t) {
@@ -256,7 +256,7 @@ module.exports = function (t) {
     r.prototype[t] = e, i.prototype[t] = function (e, o, n) {
       var r = this.node[t](e, o, n);return r === this.node ? this : r;
     };for (var o in i.lib) {
-      i.lib[o].prototype[t] = i.prototype[t];
+      i.lib[o].prototype[t] || (i.lib[o].prototype[t] = i.prototype[t]);
     }
   }, n.create = i.create, t.exports = n;
 }, function (t, e, o) {
@@ -302,8 +302,8 @@ module.exports = function (t) {
   }var i = o(2),
       s = o(3),
       u = o(5),
-      f = o(1);n.lib = {};for (var a in f.prototype) {
-    n.prototype[a] = r(a);
+      f = o(1);n.lib = {};for (var p in f.prototype) {
+    n.prototype[p] = r(p);
   }n.prototype.append = function (t) {
     this.node.append(t);for (var e in this.node.refs) {
       this.refs[e] || (this.refs[e] = this.node.refs[e]);
@@ -319,7 +319,7 @@ module.exports = function (t) {
   }, n.create = function (t, e) {
     function o(o, n) {
       var r = Array.isArray(o) ? o : n || [];if (this.props = i(o) ? o : {}, this.bus = new u({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t, e.constructor && e.constructor.call(this, this.props), e.render) {
-        this.node = e.render.call(this, this.props), this.ref = this.props.ref || this.node.ref;for (var s in this.node.refs) {
+        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var s in this.node.refs) {
           this.refs[s] || (this.refs[s] = this.node.refs[s]);
         }this.append(r);
       }
