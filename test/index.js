@@ -97,7 +97,7 @@ module.exports = function (t) {
     var t = this,
         e = [arguments[0], arguments[1], arguments[2]],
         o = s(e[0]),
-        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new c({ target: this }), this.refs = {};for (var u = 0, p = e.length; u < p; u++) {
+        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new h({ target: this }), this.refs = {};for (var u = 0, p = e.length; u < p; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (r = e[u]);
     }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, p = n.__onCreate.length; u < p; u++) {
       n.__onCreate[u].call(this);
@@ -115,8 +115,8 @@ module.exports = function (t) {
       f = o(8),
       p = o(9),
       a = o(10),
-      h = o(4),
-      c = o(5),
+      c = o(4),
+      h = o(5),
       l = o(0),
       d = l.XLINK_NS,
       y = l.SVG_NS,
@@ -130,7 +130,7 @@ module.exports = function (t) {
         if ("object" === r(t[s])) for (var u in t[s]) {
           o.transform.push(a(u, t[s][u]));
         } else o.transform.push(a(s, t[s]));
-      } else n.push({ name: s, value: h(s, t[s]) });
+      } else n.push({ name: s, value: c(s, t[s]) });
     }o.transform.length && n.push({ name: "transform", value: o.transform.join(" ") });for (var f = 0, p = n.length; f < p; f++) {
       e = m[n[f].name] || n[f].name, this.node.style[e] = n[f].value, i[e] = n[f].value;
     }this.trigger("style", { list: n, value: i });
@@ -229,18 +229,18 @@ module.exports = function (t) {
   function n(t) {
     this.__t = t.target || this, this.__s = {};
   }n.prototype.once = function (t, e) {
-    var o = this;this.on(t, function n(r) {
+    var o = this;return this.on(t, function n(r) {
       o.off(t, n), e.call(o.target, r);
     });
   }, n.prototype.off = function (t, e) {
     var o = t.toLowerCase(),
-        n = (this.__s[o] || []).indexOf(e);return n > -1 ? this.__s[o].splice(n, 1) : void 0 === e && (this.__s[o] = []), this;
+        n = (this.__s[o] || []).indexOf(e);return n > -1 ? this.__s[o].splice(n, 1) : void 0 === e && (this.__s[o] = []), this.__t;
   }, n.prototype.on = function (t, e) {
-    return t = t.toLowerCase(), "function" == typeof e && (this.__s[t] = (this.__s[t] || []).concat(e)), this;
+    return t = t.toLowerCase(), "function" == typeof e && (this.__s[t] = (this.__s[t] || []).concat(e)), this.__t;
   }, n.prototype.trigger = function (t, e) {
     for (var o = (this.__s[t.toLowerCase()] || []).slice(), n = 0, r = o.length; n < r; n++) {
       o[n].call(this.__t, e);
-    }return this;
+    }return this.__t;
   }, t.exports = n;
 }, function (t, e, o) {
   "use strict";
@@ -254,7 +254,7 @@ module.exports = function (t) {
     r.__onCreate.push(t);
   }, n.fn = function (t, e) {
     r.prototype[t] = e, i.prototype[t] = function (e, o, n) {
-      var r = this.node[t](e, o, n);return r === this.node ? this : r;
+      var i = r.prototype[t].call(this.node, e, o, n);return i === this.node ? this : i;
     };for (var o in i.lib) {
       i.lib[o].prototype[t] || (i.lib[o].prototype[t] = i.prototype[t]);
     }
@@ -309,13 +309,13 @@ module.exports = function (t) {
       this.refs[e] || (this.refs[e] = this.node.refs[e]);
     }return this;
   }, n.prototype.on = function (t, e) {
-    return this.bus.on(t, e), this;
+    return this.bus.on(t, e);
   }, n.prototype.once = function (t, e) {
-    return this.bus.once(t, e), this;
+    return this.bus.once(t, e);
   }, n.prototype.off = function (t, e) {
-    return this.bus.off(t, e), this;
+    return this.bus.off(t, e);
   }, n.prototype.trigger = function (t, e) {
-    return this.bus.trigger(t, e), this;
+    return this.bus.trigger(t, e);
   }, n.create = function (t, e) {
     function o(o, n) {
       var r = Array.isArray(o) ? o : n || [];if (this.props = i(o) ? o : {}, this.bus = new u({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t, e.constructor && e.constructor.call(this, this.props), e.render) {
@@ -808,3 +808,4 @@ console.log("Add class", a.attr("class") === "classy");
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=index.js.map
