@@ -808,4 +808,3 @@ console.log("Add class", a.attr("class") === "classy");
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map
