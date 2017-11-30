@@ -26,8 +26,8 @@ el.fn = function (name, callback) {
   El.prototype[name] = callback;
 
   Component.prototype[name] = function (a, b, c) {
-    this.node[name](a, b, c);
-    return this;
+    const o = this.node[name](a, b, c);
+    return o === this.node ? this : o;
   };
 
   for (var k in Component.lib) {

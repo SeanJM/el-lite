@@ -6,6 +6,7 @@ import "./contains";
 import "./html";
 import "./removeClass";
 import "./elementRef";
+import "./el.augment";
 import "./onMount";
 import "./onUnmount";
 import "./on_off";
