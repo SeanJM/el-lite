@@ -203,7 +203,7 @@ module.exports = function (t) {
   }, n.prototype.trigger = function (t, e) {
     return this.bus.trigger(t, e), this;
   }, n.prototype.contains = function (t) {
-    return this.node.contains(t.getRoot());
+    return this.node.contains(s(t) ? t : t.getRoot());
   }, t.exports = n;
 }, function (t, e, o) {
   "use strict";
@@ -515,9 +515,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var a = (0, _index2.default)("div");
 var b = (0, _index2.default)("body");
+var c = document.createElement("div");
 
+b.node.appendChild(c);
 b.append(a);
-console.log("Contains", b.contains(a));
+
+console.log("Contains", b.contains(a) && b.contains(c));
 
 /***/ }),
 /* 7 */
@@ -808,4 +811,3 @@ console.log("Add class", a.attr("class") === "classy");
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map

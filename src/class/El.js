@@ -348,7 +348,11 @@ El.prototype.trigger = function (a, b) {
 };
 
 El.prototype.contains = function (element) {
-  return this.node.contains(element.getRoot());
+  return this.node.contains(
+    isNode(element)
+      ? element
+      : element.getRoot()
+  );
 };
 
 module.exports = El;
