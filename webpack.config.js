@@ -4,14 +4,11 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const loaders = [
   {
-    loader : "babel-loader",
-    test   : /\.js$/,
-    include : [ "./src/" ],
+    test    : /\.js$/,
+    loader  : "babel-loader",
+    exclude : /node_modules/,
     query : {
-      presets : [
-        "env",
-        { targets : { browsers : [ "last 2 versions" ] } }
-      ]
+      presets: [ "env" ]
     }
   }
 ];
@@ -33,7 +30,7 @@ module.exports = [{
 
   plugins: (
     IS_PRODUCTION
-      ? [new UglifyJsPlugin()]
+      ? [ new UglifyJsPlugin() ]
       : []
   )
 }, {
