@@ -97,9 +97,9 @@ module.exports = function (t) {
     var t = this,
         e = [arguments[0], arguments[1], arguments[2]],
         o = s(e[0]),
-        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new h({ target: this }), this.refs = {};for (var u = 0, p = e.length; u < p; u++) {
+        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new h({ target: this }), this.refs = {};for (var u = 0, a = e.length; u < a; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (r = e[u]);
-    }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, p = n.__onCreate.length; u < p; u++) {
+    }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, a = n.__onCreate.length; u < a; u++) {
       n.__onCreate[u].call(this);
     }o && setTimeout(function () {
       f(t.node);
@@ -113,8 +113,8 @@ module.exports = function (t) {
       s = o(7),
       u = o(3),
       f = o(8),
-      p = o(9),
-      a = o(10),
+      a = o(9),
+      p = o(10),
       c = o(4),
       h = o(5),
       l = o(0),
@@ -128,10 +128,10 @@ module.exports = function (t) {
         i = {};for (var s in t) {
       if (g.indexOf(s) > -1) {
         if ("object" === r(t[s])) for (var u in t[s]) {
-          o.transform.push(a(u, t[s][u]));
-        } else o.transform.push(a(s, t[s]));
+          o.transform.push(p(u, t[s][u]));
+        } else o.transform.push(p(s, t[s]));
       } else n.push({ name: s, value: c(s, t[s]) });
-    }o.transform.length && n.push({ name: "transform", value: o.transform.join(" ") });for (var f = 0, p = n.length; f < p; f++) {
+    }o.transform.length && n.push({ name: "transform", value: o.transform.join(" ") });for (var f = 0, a = n.length; f < a; f++) {
       e = m[n[f].name] || n[f].name, this.node.style[e] = n[f].value, i[e] = n[f].value;
     }this.trigger("style", { list: n, value: i });
   }, n.prototype.style = function (t) {
@@ -184,9 +184,9 @@ module.exports = function (t) {
   }, n.prototype.html = function (t) {
     return "string" != typeof t ? this.node.innerHTML : (this.node.innerHTML = t, this);
   }, n.prototype.remove = function () {
-    return this.node.parentNode && (p(this.node), this.node.parentNode.removeChild(this.node)), this;
+    return this.node.parentNode && (a(this.node), this.node.parentNode.removeChild(this.node)), this;
   }, n.prototype.replaceWith = function (t) {
-    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), p(this.node), f(e), this;
+    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), a(this.node), f(e), this;
   }, n.prototype.on = function (t, e) {
     var o = this,
         n = t.toLowerCase();return "function" == typeof e && (this.bus.on(n, e), this.node.addEventListener(n, function (t) {
@@ -227,21 +227,30 @@ module.exports = function (t) {
 }, function (t, e, o) {
   "use strict";
   function n(t) {
+    return t.toLowerCase().split(",").map(function (t) {
+      return t.trim();
+    });
+  }function r(t) {
     this.__t = t.target || this, this.__s = {};
-  }n.prototype.once = function (t, e) {
+  }r.prototype.once = function (t, e) {
     var o = this;return this.on(t, function n(r) {
       o.off(t, n), e.call(o.target, r);
     });
-  }, n.prototype.off = function (t, e) {
-    var o = t.toLowerCase(),
-        n = (this.__s[o] || []).indexOf(e);return n > -1 ? this.__s[o].splice(n, 1) : void 0 === e && (this.__s[o] = []), this.__t;
-  }, n.prototype.on = function (t, e) {
-    return t = t.toLowerCase(), "function" == typeof e && (this.__s[t] = (this.__s[t] || []).concat(e)), this.__t;
-  }, n.prototype.trigger = function (t, e) {
-    for (var o = (this.__s[t.toLowerCase()] || []).slice(), n = 0, r = o.length; n < r; n++) {
-      o[n].call(this.__t, e);
-    }return this.__t;
-  }, t.exports = n;
+  }, r.prototype.off = function (t, e) {
+    var o = this;return n(t).forEach(function (t) {
+      var n = (o.__s[t] || []).indexOf(e);n > -1 ? o.__s[t].splice(n, 1) : void 0 === e && (o.__s[t] = []);
+    }), this.__t;
+  }, r.prototype.on = function (t, e) {
+    var o = this;return "function" == typeof e && n(t).forEach(function (t) {
+      o.__s[t] = (o.__s[t] || []).concat(e);
+    }), this.__t;
+  }, r.prototype.trigger = function (t, e) {
+    var o = this;return n(t).forEach(function (t) {
+      (o.__s[t] || []).slice().forEach(function (t) {
+        t.call(o.__t, e);
+      });
+    }), this.__t;
+  }, t.exports = r;
 }, function (t, e, o) {
   "use strict";
   function n(t, e, o) {
@@ -302,8 +311,8 @@ module.exports = function (t) {
   }var i = o(2),
       s = o(3),
       u = o(5),
-      f = o(1);n.lib = {};for (var p in f.prototype) {
-    n.prototype[p] = r(p);
+      f = o(1);n.lib = {};for (var a in f.prototype) {
+    n.prototype[a] = r(a);
   }n.prototype.append = function (t) {
     this.node.append(t);for (var e in this.node.refs) {
       this.refs[e] || (this.refs[e] = this.node.refs[e]);
