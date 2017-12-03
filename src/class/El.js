@@ -237,7 +237,7 @@ El.prototype.attr = function (attr) {
       if (this.isSvg) {
         this.node.setAttributeNS(k === "href" ? XLINK_NS : SVG_NS, k, attr[k]);
       } else {
-        this.node.setAttribute(k, attr[k]);
+        this.node.setAttribute(k, attr[k].toString());
       }
     }
   }
