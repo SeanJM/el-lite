@@ -1,4 +1,5 @@
 import el from "../../index";
+import log from "./helpers/log";
 
 el.create("x", {
   render() {
@@ -12,19 +13,13 @@ el.create("y", {
   }
 });
 
-function test() {
-  var a = el("x", { ref: "a" });
-  var b = el("x", [ a ]);
+var a = el("x", { ref: "a" });
+var b = el("x", [ a ]);
 
-  var c = el("y", { ref: "c" }, [ b ]);
-  var d = el("y", [ c ]);
+var c = el("y", { ref: "c" }, [ b ]);
+var d = el("y", [ c ]);
 
-  console.log(
-    "Component reference", (
-      b.refs.a === a
-      && d.refs.c === c
-    )
-  );
-}
-
-test();
+log("Component reference", (
+  b.refs.a === a
+  && d.refs.c === c
+));

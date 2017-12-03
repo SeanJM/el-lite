@@ -1,0 +1,31 @@
+* {
+  font-family : "source sans pro",
+                monospace;
+}
+
+.log-message {
+  position     : relative;
+  padding-left : 20px;
+}
+
+.log-message_test-name {
+  font-size : 15px;
+}
+
+.log-message_test-value {
+  position      : absolute;
+  top           : 6px;
+  left          : 0;
+  width         : 8px;
+  height        : 8px;
+  border-radius : 50%;
+  background    : #000;
+}
+
+.log-message--true .log-message_test-value {
+  background : green;
+}
+
+.log-message--false .log-message_test-value {
+  background : red;
+}

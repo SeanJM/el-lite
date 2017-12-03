@@ -1,11 +1,8 @@
 import el from "../../index";
+import log from "./helpers/log";
 
-function test() {
-  var a = el("div", {
-    class : "my-class-name"
-  });
-  a.removeClass("my-class-name");
-  console.log("Remove class", a.attr("class") === "");
-}
-
-test();
+var a = el("div", {
+  class : "my-class-name"
+});
+a.removeClass("my-class-name");
+log("Remove class", a.attr("class") === "");

@@ -8,6 +8,7 @@ import "./removeClass";
 import "./elementRef";
 import "./el.augment";
 import "./onMount";
+import "./onMount_body";
 import "./onUnmount";
 import "./on_off";
 import "./svg";

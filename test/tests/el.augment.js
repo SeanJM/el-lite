@@ -1,4 +1,5 @@
 import el from "../../index";
+import log from "./helpers/log";
 
 el.create("test", {
   render() {
@@ -10,4 +11,4 @@ el.fn("t", a => {
   return a;
 });
 
-console.log("el.augment", el("div").t(true) === el("test").t(true));
+log("el.augment", el("div").t(true) === el("test").t(true));

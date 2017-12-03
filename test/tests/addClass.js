@@ -1,9 +1,6 @@
 import el from "../../index";
+import log from "./helpers/log";
 
-function test() {
-  var a = el("div");
-  a.addClass("my-class-name");
-  console.log("Add class", a.attr("class") === "my-class-name");
-}
-
-test();
+var a = el("div");
+a.addClass("my-class-name");
+log("Add class", a.attr("class") === "my-class-name");

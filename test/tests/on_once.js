@@ -1,4 +1,5 @@
 import el from "../../index";
+import log from "./helpers/log";
 
 var isMounted = [ false, false ];
 
@@ -14,7 +15,7 @@ a.on("click", function () {
 
 a.trigger("click");
 
-console.log(
+log(
   "on_once", (
     isMounted[0] === true
     && isMounted[1] === true

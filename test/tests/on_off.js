@@ -1,4 +1,5 @@
 import el from "../../index";
+import log from "./helpers/log";
 
 var isMounted = [ false, false, false ];
 
@@ -34,7 +35,7 @@ a.trigger("clack");
 a.trigger("clack");
 b.trigger("click");
 
-console.log(
+log(
   "on_off", (
     isMounted[0] === true
     && isMounted[1] === true

@@ -1,4 +1,5 @@
 import el from "../../index";
+import log from "./helpers/log";
 
 var isMounted = [ false, false, false ];
 
@@ -25,7 +26,7 @@ a.append(b);
 b.remove(b);
 a.append(b);
 
-console.log(
+log(
   "onMount", (
     isMounted[0] === true && isMounted[1] === false
   )

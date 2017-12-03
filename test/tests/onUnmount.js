@@ -1,4 +1,5 @@
 import el from "../../index";
+import log from "./helpers/log";
 
 var isMounted = [ false, false ];
 var a = el("div");
@@ -11,7 +12,7 @@ a.on("unmount", function () {
 
 a.remove();
 
-console.log(
+log(
   "onUnmount", (
     isMounted[0] === true
   )

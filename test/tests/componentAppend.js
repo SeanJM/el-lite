@@ -1,4 +1,5 @@
 import el from "../../index";
+import log from "./helpers/log";
 
 el.create("x", {
   render() {
@@ -11,4 +12,4 @@ var b = el("x");
 
 b.append(a);
 
-console.log("componentAppend", b.node.node.childNodes.length === 1);
+log("componentAppend", b.node.node.childNodes.length === 1);

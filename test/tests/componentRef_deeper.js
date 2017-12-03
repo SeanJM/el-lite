@@ -1,4 +1,6 @@
 import el from "../../index";
+import log from "./helpers/log";
+
 const input = el("input", { ref: "name", type: "text" });
 
 el.create("Modal", {
@@ -31,4 +33,5 @@ el.create("Modal2", {
 var m = el("Modal");
 var m2 = el("Modal2");
 m.append(el("div"));
-console.log("component reference (depper)", input === m2.refs.name);
+
+log("component reference (depper)", input === m2.refs.name);
