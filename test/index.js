@@ -405,8 +405,6 @@ __webpack_require__(11);
 
 __webpack_require__(12);
 
-__webpack_require__(18);
-
 __webpack_require__(13);
 
 __webpack_require__(14);
@@ -416,6 +414,8 @@ __webpack_require__(15);
 __webpack_require__(16);
 
 __webpack_require__(17);
+
+__webpack_require__(18);
 
 /***/ }),
 /* 3 */
@@ -742,6 +742,46 @@ var _log2 = _interopRequireDefault(_log);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var isMounted = [false, false, false];
+_index2.default.create("x", {
+  onMount: function onMount() {
+    isMounted[0] = !isMounted[0];
+  },
+  render: function render() {
+    var _this = this;
+
+    return (0, _index2.default)("div", {
+      class: "app",
+      onMount: function onMount() {
+        return _this.onMount();
+      }
+    });
+  }
+});
+
+var a = (0, _index2.default)("x");
+
+(0, _index2.default)("body").append(a);
+
+(0, _log2.default)("onMount (Body)", isMounted[0] === true);
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var isMounted = [false, false];
 var a = (0, _index2.default)("div");
 
@@ -756,7 +796,7 @@ a.remove();
 (0, _log2.default)("onUnmount", isMounted[0] === true);
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -808,7 +848,7 @@ b.trigger("click");
 (0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -837,7 +877,7 @@ _index2.default.create("Icon", {
 body.append((0, _index2.default)("Icon", { type: "eye" }));
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -870,7 +910,7 @@ a.trigger("click");
 (0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -893,46 +933,5 @@ var a = (0, _index2.default)("div");
 a.classy();
 (0, _log2.default)("Add class", a.attr("class") === "classy");
 
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isMounted = [false, false, false];
-_index2.default.create("x", {
-  onMount: function onMount() {
-    isMounted[0] = !isMounted[0];
-  },
-  render: function render() {
-    var _this = this;
-
-    return (0, _index2.default)("div", {
-      class: "app",
-      onMount: function onMount() {
-        return _this.onMount();
-      }
-    });
-  }
-});
-
-var a = (0, _index2.default)("x");
-
-(0, _index2.default)("body").append(a);
-
-(0, _log2.default)("onMount (Body)", isMounted[0] === true);
-
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map
