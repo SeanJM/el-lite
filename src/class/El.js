@@ -234,8 +234,7 @@ El.prototype.attr = function (attr) {
         );
       }
     } else if (k === "src") {
-      this.node.onload = e => this.trigger("load", e);
-      this.node.src    = attr[k];
+      this.node.src = attr[k];
     } else if (attr[k]) {
       if (this.isSvg) {
         this.node.setAttributeNS(k === "href" ? XLINK_NS : SVG_NS, k, attr[k]);
@@ -315,9 +314,15 @@ El.prototype.on = function (name, callback) {
 
   if (typeof callback === "function") {
     this.bus.on(nameLower, callback);
-    this.node.addEventListener(nameLower, function (e) {
-      self.trigger(nameLower, e);
-    }, false);
+    if (nameLower === "load") {
+      this.node.onload = function (e) {
+        self.trigger(nameLower, e);
+      };
+    } else {
+      this.node.addEventListener(nameLower, function (e) {
+        self.trigger(nameLower, e);
+      }, false);
+    }
   }
 
   return this;

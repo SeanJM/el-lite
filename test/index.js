@@ -162,12 +162,15 @@ module.exports = function (t) {
       e.parentNode.insertBefore(o[n].getRoot(), e), u.call(this, o[n]);
     }
   }, n.prototype.attr = function (t) {
-    var e;if ("string" == typeof t) return this.node.getAttribute(t);for (var o in t) {
-      e = o.toLowerCase(), "ref" === o ? this.ref = t[o] : n.__onAttr[e] ? n.__onAttr[e].call(this, t[o]) : "style" === o ? this.setStyle(t[o]) : "once" === o.substring(0, 4) ? this.once(o.substring(4), t[o]) : "on" === o.substring(0, 2) ? this.on(o.substring(2), t[o]) : "class" === o ? "string" == typeof t[o] && this.node.setAttribute("class", t[o].split(" ").filter(function (t) {
+    var e,
+        o = this;if ("string" == typeof t) return this.node.getAttribute(t);for (var r in t) {
+      e = r.toLowerCase(), "ref" === r ? this.ref = t[r] : n.__onAttr[e] ? n.__onAttr[e].call(this, t[r]) : "style" === r ? this.setStyle(t[r]) : "once" === r.substring(0, 4) ? this.once(r.substring(4), t[r]) : "on" === r.substring(0, 2) ? this.on(r.substring(2), t[r]) : "class" === r ? "string" == typeof t[r] && this.node.setAttribute("class", t[r].split(" ").filter(function (t) {
         return t.length;
       }).map(function (t) {
         return t.trim();
-      }).join(" ")) : t[o] && (this.isSvg ? this.node.setAttributeNS("href" === o ? d : y, o, t[o]) : this.node.setAttribute(o, t[o].toString()));
+      }).join(" ")) : "src" === r ? (this.node.onload = function (t) {
+        return o.trigger("load", t);
+      }, this.node.src = t[r]) : t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? d : y, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
     }return this;
   }, n.prototype.closest = function (t) {
     return new n(this.node.closest(t));
