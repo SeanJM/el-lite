@@ -12,6 +12,7 @@ import "./onMount";
 import "./onMount_body";
 import "./onUnmount";
 import "./onClick";
+import "./getStyleUnit";
 import "./on_off";
 import "./svg";
 import "./img_src";

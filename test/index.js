@@ -97,9 +97,9 @@ module.exports = function (t) {
     var t = this,
         e = [arguments[0], arguments[1], arguments[2]],
         o = s(e[0]),
-        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new h({ target: this }), this.refs = {};for (var u = 0, p = e.length; u < p; u++) {
+        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new l({ target: this }), this.refs = {};for (var u = 0, p = e.length; u < p; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (r = e[u]);
-    }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, p = n.__onCreate.length; u < p; u++) {
+    }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(g, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, p = n.__onCreate.length; u < p; u++) {
       n.__onCreate[u].call(this);
     }o && setTimeout(function () {
       f(t.node);
@@ -116,26 +116,27 @@ module.exports = function (t) {
       p = o(9),
       a = o(10),
       c = o(4),
-      h = o(5),
-      l = o(0),
-      d = l.XLINK_NS,
-      y = l.SVG_NS,
-      g = l.IS_TRANSFORM,
-      v = l.STYLE_NAME;n.__onAttr = {}, n.__onCreate = [], n.prototype.setStyle = function (t) {
+      h = o(11),
+      l = o(5),
+      d = o(0),
+      y = d.XLINK_NS,
+      g = d.SVG_NS,
+      v = d.IS_TRANSFORM,
+      m = d.STYLE_NAME;n.__onAttr = {}, n.__onCreate = [], n.prototype.setStyle = function (t) {
     var e,
         o = { transform: [], default: [] },
         n = [],
         i = {};for (var s in t) {
-      if (g.indexOf(s) > -1) {
+      if (v.indexOf(s) > -1) {
         if ("object" === r(t[s])) for (var u in t[s]) {
           o.transform.push(a(u, t[s][u]));
         } else o.transform.push(a(s, t[s]));
       } else n.push({ name: s, value: c(s, t[s]) });
     }o.transform.length && n.push({ name: "transform", value: o.transform.join(" ") });for (var f = 0, p = n.length; f < p; f++) {
-      e = v[n[f].name] || n[f].name, this.node.style[e] = n[f].value, i[e] = n[f].value;
+      e = m[n[f].name] || n[f].name, this.node.style[e] = n[f].value, i[e] = n[f].value;
     }this.trigger("style", { list: n, value: i });
   }, n.prototype.style = function (t) {
-    return "object" === (void 0 === t ? "undefined" : r(t)) ? (this.setStyle(t), this) : "string" == typeof t ? window.getComputedStyle(this.node)[v[t] || t] : window.getComputedStyle(this.node);
+    return "object" === (void 0 === t ? "undefined" : r(t)) ? (this.setStyle(t), this) : "string" == typeof t ? h(window.getComputedStyle(this.node)[m[t] || t]) : window.getComputedStyle(this.node);
   }, n.prototype.value = function (t) {
     return void 0 === t ? this.node.value : (this.node.value = t, this);
   }, n.prototype.offset = function () {
@@ -167,7 +168,7 @@ module.exports = function (t) {
         return t.length;
       }).map(function (t) {
         return t.trim();
-      }).join(" ")) : t[o] && (this.isSvg ? this.node.setAttributeNS("href" === o ? d : y, o, t[o]) : this.node.setAttribute(o, t[o].toString()));
+      }).join(" ")) : t[o] && (this.isSvg ? this.node.setAttributeNS("href" === o ? y : g, o, t[o]) : this.node.setAttribute(o, t[o].toString()));
     }return this;
   }, n.prototype.closest = function (t) {
     return new n(this.node.closest(t));
@@ -257,8 +258,8 @@ module.exports = function (t) {
   function n(t, e, o) {
     return i.lib[t] ? new i.lib[t](e, o) : t instanceof Text || t instanceof Comment ? t : "body" === t ? u : new r(t, e, o);
   }var r = o(1),
-      i = o(11),
-      s = o(12),
+      i = o(12),
+      s = o(13),
       u = n(document.body);n.and = function (t) {
     return new s(t);
   }, n.onAttr = function (t, e) {
@@ -303,6 +304,11 @@ module.exports = function (t) {
   },
       r = o(4);t.exports = function (t, e) {
     var o = [];return "object" === (void 0 === e ? "undefined" : n(e)) ? (e.x && o.push(r(t, e.x)), e.y && o.push(r(t, e.y)), e.z && o.push(r(t, e.z))) : o.push(r(t, e)), t + "(" + o.join(", ") + ")";
+  };
+}, function (t, e, o) {
+  "use strict";
+  t.exports = function (t) {
+    return "px" === t.slice(-2) ? Number(t.slice(0, -2)) : t;
   };
 }, function (t, e, o) {
   "use strict";
@@ -411,8 +417,6 @@ __webpack_require__(4);
 
 __webpack_require__(5);
 
-__webpack_require__(21);
-
 __webpack_require__(6);
 
 __webpack_require__(7);
@@ -431,17 +435,21 @@ __webpack_require__(13);
 
 __webpack_require__(14);
 
-__webpack_require__(20);
-
 __webpack_require__(15);
 
 __webpack_require__(16);
+
+__webpack_require__(22);
 
 __webpack_require__(17);
 
 __webpack_require__(18);
 
 __webpack_require__(19);
+
+__webpack_require__(20);
+
+__webpack_require__(21);
 
 /***/ }),
 /* 3 */
@@ -575,11 +583,34 @@ var _log2 = _interopRequireDefault(_log);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var a = (0, _index2.default)("div");
+var b = (0, _index2.default)("div");
+_index2.default.and(a).and(b).addClass("my-class-name");
+
+(0, _log2.default)("And", a.attr("class") === "my-class-name" && b.attr("class") === "my-class-name");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var a = (0, _index2.default)("div");
 a.addClass("my-class-name");
 (0, _log2.default)("Add class", a.attr("class") === "my-class-name");
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -605,7 +636,7 @@ b.append(a);
 (0, _log2.default)("Contains", b.contains(a) && b.contains(c));
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -628,7 +659,7 @@ a.html("test");
 (0, _log2.default)("HTML", a.node.innerHTML === "test");
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -651,7 +682,7 @@ a.removeClass("my-class-name");
 (0, _log2.default)("Remove class", a.attr("class") === "");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -679,7 +710,7 @@ c.append(d.append(e));
 (0, _log2.default)("Element reference", a.refs.a === b && c.refs.d === d && d.refs.e === e);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -708,7 +739,7 @@ _index2.default.fn("t", function (a) {
 (0, _log2.default)("el.augment", (0, _index2.default)("div").t(true) === (0, _index2.default)("test").t(true));
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -752,7 +783,7 @@ a.append(b);
 (0, _log2.default)("onMount", isMounted[0] === true && isMounted[1] === false);
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -792,7 +823,7 @@ var a = (0, _index2.default)("x");
 (0, _log2.default)("onMount (Body)", isMounted[0] === true);
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -822,180 +853,7 @@ a.remove();
 (0, _log2.default)("onUnmount", isMounted[0] === true);
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isMounted = [false, false, false];
-
-var a = (0, _index2.default)("div", {
-  onClick: function onClick() {
-    isMounted[0] = !isMounted[0];
-  },
-  onceClack: function onceClack() {
-    isMounted[1] = !isMounted[1];
-  }
-});
-
-_index2.default.create("x", {
-  constructor: function constructor(props) {
-    this.on("click", props.onClick);
-  },
-  render: function render() {
-    return (0, _index2.default)("div");
-  }
-});
-
-var b = (0, _index2.default)("x", {
-  onClick: function onClick() {
-    isMounted[2] = !isMounted[2];
-  }
-});
-
-a.trigger("click");
-a.off("click");
-a.trigger("click");
-a.trigger("clack");
-a.trigger("clack");
-b.trigger("click");
-
-(0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
-
-/***/ }),
 /* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var body = (0, _index2.default)(document.body);
-
-_index2.default.create("Icon", {
-  render: function render(props) {
-    return (0, _index2.default)("svg", {
-      style: {
-        display: "inline-block",
-        width: "100px",
-        height: "100px"
-      }
-    }, [(0, _index2.default)("use", { "href": "#icon_" + props.type })]);
-  }
-});
-
-body.append((0, _index2.default)("Icon", { type: "eye" }));
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var a = (0, _index2.default)("img");
-
-a.attr({
-  src: "alf.jpg"
-});
-
-(0, _index2.default)("body").append(a);
-
-(0, _log2.default)("image src", true);
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isMounted = [false, false];
-
-var a = (0, _index2.default)("div");
-
-a.once("click", function () {
-  isMounted[0] = true;
-});
-
-a.on("click", function () {
-  isMounted[1] = true;
-});
-
-a.trigger("click");
-
-(0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_index2.default.fn("classy", function () {
-  this.addClass("classy");
-});
-_index2.default.create("C", {
-  render: function render() {
-    return (0, _index2.default)("div");
-  }
-});
-
-var a = (0, _index2.default)("div");
-var b = (0, _index2.default)("C");
-a.classy();
-b.classy();
-(0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
-
-/***/ }),
-/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1064,6 +922,147 @@ var b = (0, _index2.default)("div", {
 (0, _index2.default)("body").append([a, b]);
 
 /***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isMounted = [false, false, false];
+
+var a = (0, _index2.default)("div", {
+  onClick: function onClick() {
+    isMounted[0] = !isMounted[0];
+  },
+  onceClack: function onceClack() {
+    isMounted[1] = !isMounted[1];
+  }
+});
+
+_index2.default.create("x", {
+  constructor: function constructor(props) {
+    this.on("click", props.onClick);
+  },
+  render: function render() {
+    return (0, _index2.default)("div");
+  }
+});
+
+var b = (0, _index2.default)("x", {
+  onClick: function onClick() {
+    isMounted[2] = !isMounted[2];
+  }
+});
+
+a.trigger("click");
+a.off("click");
+a.trigger("click");
+a.trigger("clack");
+a.trigger("clack");
+b.trigger("click");
+
+(0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var body = (0, _index2.default)(document.body);
+
+_index2.default.create("Icon", {
+  render: function render(props) {
+    return (0, _index2.default)("svg", {
+      style: {
+        display: "inline-block",
+        width: "100px",
+        height: "100px"
+      }
+    }, [(0, _index2.default)("use", { "href": "#icon_" + props.type })]);
+  }
+});
+
+body.append((0, _index2.default)("Icon", { type: "eye" }));
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var a = (0, _index2.default)("img");
+
+a.attr({
+  src: "alf.jpg"
+});
+
+(0, _index2.default)("body").append(a);
+
+(0, _log2.default)("image src", true);
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isMounted = [false, false];
+
+var a = (0, _index2.default)("div");
+
+a.once("click", function () {
+  isMounted[0] = true;
+});
+
+a.on("click", function () {
+  isMounted[1] = true;
+});
+
+a.trigger("click");
+
+(0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
+
+/***/ }),
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1080,11 +1079,45 @@ var _log2 = _interopRequireDefault(_log);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var a = (0, _index2.default)("div");
-var b = (0, _index2.default)("div");
-_index2.default.and(a).and(b).addClass("my-class-name");
+_index2.default.fn("classy", function () {
+  this.addClass("classy");
+});
+_index2.default.create("C", {
+  render: function render() {
+    return (0, _index2.default)("div");
+  }
+});
 
-(0, _log2.default)("And", a.attr("class") === "my-class-name" && b.attr("class") === "my-class-name");
+var a = (0, _index2.default)("div");
+var b = (0, _index2.default)("C");
+a.classy();
+b.classy();
+(0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var a = (0, _index2.default)("div", {
+  style: {
+    marginLeft: "16px"
+  }
+});
+
+(0, _log2.default)("style (16px -> 16)", a.style("marginLeft") === 16);
 
 /***/ })
 /******/ ]);

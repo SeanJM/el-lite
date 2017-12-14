@@ -5,6 +5,7 @@ const mount          = require("../mount");
 const unmount        = require("../unmount");
 const transformValue = require("../transformValue");
 const propertyUnit   = require("../propertyUnit");
+const toUnit         = require("../toUnit");
 const Bus            = require("./Bus");
 
 const {
@@ -116,7 +117,9 @@ El.prototype.style = function (props) {
     this.setStyle(props);
     return this;
   } else if (typeof props === "string") {
-    return window.getComputedStyle(this.node)[STYLE_NAME[props] || props];
+    return toUnit(
+      window.getComputedStyle(this.node)[STYLE_NAME[props] || props]
+    );
   } else {
     return window.getComputedStyle(this.node);
   }
