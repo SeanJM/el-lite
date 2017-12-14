@@ -318,7 +318,7 @@ El.prototype.on = function (name, callback) {
       this.node.onload = function (e) {
         self.trigger(nameLower, e);
       };
-    } else {
+    } else if (this.bus.subscribers[nameLower].length === 1) {
       this.node.addEventListener(nameLower, function (e) {
         self.trigger(nameLower, e);
       }, false);
