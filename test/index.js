@@ -255,10 +255,13 @@ module.exports = function (t) {
 }, function (t, e, o) {
   "use strict";
   function n(t, e, o) {
-    return i.lib[t] ? new i.lib[t](e, o) : t instanceof Text || t instanceof Comment ? t : "body" === t ? s : new r(t, e, o);
+    return i.lib[t] ? new i.lib[t](e, o) : t instanceof Text || t instanceof Comment ? t : "body" === t ? u : new r(t, e, o);
   }var r = o(1),
       i = o(11),
-      s = n(document.body);n.onAttr = function (t, e) {
+      s = o(12),
+      u = n(document.body);n.and = function (t) {
+    return new s(t);
+  }, n.onAttr = function (t, e) {
     r.__onAttr[t.toLowerCase()] = e;
   }, n.onCreate = function (t) {
     r.__onCreate.push(t);
@@ -345,6 +348,21 @@ module.exports = function (t) {
       "render" !== r && "append" !== r && (o.prototype[r] = e[r]);
     }return n.lib[t] = o, o;
   }, t.exports = n;
+}, function (t, e, o) {
+  "use strict";
+  function n(t) {
+    this.group = [].concat(t);
+  }var r = o(1);n.prototype.and = function (t) {
+    return this.group = this.group.concat(t), this;
+  }, n.__extend = function (t) {
+    return function (e, o, n) {
+      for (var r = 0, i = this.group.length; r < i; r++) {
+        this.group[r][t](e, o, n);
+      }return this;
+    };
+  };for (var i in r.prototype) {
+    n.prototype[i] = n.__extend(i);
+  }t.exports = n;
 }]);
 
 /***/ }),
@@ -392,6 +410,8 @@ __webpack_require__(3);
 __webpack_require__(4);
 
 __webpack_require__(5);
+
+__webpack_require__(21);
 
 __webpack_require__(6);
 
@@ -1034,6 +1054,29 @@ var b = (0, _index2.default)("div", {
 })]);
 
 (0, _index2.default)("body").append([a, b]);
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var a = (0, _index2.default)("div");
+var b = (0, _index2.default)("div");
+_index2.default.and(a).and(b).addClass("my-class-name");
+
+(0, _log2.default)("And", a.attr("class") === "my-class-name" && b.attr("class") === "my-class-name");
 
 /***/ })
 /******/ ]);

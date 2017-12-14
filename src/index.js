@@ -1,5 +1,6 @@
 const El        = require("./class/El");
 const Component = require("./class/Component");
+const And       = require("./class/And");
 const body      = el(document.body);
 
 function el(a, b, c) {
@@ -13,6 +14,10 @@ function el(a, b, c) {
     return new El(a, b, c);
   }
 }
+
+el.and = function (x) {
+  return new And(x);
+};
 
 el.onAttr = function (name, callback) {
   El.__onAttr[name.toLowerCase()] = callback;
