@@ -9,6 +9,7 @@ import "./removeClass";
 import "./elementRef";
 import "./el.augment";
 import "./onMount";
+import "./styleUndefined";
 import "./onMount_body";
 import "./onUnmount";
 import "./onClick";

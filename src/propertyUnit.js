@@ -7,5 +7,5 @@ module.exports = function propertyUnit(property, a) {
     return typeof a === "number" ? a + "deg" : a;
   }
 
-  return a.toString();
+  return a && a.toString();
 };

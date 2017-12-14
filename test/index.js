@@ -225,7 +225,7 @@ module.exports = function (t) {
   var n = o(0),
       r = n.IS_VALUE_PX,
       i = n.IS_VALUE_DEG;t.exports = function (t, e) {
-    return r.indexOf(t) > -1 ? "number" == typeof e ? e + "px" : e : i.indexOf(t) > -1 ? "number" == typeof e ? e + "deg" : e : e.toString();
+    return r.indexOf(t) > -1 ? "number" == typeof e ? e + "px" : e : i.indexOf(t) > -1 ? "number" == typeof e ? e + "deg" : e : e && e.toString();
   };
 }, function (t, e, o) {
   "use strict";
@@ -433,13 +433,13 @@ __webpack_require__(12);
 
 __webpack_require__(13);
 
+__webpack_require__(23);
+
 __webpack_require__(14);
 
 __webpack_require__(15);
 
 __webpack_require__(16);
-
-__webpack_require__(22);
 
 __webpack_require__(17);
 
@@ -450,6 +450,8 @@ __webpack_require__(19);
 __webpack_require__(20);
 
 __webpack_require__(21);
+
+__webpack_require__(22);
 
 /***/ }),
 /* 3 */
@@ -938,6 +940,31 @@ var _log2 = _interopRequireDefault(_log);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var a = (0, _index2.default)("div", {
+  style: {
+    marginLeft: "16px"
+  }
+});
+
+(0, _log2.default)("style (16px -> 16)", a.style("marginLeft") === 16);
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var isMounted = [false, false, false];
 
 var a = (0, _index2.default)("div", {
@@ -974,7 +1001,7 @@ b.trigger("click");
 (0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1003,7 +1030,7 @@ _index2.default.create("Icon", {
 body.append((0, _index2.default)("Icon", { type: "eye" }));
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1030,7 +1057,7 @@ a.attr({
 (0, _log2.default)("image src", true);
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1063,7 +1090,7 @@ a.trigger("click");
 (0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1095,7 +1122,7 @@ b.classy();
 (0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1111,13 +1138,12 @@ var _log2 = _interopRequireDefault(_log);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var a = (0, _index2.default)("div", {
-  style: {
-    marginLeft: "16px"
-  }
+var a = (0, _index2.default)({
+  style: { height: "10px" }
 });
 
-(0, _log2.default)("style (16px -> 16)", a.style("marginLeft") === 16);
+a.style({ height: undefined });
+(0, _log2.default)("style (undefined)", a.style("height"));
 
 /***/ })
 /******/ ]);
