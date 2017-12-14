@@ -266,9 +266,7 @@ module.exports = function (t) {
   }, n.onCreate = function (t) {
     r.__onCreate.push(t);
   }, n.fn = function (t, e) {
-    r.prototype[t] = e, i.prototype[t] = function (e, o, n) {
-      var i = r.prototype[t].call(this.node, e, o, n);return i === this.node ? this : i;
-    };for (var o in i.lib) {
+    r.prototype[t] = e, i.prototype[t] = i.__extend(t), s.prototype[t] = s.__extend(t);for (var o in i.lib) {
       i.lib[o].prototype[t] || (i.lib[o].prototype[t] = i.prototype[t]);
     }
   }, n.create = i.create, t.exports = n;
@@ -308,15 +306,15 @@ module.exports = function (t) {
   };
 }, function (t, e, o) {
   "use strict";
-  function n() {}function r(t) {
+  function n() {}var r = o(2),
+      i = o(3),
+      s = o(5),
+      u = o(1);n.__extend = function (t) {
     return function (e, o, n) {
       var r = this.node[t](e, o, n);return r === this.node ? this : r;
     };
-  }var i = o(2),
-      s = o(3),
-      u = o(5),
-      f = o(1);n.lib = {};for (var a in f.prototype) {
-    n.prototype[a] = r(a);
+  }, n.lib = {};for (var f in u.prototype) {
+    n.prototype[f] = n.__extend(f);
   }n.prototype.append = function (t) {
     this.node.append(t);for (var e in this.node.refs) {
       this.refs[e] || (this.refs[e] = this.node.refs[e]);
@@ -331,21 +329,21 @@ module.exports = function (t) {
     return this.bus.trigger(t, e);
   }, n.create = function (t, e) {
     function o(o, n) {
-      var r = Array.isArray(o) ? o : n || [];if (this.props = i(o) ? o : {}, this.bus = new u({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t, e.constructor && e.constructor.call(this, this.props), e.render) {
-        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var s in this.node.refs) {
-          this.refs[s] || (this.refs[s] = this.node.refs[s]);
-        }this.append(r);
+      var i = Array.isArray(o) ? o : n || [];if (this.props = r(o) ? o : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t, e.constructor && e.constructor.call(this, this.props), e.render) {
+        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var u in this.node.refs) {
+          this.refs[u] || (this.refs[u] = this.node.refs[u]);
+        }this.append(i);
       }
-    }for (var r in n.prototype) {
-      o.prototype[r] = n.prototype[r];
+    }for (var u in n.prototype) {
+      o.prototype[u] = n.prototype[u];
     }e.append && (o.prototype.append = function (t) {
       if (t) {
         t = [].concat(t), e.append.call(this, t);for (var o = 0, n = t.length; o < n; o++) {
-          s.call(this, t[o]);
+          i.call(this, t[o]);
         }
       }
-    });for (r in e) {
-      "render" !== r && "append" !== r && (o.prototype[r] = e[r]);
+    });for (u in e) {
+      "render" !== u && "append" !== u && (o.prototype[u] = e[u]);
     }return n.lib[t] = o, o;
   }, t.exports = n;
 }, function (t, e, o) {
@@ -376,6 +374,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = test;
+var target = document.getElementById("log-target");
+
 function test(name, boolean) {
   var element = document.createElement("div");
   var testname = document.createElement("div");
@@ -395,7 +395,7 @@ function test(name, boolean) {
 
   element.appendChild(testname);
   element.appendChild(value);
-  document.body.appendChild(element);
+  target.appendChild(element);
 }
 
 /***/ }),
@@ -431,8 +431,6 @@ __webpack_require__(13);
 
 __webpack_require__(14);
 
-__webpack_require__(20);
-
 __webpack_require__(15);
 
 __webpack_require__(16);
@@ -442,6 +440,8 @@ __webpack_require__(17);
 __webpack_require__(18);
 
 __webpack_require__(19);
+
+__webpack_require__(20);
 
 /***/ }),
 /* 3 */
@@ -832,171 +832,6 @@ var _index = __webpack_require__(0);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isMounted = [false, false, false];
-
-var a = (0, _index2.default)("div", {
-  onClick: function onClick() {
-    isMounted[0] = !isMounted[0];
-  },
-  onceClack: function onceClack() {
-    isMounted[1] = !isMounted[1];
-  }
-});
-
-_index2.default.create("x", {
-  constructor: function constructor(props) {
-    this.on("click", props.onClick);
-  },
-  render: function render() {
-    return (0, _index2.default)("div");
-  }
-});
-
-var b = (0, _index2.default)("x", {
-  onClick: function onClick() {
-    isMounted[2] = !isMounted[2];
-  }
-});
-
-a.trigger("click");
-a.off("click");
-a.trigger("click");
-a.trigger("clack");
-a.trigger("clack");
-b.trigger("click");
-
-(0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var body = (0, _index2.default)(document.body);
-
-_index2.default.create("Icon", {
-  render: function render(props) {
-    return (0, _index2.default)("svg", {
-      style: {
-        display: "inline-block",
-        width: "100px",
-        height: "100px"
-      }
-    }, [(0, _index2.default)("use", { "href": "#icon_" + props.type })]);
-  }
-});
-
-body.append((0, _index2.default)("Icon", { type: "eye" }));
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var a = (0, _index2.default)("img");
-
-a.attr({
-  src: "alf.jpg"
-});
-
-(0, _index2.default)("body").append(a);
-
-(0, _log2.default)("image src", true);
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isMounted = [false, false];
-
-var a = (0, _index2.default)("div");
-
-a.once("click", function () {
-  isMounted[0] = true;
-});
-
-a.on("click", function () {
-  isMounted[1] = true;
-});
-
-a.trigger("click");
-
-(0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_index2.default.fn("classy", function () {
-  this.addClass("classy");
-});
-var a = (0, _index2.default)("div");
-a.classy();
-(0, _log2.default)("Add class", a.attr("class") === "classy");
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var a = (0, _index2.default)("div", {
@@ -1054,6 +889,179 @@ var b = (0, _index2.default)("div", {
 })]);
 
 (0, _index2.default)("body").append([a, b]);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isMounted = [false, false, false];
+
+var a = (0, _index2.default)("div", {
+  onClick: function onClick() {
+    isMounted[0] = !isMounted[0];
+  },
+  onceClack: function onceClack() {
+    isMounted[1] = !isMounted[1];
+  }
+});
+
+_index2.default.create("x", {
+  constructor: function constructor(props) {
+    this.on("click", props.onClick);
+  },
+  render: function render() {
+    return (0, _index2.default)("div");
+  }
+});
+
+var b = (0, _index2.default)("x", {
+  onClick: function onClick() {
+    isMounted[2] = !isMounted[2];
+  }
+});
+
+a.trigger("click");
+a.off("click");
+a.trigger("click");
+a.trigger("clack");
+a.trigger("clack");
+b.trigger("click");
+
+(0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var body = (0, _index2.default)(document.body);
+
+_index2.default.create("Icon", {
+  render: function render(props) {
+    return (0, _index2.default)("svg", {
+      style: {
+        display: "inline-block",
+        width: "100px",
+        height: "100px"
+      }
+    }, [(0, _index2.default)("use", { "href": "#icon_" + props.type })]);
+  }
+});
+
+body.append((0, _index2.default)("Icon", { type: "eye" }));
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var a = (0, _index2.default)("img");
+
+a.attr({
+  src: "alf.jpg"
+});
+
+(0, _index2.default)("body").append(a);
+
+(0, _log2.default)("image src", true);
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isMounted = [false, false];
+
+var a = (0, _index2.default)("div");
+
+a.once("click", function () {
+  isMounted[0] = true;
+});
+
+a.on("click", function () {
+  isMounted[1] = true;
+});
+
+a.trigger("click");
+
+(0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_index2.default.fn("classy", function () {
+  this.addClass("classy");
+});
+_index2.default.create("C", {
+  render: function render() {
+    return (0, _index2.default)("div");
+  }
+});
+
+var a = (0, _index2.default)("div");
+var b = (0, _index2.default)("C");
+a.classy();
+b.classy();
+(0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
 
 /***/ }),
 /* 21 */

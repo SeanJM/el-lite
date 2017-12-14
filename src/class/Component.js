@@ -5,17 +5,17 @@ const El       = require("./El");
 
 function Component() {}
 
-function extend(name) {
+Component.__extend = function (name) {
   return function (a, b, c) {
     let o = this.node[name](a, b, c);
     return o === this.node ? this : o;
   };
-}
+};
 
 Component.lib = {};
 
 for (var k in El.prototype) {
-  Component.prototype[k] = extend(k);
+  Component.prototype[k] = Component.__extend(k);
 }
 
 Component.prototype.append = function (children) {

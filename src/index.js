@@ -28,12 +28,9 @@ el.onCreate = function (callback) {
 };
 
 el.fn = function (name, callback) {
-  El.prototype[name] = callback;
-
-  Component.prototype[name] = function (a, b, c) {
-    const o = El.prototype[name].call(this.node, a, b, c);
-    return o === this.node ? this : o;
-  };
+  El.prototype[name]        = callback;
+  Component.prototype[name] = Component.__extend(name);
+  And.prototype[name]       = And.__extend(name);
 
   for (var k in Component.lib) {
     if (!Component.lib[k].prototype[name]) {

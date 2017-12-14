@@ -1,3 +1,5 @@
+const target = document.getElementById("log-target");
+
 export default function test(name, boolean) {
   const element  = document.createElement("div");
   const testname = document.createElement("div");
@@ -17,5 +19,5 @@ export default function test(name, boolean) {
 
   element.appendChild(testname);
   element.appendChild(value);
-  document.body.appendChild(element);
+  target.appendChild(element);
 }
