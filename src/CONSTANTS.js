@@ -46,6 +46,7 @@ var IS_VALUE_PX = [
   "top",
   "bottom",
 
+  "margin",
   "marginLeft",
   "marginRight",
   "marginTop",
@@ -58,6 +59,7 @@ var IS_VALUE_PX = [
   "maxHeight",
   "maxWidth",
 
+  "padding",
   "paddingLeft",
   "paddingRight",
   "paddingTop",

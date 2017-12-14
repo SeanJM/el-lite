@@ -233,8 +233,6 @@ El.prototype.attr = function (attr) {
             .join(" ")
         );
       }
-    } else if (k === "src") {
-      this.node.src = attr[k];
     } else if (attr[k]) {
       if (this.isSvg) {
         this.node.setAttributeNS(k === "href" ? XLINK_NS : SVG_NS, k, attr[k]);
@@ -284,11 +282,10 @@ El.prototype.children = function (index) {
 };
 
 El.prototype.html = function (value) {
-  if (typeof value === "string") {
-    this.node.innerHTML = value;
-  } else {
+  if (typeof value === "undefined") {
     return this.node.innerHTML;
   }
+  this.node.innerHTML = value;
   return this;
 };
 

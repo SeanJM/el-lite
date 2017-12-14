@@ -90,7 +90,7 @@ module.exports = function (t) {
   "use strict";
   var n = {},
       r = r || void 0,
-      i = r ? r.getComputedStyle(document.body) : {};n.transform = i.webkitTransform ? "webkitTransform" : i.MozTransform ? "MozTransform" : i.msTransform ? "msTransform" : "transform", n.userSelect = i.webkitUserSelect ? "webkitUserSelect" : i.MozUserSelect ? "MozUserSelect" : i.msUserSelect ? "msUserSelect" : "userSelect";t.exports = { MOUNTED: [], STYLE_NAME: n, IS_OFFSET: ["width", "height", "top", "left"], XLINK_NS: "http://www.w3.org/1999/xlink", SVG_NS: "http://www.w3.org/2000/svg", IS_VALUE_DEG: ["rotate", "rotateX", "rotateY", "rotateZ"], IS_VALUE_PX: ["left", "right", "top", "bottom", "marginLeft", "marginRight", "marginTop", "marginBottom", "height", "width", "minHeight", "minWidth", "maxHeight", "maxWidth", "paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "translate", "translateX", "translateY", "translateZ"], IS_TRANSFORM: ["rotateX", "rotateY", "rotateZ", "scale", "scaleX", "scaleY", "scaleZ", "translateX", "translateY", "translateZ"] };
+      i = r ? r.getComputedStyle(document.body) : {};n.transform = i.webkitTransform ? "webkitTransform" : i.MozTransform ? "MozTransform" : i.msTransform ? "msTransform" : "transform", n.userSelect = i.webkitUserSelect ? "webkitUserSelect" : i.MozUserSelect ? "MozUserSelect" : i.msUserSelect ? "msUserSelect" : "userSelect";t.exports = { MOUNTED: [], STYLE_NAME: n, IS_OFFSET: ["width", "height", "top", "left"], XLINK_NS: "http://www.w3.org/1999/xlink", SVG_NS: "http://www.w3.org/2000/svg", IS_VALUE_DEG: ["rotate", "rotateX", "rotateY", "rotateZ"], IS_VALUE_PX: ["left", "right", "top", "bottom", "margin", "marginLeft", "marginRight", "marginTop", "marginBottom", "height", "width", "minHeight", "minWidth", "maxHeight", "maxWidth", "padding", "paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "translate", "translateX", "translateY", "translateZ"], IS_TRANSFORM: ["rotateX", "rotateY", "rotateZ", "scale", "scaleX", "scaleY", "scaleZ", "translateX", "translateY", "translateZ"] };
 }, function (t, e, o) {
   "use strict";
   function n() {
@@ -162,15 +162,12 @@ module.exports = function (t) {
       e.parentNode.insertBefore(o[n].getRoot(), e), u.call(this, o[n]);
     }
   }, n.prototype.attr = function (t) {
-    var e,
-        o = this;if ("string" == typeof t) return this.node.getAttribute(t);for (var r in t) {
-      e = r.toLowerCase(), "ref" === r ? this.ref = t[r] : n.__onAttr[e] ? n.__onAttr[e].call(this, t[r]) : "style" === r ? this.setStyle(t[r]) : "once" === r.substring(0, 4) ? this.once(r.substring(4), t[r]) : "on" === r.substring(0, 2) ? this.on(r.substring(2), t[r]) : "class" === r ? "string" == typeof t[r] && this.node.setAttribute("class", t[r].split(" ").filter(function (t) {
+    var e;if ("string" == typeof t) return this.node.getAttribute(t);for (var o in t) {
+      e = o.toLowerCase(), "ref" === o ? this.ref = t[o] : n.__onAttr[e] ? n.__onAttr[e].call(this, t[o]) : "style" === o ? this.setStyle(t[o]) : "once" === o.substring(0, 4) ? this.once(o.substring(4), t[o]) : "on" === o.substring(0, 2) ? this.on(o.substring(2), t[o]) : "class" === o ? "string" == typeof t[o] && this.node.setAttribute("class", t[o].split(" ").filter(function (t) {
         return t.length;
       }).map(function (t) {
         return t.trim();
-      }).join(" ")) : "src" === r ? (this.node.onload = function (t) {
-        return o.trigger("load", t);
-      }, this.node.src = t[r]) : t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? d : y, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
+      }).join(" ")) : t[o] && (this.isSvg ? this.node.setAttributeNS("href" === o ? d : y, o, t[o]) : this.node.setAttribute(o, t[o].toString()));
     }return this;
   }, n.prototype.closest = function (t) {
     return new n(this.node.closest(t));
@@ -185,14 +182,16 @@ module.exports = function (t) {
       if (s(o[r]) && (e.push(new n(o[r])), e[t])) return e[t];
     }return e;
   }, n.prototype.html = function (t) {
-    return "string" != typeof t ? this.node.innerHTML : (this.node.innerHTML = t, this);
+    return void 0 === t ? this.node.innerHTML : (this.node.innerHTML = t, this);
   }, n.prototype.remove = function () {
     return this.node.parentNode && (a(this.node), this.node.parentNode.removeChild(this.node)), this;
   }, n.prototype.replaceWith = function (t) {
     var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), a(this.node), f(e), this;
   }, n.prototype.on = function (t, e) {
     var o = this,
-        n = t.toLowerCase();return "function" == typeof e && (this.bus.on(n, e), this.node.addEventListener(n, function (t) {
+        n = t.toLowerCase();return "function" == typeof e && (this.bus.on(n, e), "load" === n ? this.node.onload = function (t) {
+      o.trigger(n, t);
+    } : this.node.addEventListener(n, function (t) {
       o.trigger(n, t);
     }, !1)), this;
   }, n.prototype.once = function (t, e) {
@@ -412,6 +411,8 @@ __webpack_require__(13);
 
 __webpack_require__(14);
 
+__webpack_require__(20);
+
 __webpack_require__(15);
 
 __webpack_require__(16);
@@ -419,6 +420,8 @@ __webpack_require__(16);
 __webpack_require__(17);
 
 __webpack_require__(18);
+
+__webpack_require__(19);
 
 /***/ }),
 /* 3 */
@@ -896,6 +899,33 @@ var _log2 = _interopRequireDefault(_log);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var a = (0, _index2.default)("img");
+
+a.attr({
+  src: "alf.jpg"
+});
+
+(0, _index2.default)("body").append(a);
+
+(0, _log2.default)("image src", true);
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var isMounted = [false, false];
 
 var a = (0, _index2.default)("div");
@@ -913,7 +943,7 @@ a.trigger("click");
 (0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -936,5 +966,75 @@ var a = (0, _index2.default)("div");
 a.classy();
 (0, _log2.default)("Add class", a.attr("class") === "classy");
 
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var a = (0, _index2.default)("div", {
+  onMount: function onMount() {
+    this.state = {
+      index: 1
+    };
+    this.refs.text.html(this.state.index);
+  },
+  onClick: function onClick() {
+    this.state.index += 1;
+    this.refs.text.html(this.state.index);
+  },
+
+
+  style: {
+    width: 60,
+    height: 60,
+    margin: 10,
+    background: "red"
+  }
+}, [(0, _index2.default)({
+  ref: "text",
+  style: {
+    fontSize: 10,
+    lineHeight: "10px"
+  }
+})]);
+
+var b = (0, _index2.default)("div", {
+  onMount: function onMount() {
+    this.state = {
+      index: 1
+    };
+    this.refs.text.html(this.state.index);
+  },
+  onMouseDown: function onMouseDown() {
+    this.state.index += 1;
+    this.refs.text.html(this.state.index);
+  },
+
+
+  style: {
+    width: 60,
+    height: 60,
+    margin: 10,
+    background: "green"
+  }
+}, [(0, _index2.default)({
+  ref: "text",
+  style: {
+    fontSize: 10,
+    lineHeight: "10px"
+  }
+})]);
+
+(0, _index2.default)("body").append([a, b]);
+
 /***/ })
 /******/ ]);
+//# sourceMappingURL=index.js.map
