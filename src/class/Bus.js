@@ -1,10 +1,6 @@
-function nameToArray(name) {
-  return name.toLowerCase().split(",");
-}
-
 function Bus(props) {
-  this.__t = props.target || this;
-  this.__s = {};
+  this.target      = props.target || this;
+  this.subscribers = {};
 }
 
 Bus.prototype.once = function (name, callback) {
@@ -16,38 +12,31 @@ Bus.prototype.once = function (name, callback) {
 };
 
 Bus.prototype.off = function (name, callback) {
-  nameToArray(name).forEach($name => {
-    const name  = $name.trim();
-    const index = (this.__s[name] || []).indexOf(callback);
-    if (index > -1) {
-      this.__s[name].splice(index, 1);
-    } else if (typeof callback === "undefined") {
-      this.__s[name] = [];
-    }
-  });
-  return this.__t;
+  const nameLower = name.toLowerCase().trim();
+  const index = (this.subscribers[nameLower] || []).indexOf(callback);
+  if (index > -1) {
+    this.subscribers[nameLower].splice(index, 1);
+  } else if (typeof callback === "undefined") {
+    this.subscribers[nameLower] = [];
+  }
+  return this.target;
 };
 
 Bus.prototype.on = function (name, callback) {
+  const nameLower = name.toLowerCase().trim();
   if (typeof callback === "function") {
-    nameToArray(name).forEach($name => {
-      const name = $name.trim();
-      this.__s[name] = (this.__s[name] || []).concat(callback);
-    });
+    this.subscribers[nameLower] = (this.subscribers[nameLower] || []).concat(callback);
   }
-  return this.__t;
+  return this.target;
 };
 
 Bus.prototype.trigger = function (name, value) {
-  nameToArray(name).forEach($name => {
-    const name  = $name.trim();
-    (this.__s[name] || [])
-      .slice()
-      .forEach(callback => {
-        callback.call(this.__t, value);
-      });
-  });
-  return this.__t;
+  const nameLower = name.toLowerCase().trim();
+  const list      = (this.subscribers[nameLower] || []);
+  for (var i = 0, n = list.length; i < n; i++) {
+    list[i].call(this.target, value);
+  }
+  return this.target;
 };
 
 module.exports = Bus;
