@@ -340,8 +340,8 @@ El.prototype.once = function (a, b) {
 El.prototype.off = function (a, b) {
   var al = a.toLowerCase();
   if (!b) {
-    for (var i = this.bus.__s.length - 1; i >= 0; i--) {
-      this.node.removeEventListener(al, this.bus.__s[i], false);
+    for (var i = this.bus.subscribers.length - 1; i >= 0; i--) {
+      this.node.removeEventListener(al, this.bus.subscribers[i], false);
     }
   } else {
     this.node.removeEventListener(al, b, false);
