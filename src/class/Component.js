@@ -7,7 +7,9 @@ function Component() {}
 
 Component.__extend = function (name) {
   return function (a, b, c) {
-    let o = this.node[name](a, b, c);
+    let o = this.node
+      ? this.node[name](a, b, c)
+      : El.prototype[name].call(null, a, b, c);
     return o === this.node ? this : o;
   };
 };

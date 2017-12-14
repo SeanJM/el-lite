@@ -97,9 +97,9 @@ module.exports = function (t) {
     var t = this,
         e = [arguments[0], arguments[1], arguments[2]],
         o = s(e[0]),
-        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new h({ target: this }), this.refs = {};for (var u = 0, a = e.length; u < a; u++) {
+        r = [];this.tagName = o ? arguments[0].tagName.toLowerCase() : "div", this.bus = new h({ target: this }), this.refs = {};for (var u = 0, p = e.length; u < p; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (r = e[u]);
-    }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, a = n.__onCreate.length; u < a; u++) {
+    }for (this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), o ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName), this.append(r), this.attr(this.props), u = 0, p = n.__onCreate.length; u < p; u++) {
       n.__onCreate[u].call(this);
     }o && setTimeout(function () {
       f(t.node);
@@ -113,8 +113,8 @@ module.exports = function (t) {
       s = o(7),
       u = o(3),
       f = o(8),
-      a = o(9),
-      p = o(10),
+      p = o(9),
+      a = o(10),
       c = o(4),
       h = o(5),
       l = o(0),
@@ -128,10 +128,10 @@ module.exports = function (t) {
         i = {};for (var s in t) {
       if (g.indexOf(s) > -1) {
         if ("object" === r(t[s])) for (var u in t[s]) {
-          o.transform.push(p(u, t[s][u]));
-        } else o.transform.push(p(s, t[s]));
+          o.transform.push(a(u, t[s][u]));
+        } else o.transform.push(a(s, t[s]));
       } else n.push({ name: s, value: c(s, t[s]) });
-    }o.transform.length && n.push({ name: "transform", value: o.transform.join(" ") });for (var f = 0, a = n.length; f < a; f++) {
+    }o.transform.length && n.push({ name: "transform", value: o.transform.join(" ") });for (var f = 0, p = n.length; f < p; f++) {
       e = v[n[f].name] || n[f].name, this.node.style[e] = n[f].value, i[e] = n[f].value;
     }this.trigger("style", { list: n, value: i });
   }, n.prototype.style = function (t) {
@@ -184,9 +184,9 @@ module.exports = function (t) {
   }, n.prototype.html = function (t) {
     return void 0 === t ? this.node.innerHTML : (this.node.innerHTML = t, this);
   }, n.prototype.remove = function () {
-    return this.node.parentNode && (a(this.node), this.node.parentNode.removeChild(this.node)), this;
+    return this.node.parentNode && (p(this.node), this.node.parentNode.removeChild(this.node)), this;
   }, n.prototype.replaceWith = function (t) {
-    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), a(this.node), f(e), this;
+    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), p(this.node), f(e), this;
   }, n.prototype.on = function (t, e) {
     var o = this,
         n = t.toLowerCase();return "function" == typeof e && (this.bus.on(n, e), "load" === n ? this.node.onload = function (t) {
@@ -311,7 +311,7 @@ module.exports = function (t) {
       s = o(5),
       u = o(1);n.__extend = function (t) {
     return function (e, o, n) {
-      var r = this.node[t](e, o, n);return r === this.node ? this : r;
+      var r = this.node ? this.node[t](e, o, n) : u.prototype[t].call(null, e, o, n);return r === this.node ? this : r;
     };
   }, n.lib = {};for (var f in u.prototype) {
     n.prototype[f] = n.__extend(f);
@@ -431,6 +431,8 @@ __webpack_require__(13);
 
 __webpack_require__(14);
 
+__webpack_require__(20);
+
 __webpack_require__(15);
 
 __webpack_require__(16);
@@ -440,8 +442,6 @@ __webpack_require__(17);
 __webpack_require__(18);
 
 __webpack_require__(19);
-
-__webpack_require__(20);
 
 /***/ }),
 /* 3 */
@@ -832,6 +832,179 @@ var _index = __webpack_require__(0);
 
 var _index2 = _interopRequireDefault(_index);
 
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isMounted = [false, false, false];
+
+var a = (0, _index2.default)("div", {
+  onClick: function onClick() {
+    isMounted[0] = !isMounted[0];
+  },
+  onceClack: function onceClack() {
+    isMounted[1] = !isMounted[1];
+  }
+});
+
+_index2.default.create("x", {
+  constructor: function constructor(props) {
+    this.on("click", props.onClick);
+  },
+  render: function render() {
+    return (0, _index2.default)("div");
+  }
+});
+
+var b = (0, _index2.default)("x", {
+  onClick: function onClick() {
+    isMounted[2] = !isMounted[2];
+  }
+});
+
+a.trigger("click");
+a.off("click");
+a.trigger("click");
+a.trigger("clack");
+a.trigger("clack");
+b.trigger("click");
+
+(0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var body = (0, _index2.default)(document.body);
+
+_index2.default.create("Icon", {
+  render: function render(props) {
+    return (0, _index2.default)("svg", {
+      style: {
+        display: "inline-block",
+        width: "100px",
+        height: "100px"
+      }
+    }, [(0, _index2.default)("use", { "href": "#icon_" + props.type })]);
+  }
+});
+
+body.append((0, _index2.default)("Icon", { type: "eye" }));
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var a = (0, _index2.default)("img");
+
+a.attr({
+  src: "alf.jpg"
+});
+
+(0, _index2.default)("body").append(a);
+
+(0, _log2.default)("image src", true);
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isMounted = [false, false];
+
+var a = (0, _index2.default)("div");
+
+a.once("click", function () {
+  isMounted[0] = true;
+});
+
+a.on("click", function () {
+  isMounted[1] = true;
+});
+
+a.trigger("click");
+
+(0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_index2.default.fn("classy", function () {
+  this.addClass("classy");
+});
+_index2.default.create("C", {
+  render: function render() {
+    return (0, _index2.default)("div");
+  }
+});
+
+var a = (0, _index2.default)("div");
+var b = (0, _index2.default)("C");
+a.classy();
+b.classy();
+(0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var a = (0, _index2.default)("div", {
@@ -889,179 +1062,6 @@ var b = (0, _index2.default)("div", {
 })]);
 
 (0, _index2.default)("body").append([a, b]);
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isMounted = [false, false, false];
-
-var a = (0, _index2.default)("div", {
-  onClick: function onClick() {
-    isMounted[0] = !isMounted[0];
-  },
-  onceClack: function onceClack() {
-    isMounted[1] = !isMounted[1];
-  }
-});
-
-_index2.default.create("x", {
-  constructor: function constructor(props) {
-    this.on("click", props.onClick);
-  },
-  render: function render() {
-    return (0, _index2.default)("div");
-  }
-});
-
-var b = (0, _index2.default)("x", {
-  onClick: function onClick() {
-    isMounted[2] = !isMounted[2];
-  }
-});
-
-a.trigger("click");
-a.off("click");
-a.trigger("click");
-a.trigger("clack");
-a.trigger("clack");
-b.trigger("click");
-
-(0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var body = (0, _index2.default)(document.body);
-
-_index2.default.create("Icon", {
-  render: function render(props) {
-    return (0, _index2.default)("svg", {
-      style: {
-        display: "inline-block",
-        width: "100px",
-        height: "100px"
-      }
-    }, [(0, _index2.default)("use", { "href": "#icon_" + props.type })]);
-  }
-});
-
-body.append((0, _index2.default)("Icon", { type: "eye" }));
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var a = (0, _index2.default)("img");
-
-a.attr({
-  src: "alf.jpg"
-});
-
-(0, _index2.default)("body").append(a);
-
-(0, _log2.default)("image src", true);
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isMounted = [false, false];
-
-var a = (0, _index2.default)("div");
-
-a.once("click", function () {
-  isMounted[0] = true;
-});
-
-a.on("click", function () {
-  isMounted[1] = true;
-});
-
-a.trigger("click");
-
-(0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_index2.default.fn("classy", function () {
-  this.addClass("classy");
-});
-_index2.default.create("C", {
-  render: function render() {
-    return (0, _index2.default)("div");
-  }
-});
-
-var a = (0, _index2.default)("div");
-var b = (0, _index2.default)("C");
-a.classy();
-b.classy();
-(0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
 
 /***/ }),
 /* 21 */
