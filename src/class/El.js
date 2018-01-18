@@ -288,6 +288,7 @@ El.prototype.html = function (value) {
   if (typeof value === "undefined") {
     return this.node.innerHTML;
   }
+  Array.prototype.forEach.call(this.node.childNodes, unmount);
   this.node.innerHTML = value;
   return this;
 };
