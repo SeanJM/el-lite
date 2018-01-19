@@ -69,9 +69,21 @@ Component.create = function (name, obj) {
         throw new Error("Component \"" + name + "\" does not return a valid element.");
       }
 
-      this.ref  = this.props.ref || this.node.ref;
+      this.ref = this.props.ref || this.node.ref;
 
-      for (var k in this.node.refs) {
+      for (let k in this.refs) {
+        for (var j in this.refs[k].refs) {
+          if (!this.refs[j]) {
+            this.refs[j] = this.refs[k].refs[j];
+          }
+        }
+
+        if (this.refs[k].ref && !this.refs[this.refs[k].ref]) {
+          this.refs[this.refs[k].ref] = this.refs[k].ref;
+        }
+      }
+
+      for (let k in this.node.refs) {
         if (!this.refs[k]) {
           this.refs[k] = this.node.refs[k];
         }
