@@ -23,6 +23,10 @@ el.onAttr = function (name, callback) {
   El.__onAttr[name.toLowerCase()] = callback;
 };
 
+el.defaultProps = function (props) {
+  Object.assign(El.__defaultProps, props);
+};
+
 el.onCreate = function (callback) {
   El.__onCreate.push(callback);
 };

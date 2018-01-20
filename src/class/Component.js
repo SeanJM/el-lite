@@ -58,6 +58,12 @@ Component.create = function (name, obj) {
     this.ref     = this.props.ref;
     this.tagName = name;
 
+    for (var k in El.__defaultProps) {
+      if (!this.props[k]) {
+        this.props[k] = El.__defaultProps[k];
+      }
+    }
+
     if (obj.constructor) {
       obj.constructor.call(this, this.props);
     }

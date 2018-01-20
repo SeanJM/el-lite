@@ -2,6 +2,7 @@ import "./componentRef_deeper";
 import "./componentRef_afterRender";
 import "./componentRef";
 import "./componentAppend";
+import "./defaultProps";
 import "./and";
 import "./addClass";
 import "./contains";

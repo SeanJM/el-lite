@@ -24,6 +24,7 @@ function El() {
   this.tagName = IS_NODE ? arguments[0].tagName.toLowerCase() : "div";
   this.bus     = new Bus({ target: this });
   this.refs    = {};
+  this.props   = {};
 
   for (var i = 0, n = args.length; i < n; i++) {
     if (typeof args[i] === "string") {
@@ -45,6 +46,12 @@ function El() {
     this.node = document.createElement(this.tagName);
   }
 
+  for (var k in El.__defaultProps) {
+    if (!this.props[k]) {
+      this.props[k] = El.__defaultProps[k];
+    }
+  }
+
   this.append(children);
   this.attr(this.props);
 
@@ -59,8 +66,9 @@ function El() {
   }
 }
 
-El.__onAttr   = {};
-El.__onCreate = [];
+El.__onAttr       = {};
+El.__defaultProps = {};
+El.__onCreate     = [];
 
 El.prototype.setStyle = function (props) {
   var values = {
