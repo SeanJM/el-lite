@@ -206,11 +206,19 @@ El.prototype.append = function (children) {
 };
 
 El.prototype.prepend = function (element) {
-  var first = this.node.childNodes[0];
+  var first    = this.node.childNodes[0];
   var children = [].concat(element);
-  for (var i = 0, n = children.length; i < n; i++) {
-    first.parentNode.insertBefore(children[i].getRoot(), first);
-    setRefs.call(this, children[i]);
+  var i = 0, n = 0;
+  if (first) {
+    for (i = 0, n = children.length; i < n; i++) {
+      first.parentNode.insertBefore(children[i].getRoot(), first);
+      setRefs.call(this, children[i]);
+    }
+  } else {
+    for (i = 0, n = children.length; i < n; i++) {
+      this.node.appendChild(children[i].getRoot());
+      setRefs.call(this, children[i]);
+    }
   }
 };
 

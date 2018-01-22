@@ -161,8 +161,13 @@ module.exports = function (t) {
       e = t[r].getRoot ? t[r].getRoot() : new Text(t[r]), this.getRoot().appendChild(e), f(e), u.call(this, t[r]);
     }return this;
   }, o.prototype.prepend = function (t) {
-    for (var e = this.node.childNodes[0], r = [].concat(t), o = 0, n = r.length; o < n; o++) {
+    var e = this.node.childNodes[0],
+        r = [].concat(t),
+        o = 0,
+        n = 0;if (e) for (o = 0, n = r.length; o < n; o++) {
       e.parentNode.insertBefore(r[o].getRoot(), e), u.call(this, r[o]);
+    } else for (o = 0, n = r.length; o < n; o++) {
+      this.node.appendChild(r[o].getRoot()), u.call(this, r[o]);
     }
   }, o.prototype.attr = function (t) {
     var e;if ("string" == typeof t) return this.node.getAttribute(t);for (var r in t) {
@@ -1239,4 +1244,3 @@ b.classy();
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map
