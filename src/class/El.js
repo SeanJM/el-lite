@@ -244,7 +244,7 @@ El.prototype.attr = function (attr) {
             .join(" ")
         );
       }
-    } else if (attr[k]) {
+    } else if (attr[k] && typeof attr[k] !== "object") {
       if (this.isSvg) {
         this.node.setAttributeNS(k === "href" ? XLINK_NS : SVG_NS, k, attr[k]);
       } else {
