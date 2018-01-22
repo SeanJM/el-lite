@@ -170,7 +170,7 @@ module.exports = function (t) {
         return t.length;
       }).map(function (t) {
         return t.trim();
-      }).join(" ")) : t[r] && "object" !== n(t[r]) && (this.isSvg ? this.node.setAttributeNS("href" === r ? y : g, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
+      }).join(" ")) : t[r] && "object" !== n(t[r]) && "function" != typeof t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? y : g, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
     }return this;
   }, o.prototype.closest = function (t) {
     return new o(this.node.closest(t));
