@@ -99,7 +99,7 @@ module.exports = function (t) {
         r = i(e[0]),
         n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new l({ target: this }), this.refs = {}, this.props = {};for (var u = 0, p = e.length; u < p; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : s(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (n = e[u]);
-    }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(g, this.tagName) : this.node = document.createElement(this.tagName);for (var a in o.__defaultProps) {
+    }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName);for (var a in o.__defaultProps) {
       this.props[a] || (this.props[a] = o.__defaultProps[a]);
     }for (this.append(n), this.attr(this.props), u = 0, p = o.__onCreate.length; u < p; u++) {
       o.__onCreate[u].call(this);
@@ -121,8 +121,8 @@ module.exports = function (t) {
       h = r(11),
       l = r(5),
       d = r(0),
-      y = d.XLINK_NS,
-      g = d.SVG_NS,
+      g = d.XLINK_NS,
+      y = d.SVG_NS,
       b = d.IS_TRANSFORM,
       v = d.STYLE_NAME;o.__onAttr = {}, o.__defaultProps = {}, o.__onCreate = [], o.prototype.setStyle = function (t) {
     var e,
@@ -175,7 +175,7 @@ module.exports = function (t) {
         return t.length;
       }).map(function (t) {
         return t.trim();
-      }).join(" ")) : t[r] && "object" !== n(t[r]) && "function" != typeof t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? y : g, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
+      }).join(" ")) : t[r] && "object" !== n(t[r]) && "function" != typeof t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? g : y, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
     }return this;
   }, o.prototype.closest = function (t) {
     return new o(this.node.closest(t));
@@ -249,7 +249,7 @@ module.exports = function (t) {
     var r = t.toLowerCase().trim();return "function" == typeof e && (this.subscribers[r] = (this.subscribers[r] || []).concat(e)), this.target;
   }, o.prototype.trigger = function (t, e) {
     for (var r = t.toLowerCase().trim(), o = this.subscribers[r] || [], n = 0, s = o.length; n < s; n++) {
-      o[n].call(this.target, e);
+      void 0 === o[n] && (console.error("Cannot trigger bus check subscribers"), console.log(this.subscribers), console.log("Target:"), console.log(this.target), console.log("-")), o[n].call(this.target, e);
     }return this.target;
   }, t.exports = o;
 }, function (t, e, r) {
@@ -1244,3 +1244,4 @@ b.classy();
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=index.js.map

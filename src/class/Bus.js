@@ -33,9 +33,18 @@ Bus.prototype.on = function (name, callback) {
 Bus.prototype.trigger = function (name, value) {
   const nameLower = name.toLowerCase().trim();
   const list      = (this.subscribers[nameLower] || []);
+
   for (var i = 0, n = list.length; i < n; i++) {
+    if (typeof list[i] === "undefined") {
+      console.error("Cannot trigger bus check subscribers");
+      console.log(this.subscribers);
+      console.log("Target:");
+      console.log(this.target);
+      console.log("-");
+    }
     list[i].call(this.target, value);
   }
+
   return this.target;
 };
 
