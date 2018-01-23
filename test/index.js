@@ -97,11 +97,11 @@ module.exports = function (t) {
     var t = this,
         e = [arguments[0], arguments[1], arguments[2]],
         r = i(e[0]),
-        n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new l({ target: this }), this.refs = {}, this.props = {};for (var u = 0, a = e.length; u < a; u++) {
+        n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new l({ target: this }), this.refs = {}, this.props = {};for (var u = 0, p = e.length; u < p; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : s(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (n = e[u]);
-    }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : this.node = document.createElement(this.tagName);for (var p in o.__defaultProps) {
-      this.props[p] || (this.props[p] = o.__defaultProps[p]);
-    }for (this.append(n), this.attr(this.props), u = 0, a = o.__onCreate.length; u < a; u++) {
+    }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(g, this.tagName) : this.node = document.createElement(this.tagName);for (var a in o.__defaultProps) {
+      this.props[a] || (this.props[a] = o.__defaultProps[a]);
+    }for (this.append(n), this.attr(this.props), u = 0, p = o.__onCreate.length; u < p; u++) {
       o.__onCreate[u].call(this);
     }r && setTimeout(function () {
       f(t.node);
@@ -115,14 +115,14 @@ module.exports = function (t) {
       i = r(7),
       u = r(3),
       f = r(8),
-      a = r(9),
-      p = r(10),
+      p = r(9),
+      a = r(10),
       c = r(4),
       h = r(11),
       l = r(5),
       d = r(0),
-      g = d.XLINK_NS,
-      y = d.SVG_NS,
+      y = d.XLINK_NS,
+      g = d.SVG_NS,
       b = d.IS_TRANSFORM,
       v = d.STYLE_NAME;o.__onAttr = {}, o.__defaultProps = {}, o.__onCreate = [], o.prototype.setStyle = function (t) {
     var e,
@@ -131,10 +131,10 @@ module.exports = function (t) {
         s = {};for (var i in t) {
       if (b.indexOf(i) > -1) {
         if ("object" === n(t[i])) for (var u in t[i]) {
-          r.transform.push(p(u, t[i][u]));
-        } else r.transform.push(p(i, t[i]));
+          r.transform.push(a(u, t[i][u]));
+        } else r.transform.push(a(i, t[i]));
       } else o.push({ name: i, value: c(i, t[i]) });
-    }r.transform.length && o.push({ name: "transform", value: r.transform.join(" ") });for (var f = 0, a = o.length; f < a; f++) {
+    }r.transform.length && o.push({ name: "transform", value: r.transform.join(" ") });for (var f = 0, p = o.length; f < p; f++) {
       e = v[o[f].name] || o[f].name, this.node.style[e] = o[f].value, s[e] = o[f].value;
     }this.trigger("style", { list: o, value: s });
   }, o.prototype.style = function (t) {
@@ -175,7 +175,7 @@ module.exports = function (t) {
         return t.length;
       }).map(function (t) {
         return t.trim();
-      }).join(" ")) : t[r] && "object" !== n(t[r]) && "function" != typeof t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? g : y, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
+      }).join(" ")) : t[r] && "object" !== n(t[r]) && "function" != typeof t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? y : g, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
     }return this;
   }, o.prototype.closest = function (t) {
     return new o(this.node.closest(t));
@@ -190,11 +190,11 @@ module.exports = function (t) {
       if (i(r[n]) && (e.push(new o(r[n])), e[t])) return e[t];
     }return e;
   }, o.prototype.html = function (t) {
-    return void 0 === t ? this.node.innerHTML : (Array.prototype.forEach.call(this.node.childNodes, a), this.node.innerHTML = t, this);
+    return void 0 === t ? this.node.innerHTML : (Array.prototype.forEach.call(this.node.childNodes, p), this.node.innerHTML = t, this);
   }, o.prototype.remove = function () {
-    return this.node.parentNode && (a(this.node), this.node.parentNode.removeChild(this.node)), this;
+    return this.node.parentNode && (p(this.node), this.node.parentNode.removeChild(this.node)), this;
   }, o.prototype.replaceWith = function (t) {
-    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), a(this.node), f(e), this;
+    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), p(this.node), f(e), this;
   }, o.prototype.on = function (t, e) {
     var r = this,
         o = t.toLowerCase();return "function" == typeof e && (this.bus.on(o, e), "load" === o ? this.node.onload = function (t) {
@@ -249,8 +249,8 @@ module.exports = function (t) {
   }, o.prototype.on = function (t, e) {
     var r = t.toLowerCase().trim();return "function" == typeof e && (this.subscribers[r] = (this.subscribers[r] || []).concat(e)), this.target;
   }, o.prototype.trigger = function (t, e) {
-    for (var r = t.toLowerCase().trim(), o = this.subscribers[r] || [], n = 0, s = o.length; n < s; n++) {
-      void 0 === o[n] && (console.error("Cannot trigger bus check subscribers"), console.log(this.subscribers), console.log("Target:"), console.log(this.target), console.log("-")), o[n].call(this.target, e);
+    for (var r = t.toLowerCase().trim(), o = (this.subscribers[r] || []).slice(), n = 0, s = o.length; n < s; n++) {
+      o[n].call(this.target, e);
     }return this.target;
   }, t.exports = o;
 }, function (t, e, r) {
@@ -340,10 +340,10 @@ module.exports = function (t) {
       var s = Array.isArray(r) ? r : o || [];this.props = n(r) ? r : {}, this.bus = new i({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var f in u.__defaultProps) {
         this.props[f] || (this.props[f] = u.__defaultProps[f]);
       }if (e.constructor && e.constructor.call(this, this.props), e.render) {
-        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var a in this.refs) {
-          for (var p in this.refs[a].refs) {
-            this.refs[p] || (this.refs[p] = this.refs[a].refs[p]);
-          }this.refs[a].ref && !this.refs[this.refs[a].ref] && (this.refs[this.refs[a].ref] = this.refs[a].ref);
+        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var p in this.refs) {
+          for (var a in this.refs[p].refs) {
+            this.refs[a] || (this.refs[a] = this.refs[p].refs[a]);
+          }this.refs[p].ref && !this.refs[this.refs[p].ref] && (this.refs[this.refs[p].ref] = this.refs[p].ref);
         }for (var c in this.node.refs) {
           this.refs[c] || (this.refs[c] = this.node.refs[c]);
         }this.append(s);
