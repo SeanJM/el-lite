@@ -4,10 +4,17 @@ function Bus(props) {
 }
 
 Bus.prototype.once = function (name, callback) {
-  const once = a => {
+  let once;
+
+  if (typeof callback === "undefined") {
+    throw new Error("Once cannot be used without a valid callback");
+  }
+
+  once = a => {
     this.off(name, once);
     callback.call(this.target, a);
   };
+
   return this.on(name, once);
 };
 
