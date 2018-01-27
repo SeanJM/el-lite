@@ -15,6 +15,7 @@ Component.__extend = function (name) {
 };
 
 Component.lib = {};
+Component.id  = {};
 
 for (var k in El.prototype) {
   Component.prototype[k] = Component.__extend(k);
@@ -30,6 +31,13 @@ Component.prototype.append = function (children) {
   }
 
   return this;
+};
+
+Component.prototype.attr = function (x) {
+  if (x && x.id) {
+    Component.id[x.id] = this;
+  }
+  return Component.__extend("attr").call(this, x);
 };
 
 Component.prototype.on = function (a, b) {
@@ -96,6 +104,10 @@ Component.create = function (name, obj) {
       }
 
       this.append(children);
+    }
+
+    if (this.props.id) {
+      Component.id[this.props.id] = this;
     }
   }
 

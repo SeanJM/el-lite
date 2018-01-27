@@ -97,7 +97,7 @@ module.exports = function (t) {
     var t = this,
         e = [arguments[0], arguments[1], arguments[2]],
         r = s(e[0]),
-        n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new l({ target: this }), this.refs = {}, this.props = {};for (var u = 0, p = e.length; u < p; u++) {
+        n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new d({ target: this }), this.refs = {}, this.props = {};for (var u = 0, p = e.length; u < p; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (n = e[u]);
     }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(g, this.tagName) : this.node = document.createElement(this.tagName);for (var a in o.__defaultProps) {
       this.props[a] || (this.props[a] = o.__defaultProps[a]);
@@ -119,12 +119,12 @@ module.exports = function (t) {
       a = r(10),
       c = r(4),
       h = r(11),
-      l = r(5),
-      d = r(0),
-      y = d.XLINK_NS,
-      g = d.SVG_NS,
-      b = d.IS_TRANSFORM,
-      v = d.STYLE_NAME;o.id = {}, o.__onAttr = {}, o.__defaultProps = {}, o.__onCreate = [], o.prototype.setStyle = function (t) {
+      d = r(5),
+      l = r(0),
+      y = l.XLINK_NS,
+      g = l.SVG_NS,
+      b = l.IS_TRANSFORM,
+      v = l.STYLE_NAME;o.id = {}, o.__onAttr = {}, o.__defaultProps = {}, o.__onCreate = [], o.prototype.setStyle = function (t) {
     var e,
         r = { transform: [], default: [] },
         o = [],
@@ -274,7 +274,7 @@ module.exports = function (t) {
     n.prototype[t] = e, i.prototype[t] = i.__extend(t), s.prototype[t] = s.__extend(t);for (var r in i.lib) {
       i.lib[r].prototype[t] || (i.lib[r].prototype[t] = i.prototype[t]);
     }
-  }, o.id = n.id, o.create = i.create, t.exports = o;
+  }, o.id = n.id, o.create = i.create, o.componentId = i.id, t.exports = o;
 }, function (t, e, r) {
   "use strict";
   t.exports = function (t) {
@@ -323,12 +323,14 @@ module.exports = function (t) {
     return function (e, r, o) {
       var n = this.node ? this.node[t](e, r, o) : u.prototype[t].call(null, e, r, o);return n === this.node ? this : n;
     };
-  }, o.lib = {};for (var f in u.prototype) {
+  }, o.lib = {}, o.id = {};for (var f in u.prototype) {
     o.prototype[f] = o.__extend(f);
   }o.prototype.append = function (t) {
     this.node.append(t);for (var e in this.node.refs) {
       this.refs[e] || (this.refs[e] = this.node.refs[e]);
     }return this;
+  }, o.prototype.attr = function (t) {
+    return t && t.id && (o.id[t.id] = this), o.__extend("attr").call(this, t);
   }, o.prototype.on = function (t, e) {
     return this.bus.on(t, e);
   }, o.prototype.once = function (t, e) {
@@ -338,18 +340,18 @@ module.exports = function (t) {
   }, o.prototype.trigger = function (t, e) {
     return this.bus.trigger(t, e);
   }, o.create = function (t, e) {
-    function r(r, o) {
-      var i = Array.isArray(r) ? r : o || [];this.props = n(r) ? r : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var f in u.__defaultProps) {
-        this.props[f] || (this.props[f] = u.__defaultProps[f]);
+    function r(r, i) {
+      var f = Array.isArray(r) ? r : i || [];this.props = n(r) ? r : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var p in u.__defaultProps) {
+        this.props[p] || (this.props[p] = u.__defaultProps[p]);
       }if (e.constructor && e.constructor.call(this, this.props), e.render) {
-        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var p in this.refs) {
-          for (var a in this.refs[p].refs) {
-            this.refs[a] || (this.refs[a] = this.refs[p].refs[a]);
-          }this.refs[p].ref && !this.refs[this.refs[p].ref] && (this.refs[this.refs[p].ref] = this.refs[p].ref);
-        }for (var c in this.node.refs) {
-          this.refs[c] || (this.refs[c] = this.node.refs[c]);
-        }this.append(i);
-      }
+        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var a in this.refs) {
+          for (var c in this.refs[a].refs) {
+            this.refs[c] || (this.refs[c] = this.refs[a].refs[c]);
+          }this.refs[a].ref && !this.refs[this.refs[a].ref] && (this.refs[this.refs[a].ref] = this.refs[a].ref);
+        }for (var h in this.node.refs) {
+          this.refs[h] || (this.refs[h] = this.node.refs[h]);
+        }this.append(f);
+      }this.props.id && (o.id[this.props.id] = this);
     }for (var f in o.prototype) {
       r.prototype[f] = o.prototype[f];
     }e.append && (r.prototype.append = function (t) {
@@ -441,11 +443,13 @@ __webpack_require__(11);
 
 __webpack_require__(12);
 
+__webpack_require__(26);
+
 __webpack_require__(13);
 
-__webpack_require__(14);
-
 __webpack_require__(27);
+
+__webpack_require__(14);
 
 __webpack_require__(15);
 
@@ -468,8 +472,6 @@ __webpack_require__(23);
 __webpack_require__(24);
 
 __webpack_require__(25);
-
-__webpack_require__(26);
 
 /***/ }),
 /* 3 */
@@ -774,28 +776,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var b = (0, _index2.default)("div", { ref: "a" });
 var a = (0, _index2.default)("div", [b]);
 
-(0, _log2.default)("Parent", b.parent().node === a.node);
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _log = __webpack_require__(1);
-
-var _log2 = _interopRequireDefault(_log);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var b = (0, _index2.default)("div", { ref: "a" });
-var a = (0, _index2.default)("div", [b]);
-
 var c = (0, _index2.default)("div", { ref: "c" });
 var d = (0, _index2.default)("div", { ref: "d" });
 var e = (0, _index2.default)("div", { ref: "e" });
@@ -805,7 +785,7 @@ c.append(d.append(e));
 (0, _log2.default)("Element reference", a.refs.a === b && c.refs.d === d && d.refs.e === e);
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -834,7 +814,7 @@ _index2.default.fn("t", function (a) {
 (0, _log2.default)("el.augment", (0, _index2.default)("div").t(true) === (0, _index2.default)("test").t(true));
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -878,7 +858,7 @@ a.append(b);
 (0, _log2.default)("onMount", isMounted[0] === true && isMounted[1] === false);
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -902,7 +882,7 @@ a.style({ height: undefined });
 (0, _log2.default)("style (undefined)", a.style("height"));
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -942,7 +922,7 @@ var a = (0, _index2.default)("x");
 (0, _log2.default)("onMount (Body)", isMounted[0] === true);
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -972,7 +952,7 @@ a.remove();
 (0, _log2.default)("onUnmount", isMounted[0] === true);
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1074,7 +1054,7 @@ var c = (0, _index2.default)("tfy");
 (0, _index2.default)("body").append([a, b, c]);
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1099,7 +1079,7 @@ var a = (0, _index2.default)("div", {
 (0, _log2.default)("style (16px -> 16)", a.style("marginLeft") === 16);
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1151,7 +1131,7 @@ b.trigger("click");
 (0, _log2.default)("on_off", isMounted[0] === true && isMounted[1] === true && isMounted[2] === true);
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1180,7 +1160,7 @@ _index2.default.create("Icon", {
 body.append((0, _index2.default)("Icon", { type: "eye" }));
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1207,7 +1187,7 @@ a.attr({
 (0, _log2.default)("image src", true);
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1240,7 +1220,7 @@ a.trigger("click");
 (0, _log2.default)("on_once", isMounted[0] === true && isMounted[1] === true);
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1270,6 +1250,28 @@ var b = (0, _index2.default)("C");
 a.classy();
 b.classy();
 (0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var b = (0, _index2.default)("div", { ref: "a" });
+var a = (0, _index2.default)("div", [b]);
+
+(0, _log2.default)("Parent", b.parent().node === a.node);
 
 /***/ }),
 /* 27 */
