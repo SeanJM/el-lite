@@ -8,6 +8,7 @@ import "./addClass";
 import "./contains";
 import "./html";
 import "./removeClass";
+import "./parent";
 import "./elementRef";
 import "./el.augment";
 import "./onMount";

@@ -150,6 +150,8 @@ module.exports = function (t) {
         r = e.indexOf(t);return r > -1 && e.splice(r, 1), this.node.setAttribute("class", e.join(" ")), this;
   }, o.prototype.addClass = function (t) {
     var e = this.classList();return -1 === e.indexOf(t) && e.push(t), this.node.setAttribute("class", e.join(" ")), this;
+  }, o.prototype.parent = function () {
+    return new o(this.node.parentNode);
   }, o.prototype.getRoot = function () {
     return this.node;
   }, o.prototype.getEl = function () {
@@ -438,6 +440,8 @@ __webpack_require__(10);
 __webpack_require__(11);
 
 __webpack_require__(12);
+
+__webpack_require__(26);
 
 __webpack_require__(13);
 
@@ -1242,6 +1246,28 @@ var b = (0, _index2.default)("C");
 a.classy();
 b.classy();
 (0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var b = (0, _index2.default)("div", { ref: "a" });
+var a = (0, _index2.default)("div", [b]);
+
+(0, _log2.default)("Parent", b.parent().node === a.node);
 
 /***/ })
 /******/ ]);
