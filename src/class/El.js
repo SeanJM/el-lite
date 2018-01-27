@@ -174,7 +174,7 @@ El.prototype.addClass = function (x) {
 };
 
 El.prototype.parent = function () {
-  return new El(this.node.parentNode);
+  return this.node.parentNode && new El(this.node.parentNode);
 };
 
 El.prototype.getRoot = function () {

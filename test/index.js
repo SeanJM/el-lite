@@ -151,7 +151,7 @@ module.exports = function (t) {
   }, o.prototype.addClass = function (t) {
     var e = this.classList();return -1 === e.indexOf(t) && e.push(t), this.node.setAttribute("class", e.join(" ")), this;
   }, o.prototype.parent = function () {
-    return new o(this.node.parentNode);
+    return this.node.parentNode && new o(this.node.parentNode);
   }, o.prototype.getRoot = function () {
     return this.node;
   }, o.prototype.getEl = function () {
