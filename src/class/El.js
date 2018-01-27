@@ -59,10 +59,6 @@ function El() {
     El.__onCreate[i].call(this);
   }
 
-  if (this.props.id) {
-    El.id[this.props.id] = this;
-  }
-
   if (IS_NODE) {
     setTimeout(function () {
       mount(self.node);
@@ -236,6 +232,10 @@ El.prototype.attr = function (attr) {
 
   if (typeof attr === "string") {
     return this.node.getAttribute(attr);
+  }
+
+  if (attr.id) {
+    El.id[attr.id] = this;
   }
 
   for (var k in attr) {
