@@ -10,6 +10,7 @@ import "./html";
 import "./removeClass";
 import "./parent";
 import "./elementRef";
+import "./elements";
 import "./el.augment";
 import "./onMount";
 import "./styleUndefined";

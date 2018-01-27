@@ -59,6 +59,10 @@ function El() {
     El.__onCreate[i].call(this);
   }
 
+  if (this.props.id) {
+    El.id[this.props.id] = this;
+  }
+
   if (IS_NODE) {
     setTimeout(function () {
       mount(self.node);
@@ -66,6 +70,7 @@ function El() {
   }
 }
 
+El.id             = {};
 El.__onAttr       = {};
 El.__defaultProps = {};
 El.__onCreate     = [];

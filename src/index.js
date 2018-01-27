@@ -43,6 +43,7 @@ el.fn = function (name, callback) {
   }
 };
 
+el.id     = El.id;
 el.create = Component.create;
 
 module.exports = el;
