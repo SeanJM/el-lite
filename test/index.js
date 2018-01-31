@@ -274,6 +274,9 @@ module.exports = function (t) {
     n.prototype[t] = e, i.prototype[t] = i.__extend(t), s.prototype[t] = s.__extend(t);for (var r in i.lib) {
       i.lib[r].prototype[t] || (i.lib[r].prototype[t] = i.prototype[t]);
     }
+  }, o.getElementById = function (t) {
+    var e = document.getElementById(t),
+        r = e && o(e);return e && (o.id[t] = r), r;
   }, o.id = n.id, o.create = i.create, o.componentId = i.id, t.exports = o;
 }, function (t, e, r) {
   "use strict";

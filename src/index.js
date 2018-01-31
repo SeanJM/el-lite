@@ -43,6 +43,13 @@ el.fn = function (name, callback) {
   }
 };
 
+el.getElementById = function (id) {
+  const node = document.getElementById(id);
+  const element = node && el(node);
+  if (node) { el.id[id] = element; }
+  return element;
+};
+
 el.id          = El.id;
 el.create      = Component.create;
 el.componentId = Component.id;
