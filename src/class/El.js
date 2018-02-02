@@ -143,7 +143,13 @@ El.prototype.value = function (value) {
 };
 
 El.prototype.offset = function () {
-  return this.node.getBoundingClientRect();
+  const offset = this.node.getBoundingClientRect();
+  return {
+    top    : offset.top,
+    left   : offset.top,
+    width  : offset.width,
+    height : offset.height,
+  };
 };
 
 El.prototype.classList = function () {
