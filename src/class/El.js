@@ -146,7 +146,7 @@ El.prototype.offset = function () {
   const offset = this.node.getBoundingClientRect();
   return {
     top    : offset.top,
-    left   : offset.top,
+    left   : offset.left,
     width  : offset.width,
     height : offset.height,
   };
