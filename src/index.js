@@ -44,8 +44,15 @@ el.fn = function (name, callback) {
 };
 
 el.getElementById = function (id) {
-  const node = document.getElementById(id);
-  const element = node && el(node);
+  let node;
+  let element;
+
+  if (el.id[id]) {
+    return el.id[id];
+  }
+
+  node = document.getElementById(id);
+  element = node && el(node);
   if (node) { el.id[id] = element; }
   return element;
 };
