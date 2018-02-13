@@ -8,6 +8,7 @@ import "./addClass";
 import "./contains";
 import "./html";
 import "./removeClass";
+import "./after";
 import "./parent";
 import "./elementRef";
 import "./elements";

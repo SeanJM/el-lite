@@ -216,6 +216,35 @@ El.prototype.append = function (children) {
   return this;
 };
 
+El.prototype.after = function (target) {
+  const targetNode = target.getRoot();
+  const parent     = targetNode.parentNode;
+  let index        = -1;
+  let i            = -1;
+
+  let childNodes;
+  let length;
+
+  if (parent) {
+    childNodes = parent.childNodes;
+    length     = parent.childNodes.length;
+
+    while (++i < length) {
+      if (childNodes[i] === targetNode) {
+        index = i + 1;
+      }
+    }
+
+    if (childNodes[index]) {
+      parent.insertBefore(this.node, childNodes[index]);
+    } else {
+      parent.appendChild(this.node);
+    }
+  }
+
+  return this;
+};
+
 El.prototype.prepend = function (element) {
   var first    = this.node.childNodes[0];
   var children = [].concat(element);

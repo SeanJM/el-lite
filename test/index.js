@@ -123,22 +123,22 @@ module.exports = function (t) {
       l = r(0),
       y = l.XLINK_NS,
       g = l.SVG_NS,
-      b = l.IS_TRANSFORM,
-      v = l.STYLE_NAME;o.id = {}, o.__onAttr = {}, o.__defaultProps = {}, o.__onCreate = [], o.prototype.setStyle = function (t) {
+      v = l.IS_TRANSFORM,
+      b = l.STYLE_NAME;o.id = {}, o.__onAttr = {}, o.__defaultProps = {}, o.__onCreate = [], o.prototype.setStyle = function (t) {
     var e,
         r = { transform: [], default: [] },
         o = [],
         i = {};for (var s in t) {
-      if (b.indexOf(s) > -1) {
+      if (v.indexOf(s) > -1) {
         if ("object" === n(t[s])) for (var u in t[s]) {
           r.transform.push(a(u, t[s][u]));
         } else r.transform.push(a(s, t[s]));
       } else o.push({ name: s, value: h(s, t[s]) });
     }r.transform.length && o.push({ name: "transform", value: r.transform.join(" ") });for (var f = 0, p = o.length; f < p; f++) {
-      e = v[o[f].name] || o[f].name, this.node.style[e] = o[f].value, i[e] = o[f].value;
+      e = b[o[f].name] || o[f].name, this.node.style[e] = o[f].value, i[e] = o[f].value;
     }this.trigger("style", { list: o, value: i });
   }, o.prototype.style = function (t) {
-    return "object" === (void 0 === t ? "undefined" : n(t)) ? (this.setStyle(t), this) : "string" == typeof t ? c(window.getComputedStyle(this.node)[v[t] || t]) : window.getComputedStyle(this.node);
+    return "object" === (void 0 === t ? "undefined" : n(t)) ? (this.setStyle(t), this) : "string" == typeof t ? c(window.getComputedStyle(this.node)[b[t] || t]) : window.getComputedStyle(this.node);
   }, o.prototype.value = function (t) {
     return void 0 === t ? this.node.value : (this.node.value = t, this);
   }, o.prototype.offset = function () {
@@ -161,6 +161,17 @@ module.exports = function (t) {
   }, o.prototype.append = function (t) {
     var e;if (t) for (var r = 0, o = (t = [].concat(t)).length; r < o; r++) {
       e = t[r].getRoot ? t[r].getRoot() : new Text(t[r]), this.getRoot().appendChild(e), f(e), u.call(this, t[r]);
+    }return this;
+  }, o.prototype.after = function (t) {
+    var e = t.getRoot(),
+        r = e.parentNode,
+        o = -1,
+        n = -1,
+        i = void 0,
+        s = void 0;if (r) {
+      for (i = r.childNodes, s = r.childNodes.length; ++n < s;) {
+        i[n] === e && (o = n + 1);
+      }i[o] ? r.insertBefore(this.node, i[o]) : r.appendChild(this.node);
     }return this;
   }, o.prototype.prepend = function (t) {
     var e = this.node.childNodes[0],
@@ -275,8 +286,8 @@ module.exports = function (t) {
       i.lib[r].prototype[t] || (i.lib[r].prototype[t] = i.prototype[t]);
     }
   }, o.getElementById = function (t) {
-    var e = document.getElementById(t),
-        r = e && o(e);return e && (o.id[t] = r), r;
+    var e = void 0,
+        r = void 0;return o.id[t] ? o.id[t] : (e = document.getElementById(t), r = e && o(e), e && (o.id[t] = r), r);
   }, o.id = n.id, o.create = i.create, o.componentId = i.id, t.exports = o;
 }, function (t, e, r) {
   "use strict";
@@ -445,6 +456,8 @@ __webpack_require__(10);
 __webpack_require__(11);
 
 __webpack_require__(12);
+
+__webpack_require__(28);
 
 __webpack_require__(13);
 
@@ -1299,5 +1312,41 @@ a.classy();
 b.classy();
 (0, _log2.default)("el.fn", a.attr("class") === "classy" && b.attr("class") === "classy");
 
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _index = __webpack_require__(0);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _log = __webpack_require__(1);
+
+var _log2 = _interopRequireDefault(_log);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var a = (0, _index2.default)({ class: "a" });
+var b = (0, _index2.default)({ class: "b" });
+var c = (0, _index2.default)({ class: "c" });
+var d = (0, _index2.default)({ class: "d" });
+
+var e = (0, _index2.default)({ class: "a" });
+var f = (0, _index2.default)({ class: "b" });
+var g = (0, _index2.default)({ class: "c" });
+
+a.append([b, d]);
+e.append([f]);
+c.after(b);
+g.after(f);
+
+console.log(a);
+
+(0, _log2.default)("After", a.children()[1].node === c.node && e.children()[1].node === g.node);
+
 /***/ })
 /******/ ]);
+//# sourceMappingURL=index.js.map
