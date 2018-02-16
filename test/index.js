@@ -353,6 +353,8 @@ module.exports = function (t) {
     return this.bus.off(t, e);
   }, o.prototype.trigger = function (t, e) {
     return this.bus.trigger(t, e);
+  }, o.prototype.getEl = function () {
+    return this.node.getEl();
   }, o.create = function (t, e) {
     function r(r, i) {
       var f = Array.isArray(r) ? r : i || [];this.props = n(r) ? r : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var p in u.__defaultProps) {

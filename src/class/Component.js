@@ -56,6 +56,10 @@ Component.prototype.trigger = function (a, b) {
   return this.bus.trigger(a, b);
 };
 
+Component.prototype.getEl = function () {
+  return this.node.getEl();
+};
+
 Component.create = function (name, obj) {
   function C(a, b) {
     let children = Array.isArray(a) ? a : b || [];
