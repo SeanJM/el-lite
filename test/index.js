@@ -70,1049 +70,339 @@
 "use strict";
 
 
-var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-module.exports =
-/******/function (modules) {
-  // webpackBootstrap
-  /******/ // The module cache
-  /******/var installedModules = {};
-  /******/
-  /******/ // The require function
-  /******/function __webpack_require__(moduleId) {
-    /******/
-    /******/ // Check if module is in cache
-    /******/if (installedModules[moduleId]) {
-      /******/return installedModules[moduleId].exports;
-      /******/
-    }
-    /******/ // Create a new module (and put it into the cache)
-    /******/var module = installedModules[moduleId] = {
-      /******/i: moduleId,
-      /******/l: false,
-      /******/exports: {}
-      /******/ };
-    /******/
-    /******/ // Execute the module function
-    /******/modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-    /******/
-    /******/ // Flag the module as loaded
-    /******/module.l = true;
-    /******/
-    /******/ // Return the exports of the module
-    /******/return module.exports;
-    /******/
-  }
-  /******/
-  /******/
-  /******/ // expose the modules object (__webpack_modules__)
-  /******/__webpack_require__.m = modules;
-  /******/
-  /******/ // expose the module cache
-  /******/__webpack_require__.c = installedModules;
-  /******/
-  /******/ // define getter function for harmony exports
-  /******/__webpack_require__.d = function (exports, name, getter) {
-    /******/if (!__webpack_require__.o(exports, name)) {
-      /******/Object.defineProperty(exports, name, {
-        /******/configurable: false,
-        /******/enumerable: true,
-        /******/get: getter
-        /******/ });
-      /******/
-    }
-    /******/
-  };
-  /******/
-  /******/ // getDefaultExport function for compatibility with non-harmony modules
-  /******/__webpack_require__.n = function (module) {
-    /******/var getter = module && module.__esModule ?
-    /******/function getDefault() {
-      return module['default'];
-    } :
-    /******/function getModuleExports() {
-      return module;
-    };
-    /******/__webpack_require__.d(getter, 'a', getter);
-    /******/return getter;
-    /******/
-  };
-  /******/
-  /******/ // Object.prototype.hasOwnProperty.call
-  /******/__webpack_require__.o = function (object, property) {
-    return Object.prototype.hasOwnProperty.call(object, property);
-  };
-  /******/
-  /******/ // __webpack_public_path__
-  /******/__webpack_require__.p = "";
-  /******/
-  /******/ // Load entry module and return exports
-  /******/return __webpack_require__(__webpack_require__.s = 7);
-  /******/
-}(
-/************************************************************************/
-/******/[
-/* 0 */
-/***/function (module, exports, __webpack_require__) {
-
+module.exports = function (t) {
+  function e(o) {
+    if (r[o]) return r[o].exports;var n = r[o] = { i: o, l: !1, exports: {} };return t[o].call(n.exports, n, n.exports, e), n.l = !0, n.exports;
+  }var r = {};return e.m = t, e.c = r, e.d = function (t, r, o) {
+    e.o(t, r) || Object.defineProperty(t, r, { configurable: !1, enumerable: !0, get: o });
+  }, e.n = function (t) {
+    var r = t && t.__esModule ? function () {
+      return t.default;
+    } : function () {
+      return t;
+    };return e.d(r, "a", r), r;
+  }, e.o = function (t, e) {
+    return Object.prototype.hasOwnProperty.call(t, e);
+  }, e.p = "", e(e.s = 7);
+}([function (t, e, r) {
   "use strict";
-
-  var STYLE_NAME = {};
-  var window = window || undefined;
-  var BODY_CSS = window ? window.getComputedStyle(document.body) : {};
-  var MOUNTED = [];
-
-  STYLE_NAME.transform = BODY_CSS.webkitTransform ? "webkitTransform" : BODY_CSS.MozTransform ? "MozTransform" : BODY_CSS.msTransform ? "msTransform" : "transform";
-
-  STYLE_NAME.userSelect = BODY_CSS.webkitUserSelect ? "webkitUserSelect" : BODY_CSS.MozUserSelect ? "MozUserSelect" : BODY_CSS.msUserSelect ? "msUserSelect" : "userSelect";
-
-  var XLINK_NS = "http://www.w3.org/1999/xlink";
-  var SVG_NS = "http://www.w3.org/2000/svg";
-
-  var IS_OFFSET = ["width", "height", "top", "left"];
-
-  var IS_VALUE_DEG = ["rotate", "rotateX", "rotateY", "rotateZ"];
-
-  var IS_VALUE_PX = ["left", "right", "top", "bottom", "margin", "marginLeft", "marginRight", "marginTop", "marginBottom", "height", "width", "minHeight", "minWidth", "maxHeight", "maxWidth", "padding", "paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "translate", "translateX", "translateY", "translateZ"];
-
-  var IS_TRANSFORM = ["rotateX", "rotateY", "rotateZ", "scale", "scaleX", "scaleY", "scaleZ", "translateX", "translateY", "translateZ"];
-
-  module.exports = {
-    MOUNTED: MOUNTED,
-    STYLE_NAME: STYLE_NAME,
-    IS_OFFSET: IS_OFFSET,
-    XLINK_NS: XLINK_NS,
-    SVG_NS: SVG_NS,
-    IS_VALUE_DEG: IS_VALUE_DEG,
-    IS_VALUE_PX: IS_VALUE_PX,
-    IS_TRANSFORM: IS_TRANSFORM
-  };
-
-  /***/
-},
-/* 1 */
-/***/function (module, exports, __webpack_require__) {
-
+  var o = {},
+      n = n || void 0,
+      i = n ? n.getComputedStyle(document.body) : {};o.transform = i.webkitTransform ? "webkitTransform" : i.MozTransform ? "MozTransform" : i.msTransform ? "msTransform" : "transform", o.userSelect = i.webkitUserSelect ? "webkitUserSelect" : i.MozUserSelect ? "MozUserSelect" : i.msUserSelect ? "msUserSelect" : "userSelect";t.exports = { MOUNTED: [], STYLE_NAME: o, IS_OFFSET: ["width", "height", "top", "left"], XLINK_NS: "http://www.w3.org/1999/xlink", SVG_NS: "http://www.w3.org/2000/svg", IS_VALUE_DEG: ["rotate", "rotateX", "rotateY", "rotateZ"], IS_VALUE_PX: ["left", "right", "top", "bottom", "margin", "marginLeft", "marginRight", "marginTop", "marginBottom", "height", "width", "minHeight", "minWidth", "maxHeight", "maxWidth", "padding", "paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "translate", "translateX", "translateY", "translateZ"], IS_TRANSFORM: ["rotateX", "rotateY", "rotateZ", "scale", "scaleX", "scaleY", "scaleZ", "translateX", "translateY", "translateZ"] };
+}, function (t, e, r) {
   "use strict";
-
-  var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
-    return typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
-  };
-
-  var isObject = __webpack_require__(2);
-  var isNode = __webpack_require__(3);
-  var setRefs = __webpack_require__(4);
-  var mount = __webpack_require__(8);
-  var unmount = __webpack_require__(9);
-  var transformValue = __webpack_require__(10);
-  var propertyUnit = __webpack_require__(5);
-  var toUnit = __webpack_require__(11);
-  var Bus = __webpack_require__(6);
-
-  var _require = __webpack_require__(0),
-      XLINK_NS = _require.XLINK_NS,
-      SVG_NS = _require.SVG_NS,
-      IS_TRANSFORM = _require.IS_TRANSFORM,
-      STYLE_NAME = _require.STYLE_NAME;
-
-  function El() {
-    var self = this;
-    var args = [arguments[0], arguments[1], arguments[2]];
-    var IS_NODE = isNode(args[0]);
-    var children = [];
-
-    this.tagName = IS_NODE ? arguments[0].tagName.toLowerCase() : "div";
-    this.bus = new Bus({ target: this });
-    this.refs = {};
-    this.props = {};
-
-    for (var i = 0, n = args.length; i < n; i++) {
-      if (typeof args[i] === "string") {
-        this.tagName = args[i];
-      } else if (isObject(args[i])) {
-        this.props = args[i];
-      } else if (Array.isArray(args[i])) {
-        children = args[i];
-      }
-    }
-
-    this.isSvg = ["use", "svg"].indexOf(this.tagName) !== -1;
-
-    if (IS_NODE) {
-      this.node = args[0];
-    } else if (this.isSvg) {
-      this.node = document.createElementNS(SVG_NS, this.tagName);
-    } else {
-      this.node = document.createElement(this.tagName);
-    }
-
-    for (var k in El.__defaultProps) {
-      if (!this.props[k]) {
-        this.props[k] = El.__defaultProps[k];
-      }
-    }
-
-    this.append(children);
-    this.attr(this.props);
-
-    for (i = 0, n = El.__onCreate.length; i < n; i++) {
-      El.__onCreate[i].call(this);
-    }
-
-    if (IS_NODE) {
-      mount(self.node);
-    }
-  }
-
-  El.id = {};
-  El.__onAttr = {};
-  El.__defaultProps = {};
-  El.__onCreate = [];
-
-  El.prototype.setStyle = function (props) {
-    var values = {
-      transform: [],
-      default: []
-    };
-
-    var list = [];
-    var value = {};
-    var name;
-
-    for (var k in props) {
-      if (IS_TRANSFORM.indexOf(k) > -1) {
-        if (_typeof(props[k]) === "object") {
-          for (var j in props[k]) {
-            values.transform.push(transformValue(j, props[k][j]));
-          }
-        } else {
-          values.transform.push(transformValue(k, props[k]));
-        }
-      } else {
-        list.push({
-          name: k,
-          value: propertyUnit(k, props[k])
-        });
-      }
-    }
-
-    if (values.transform.length) {
-      list.push({
-        name: "transform",
-        value: values.transform.join(" ")
-      });
-    }
-
-    for (var i = 0, n = list.length; i < n; i++) {
-      name = STYLE_NAME[list[i].name] || list[i].name;
-      this.node.style[name] = list[i].value;
-      value[name] = list[i].value;
-    }
-
-    this.trigger("style", {
-      list: list,
-      value: value
-    });
-  };
-
-  El.prototype.style = function (props) {
-    if ((typeof props === "undefined" ? "undefined" : _typeof(props)) === "object") {
-      this.setStyle(props);
-      return this;
-    } else if (typeof props === "string") {
-      return toUnit(window.getComputedStyle(this.node)[STYLE_NAME[props] || props]);
-    } else {
-      return window.getComputedStyle(this.node);
-    }
-  };
-
-  El.prototype.value = function (value) {
-    if (typeof value === "undefined") {
-      return this.node.value;
-    }
-    this.node.value = value;
-    return this;
-  };
-
-  El.prototype.offset = function () {
-    var offset = this.node.getBoundingClientRect();
-    return {
-      top: offset.top,
-      left: offset.left,
-      width: offset.width,
-      height: offset.height
-    };
-  };
-
-  El.prototype.classList = function () {
-    var className = this.node.getAttribute("class");
-    return className ? className.split(" ") : [];
-  };
-
-  El.prototype.removeClass = function (x) {
-    var classList = this.classList();
-    var index = classList.indexOf(x);
-
-    if (index > -1) {
-      classList.splice(index, 1);
-    }
-
-    this.node.setAttribute("class", classList.join(" "));
-    return this;
-  };
-
-  El.prototype.addClass = function (x) {
-    var classList = this.classList();
-
-    if (classList.indexOf(x) === -1) {
-      classList.push(x);
-    }
-
-    this.node.setAttribute("class", classList.join(" "));
-    return this;
-  };
-
-  El.prototype.parent = function () {
-    return this.node.parentNode && new El(this.node.parentNode);
-  };
-
-  El.prototype.getRoot = function () {
+  function o() {
+    var t = this,
+        e = [arguments[0], arguments[1], arguments[2]],
+        r = s(e[0]),
+        n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new d({ target: this }), this.refs = {}, this.props = {};for (var u = 0, p = e.length; u < p; u++) {
+      "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (n = e[u]);
+    }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(g, this.tagName) : this.node = document.createElement(this.tagName);for (var a in o.__defaultProps) {
+      this.props[a] || (this.props[a] = o.__defaultProps[a]);
+    }for (this.append(n), this.attr(this.props), u = 0, p = o.__onCreate.length; u < p; u++) {
+      o.__onCreate[u].call(this);
+    }r && setTimeout(function () {
+      f(t.node);
+    }, 0);
+  }var n = "function" == typeof Symbol && "symbol" == _typeof(Symbol.iterator) ? function (t) {
+    return typeof t === "undefined" ? "undefined" : _typeof(t);
+  } : function (t) {
+    return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t === "undefined" ? "undefined" : _typeof(t);
+  },
+      i = r(2),
+      s = r(3),
+      u = r(4),
+      f = r(8),
+      p = r(9),
+      a = r(10),
+      h = r(5),
+      c = r(11),
+      d = r(6),
+      l = r(0),
+      y = l.XLINK_NS,
+      g = l.SVG_NS,
+      v = l.IS_TRANSFORM,
+      b = l.STYLE_NAME;o.id = {}, o.__onAttr = {}, o.__defaultProps = {}, o.__onCreate = [], o.prototype.setStyle = function (t) {
+    var e,
+        r = { transform: [], default: [] },
+        o = [],
+        i = {};for (var s in t) {
+      if (v.indexOf(s) > -1) {
+        if ("object" === n(t[s])) for (var u in t[s]) {
+          r.transform.push(a(u, t[s][u]));
+        } else r.transform.push(a(s, t[s]));
+      } else o.push({ name: s, value: h(s, t[s]) });
+    }r.transform.length && o.push({ name: "transform", value: r.transform.join(" ") });for (var f = 0, p = o.length; f < p; f++) {
+      e = b[o[f].name] || o[f].name, this.node.style[e] = o[f].value, i[e] = o[f].value;
+    }this.trigger("style", { list: o, value: i });
+  }, o.prototype.style = function (t) {
+    return "object" === (void 0 === t ? "undefined" : n(t)) ? (this.setStyle(t), this) : "string" == typeof t ? c(window.getComputedStyle(this.node)[b[t] || t]) : window.getComputedStyle(this.node);
+  }, o.prototype.value = function (t) {
+    return void 0 === t ? this.node.value : (this.node.value = t, this);
+  }, o.prototype.offset = function () {
+    var t = this.node.getBoundingClientRect();return { top: t.top, left: t.left, width: t.width, height: t.height };
+  }, o.prototype.classList = function () {
+    var t = this.node.getAttribute("class");return t ? t.split(" ") : [];
+  }, o.prototype.removeClass = function (t) {
+    var e = this.classList(),
+        r = e.indexOf(t);return r > -1 && e.splice(r, 1), this.node.setAttribute("class", e.join(" ")), this;
+  }, o.prototype.addClass = function (t) {
+    var e = this.classList();return -1 === e.indexOf(t) && e.push(t), this.node.setAttribute("class", e.join(" ")), this;
+  }, o.prototype.parent = function () {
+    return this.node.parentNode && new o(this.node.parentNode);
+  }, o.prototype.getRoot = function () {
     return this.node;
-  };
-
-  El.prototype.getEl = function () {
+  }, o.prototype.getEl = function () {
     return this;
+  }, o.prototype.focus = function () {
+    return this.node.focus(), this;
+  }, o.prototype.append = function (t) {
+    var e;if (t) for (var r = 0, o = (t = [].concat(t)).length; r < o; r++) {
+      e = t[r].getRoot ? t[r].getRoot() : new Text(t[r]), this.getRoot().appendChild(e), f(e), u.call(this, t[r]);
+    }return this;
+  }, o.prototype.after = function (t) {
+    var e = t.getRoot(),
+        r = e.parentNode,
+        o = -1,
+        n = -1,
+        i = void 0,
+        s = void 0;if (r) {
+      for (i = r.childNodes, s = r.childNodes.length; ++n < s;) {
+        i[n] === e && (o = n + 1);
+      }i[o] ? r.insertBefore(this.node, i[o]) : r.appendChild(this.node);
+    }return this;
+  }, o.prototype.prepend = function (t) {
+    var e = this.node.childNodes[0],
+        r = [].concat(t),
+        o = 0,
+        n = 0;if (e) for (o = 0, n = r.length; o < n; o++) {
+      e.parentNode.insertBefore(r[o].getRoot(), e), u.call(this, r[o]);
+    } else for (o = 0, n = r.length; o < n; o++) {
+      this.node.appendChild(r[o].getRoot()), u.call(this, r[o]);
+    }
+  }, o.prototype.attr = function (t) {
+    var e;if ("string" == typeof t) return this.node.getAttribute(t);t.id && (o.id[t.id] = this);for (var r in t) {
+      e = r.toLowerCase(), "ref" === r ? this.ref = t[r] : o.__onAttr[e] ? o.__onAttr[e].call(this, t[r]) : "style" === r ? this.setStyle(t[r]) : "once" === r.substring(0, 4) ? this.once(r.substring(4), t[r]) : "on" === r.substring(0, 2) ? this.on(r.substring(2), t[r]) : "class" === r ? "string" == typeof t[r] && this.node.setAttribute("class", t[r].split(" ").filter(function (t) {
+        return t.length;
+      }).map(function (t) {
+        return t.trim();
+      }).join(" ")) : t[r] && "object" !== n(t[r]) && "function" != typeof t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? y : g, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
+    }return this;
+  }, o.prototype.closest = function (t) {
+    return new o(this.node.closest(t));
+  }, o.prototype.find = function (t) {
+    return new o(this.node.querySelector(t));
+  }, o.prototype.findAll = function (t) {
+    for (var e = [], r = this.node.querySelectorAll(t), n = 0, i = r.length; n < i; n++) {
+      e.push(new o(r[n]));
+    }return e;
+  }, o.prototype.children = function (t) {
+    for (var e = [], r = this.node.childNodes, n = 0, i = r.length; n < i; n++) {
+      if (s(r[n]) && (e.push(new o(r[n])), e[t])) return e[t];
+    }return e;
+  }, o.prototype.html = function (t) {
+    return void 0 === t ? this.node.innerHTML : (Array.prototype.forEach.call(this.node.childNodes, p), this.node.innerHTML = t, this);
+  }, o.prototype.remove = function () {
+    return this.node.parentNode && (p(this.node), this.node.parentNode.removeChild(this.node)), this;
+  }, o.prototype.replaceWith = function (t) {
+    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), p(this.node), f(e), this;
+  }, o.prototype.on = function (t, e) {
+    var r = this,
+        o = t.toLowerCase();return "function" == typeof e && (this.bus.on(o, e), "load" === o ? this.node.onload = function (t) {
+      r.trigger(o, t);
+    } : 1 === this.bus.subscribers[o].length && this.node.addEventListener(o, function (t) {
+      r.trigger(o, t);
+    }, !1)), this;
+  }, o.prototype.once = function (t, e) {
+    return this.on(t, function r() {
+      e.call(this), this.off(t, r);
+    }), this;
+  }, o.prototype.off = function (t, e) {
+    var r = t.toLowerCase();if (e) this.node.removeEventListener(r, e, !1);else for (var o = this.bus.subscribers.length - 1; o >= 0; o--) {
+      this.node.removeEventListener(r, this.bus.subscribers[o], !1);
+    }return this.bus.off(r, e), this;
+  }, o.prototype.trigger = function (t, e) {
+    return this.bus.trigger(t, e), this;
+  }, o.prototype.contains = function (t) {
+    return this.node.contains(s(t) ? t : t.getRoot());
+  }, t.exports = o;
+}, function (t, e, r) {
+  "use strict";
+  t.exports = function (t) {
+    return "[object Object]" === Object.prototype.toString.call(t);
   };
-
-  El.prototype.focus = function () {
-    this.node.focus();
-    return this;
+}, function (t, e, r) {
+  "use strict";
+  t.exports = function (t) {
+    var e = (t ? Object.prototype.toString.call(t) : "").substring(8);return 0 === e.indexOf("HTML") || 0 === e.indexOf("SVG");
   };
-
-  El.prototype.append = function (children) {
-    var isEl;
-    var child;
-
-    if (children) {
-      children = [].concat(children);
-
-      for (var i = 0, n = children.length; i < n; i++) {
-        isEl = children[i].getRoot;
-        child = isEl ? children[i].getRoot() : new Text(children[i]);
-        this.getRoot().appendChild(child);
-        mount(child);
-        setRefs.call(this, children[i]);
+}, function (t, e, r) {
+  "use strict";
+  t.exports = function (t) {
+    var e = t.ref;e && !this.refs[e] && (this.refs[e] = t);for (var r in t.refs) {
+      this.refs[r] || (this.refs[r] = t.refs[r]);
+    }
+  };
+}, function (t, e, r) {
+  "use strict";
+  var o = r(0),
+      n = o.IS_VALUE_PX,
+      i = o.IS_VALUE_DEG;t.exports = function (t, e) {
+    return n.indexOf(t) > -1 ? "number" == typeof e ? e + "px" : e : i.indexOf(t) > -1 ? "number" == typeof e ? e + "deg" : e : e && e.toString();
+  };
+}, function (t, e, r) {
+  "use strict";
+  function o(t) {
+    this.target = t.target || this, this.subscribers = {};
+  }o.prototype.once = function (t, e) {
+    var r = this,
+        _o = void 0;if (void 0 === e) throw new Error("Once cannot be used without a valid callback");return _o = function o(n) {
+      r.off(t, _o), e.call(r.target, n);
+    }, this.on(t, _o);
+  }, o.prototype.off = function (t, e) {
+    var r = t.toLowerCase().trim(),
+        o = (this.subscribers[r] || []).indexOf(e);return o > -1 ? this.subscribers[r].splice(o, 1) : void 0 === e && (this.subscribers[r] = []), this.target;
+  }, o.prototype.on = function (t, e) {
+    var r = t.toLowerCase().trim();return "function" == typeof e && (this.subscribers[r] = (this.subscribers[r] || []).concat(e)), this.target;
+  }, o.prototype.trigger = function (t, e) {
+    for (var r = t.toLowerCase().trim(), o = (this.subscribers[r] || []).slice(), n = 0, i = o.length; n < i; n++) {
+      o[n].call(this.target, e);
+    }return this.target;
+  }, t.exports = o;
+}, function (t, e, r) {
+  "use strict";
+  function o(t, e, r) {
+    return i.lib[t] ? new i.lib[t](e, r) : t instanceof Text || t instanceof Comment ? t : "body" === t ? f : new n(t, e, r);
+  }var n = r(1),
+      i = r(12),
+      s = r(13),
+      u = r(3),
+      f = o(document.body);o.and = function (t) {
+    return new s(t);
+  }, o.onAttr = function (t, e) {
+    n.__onAttr[t.toLowerCase()] = e;
+  }, o.defaultProps = function (t) {
+    Object.assign(n.__defaultProps, t);
+  }, o.onCreate = function (t) {
+    n.__onCreate.push(t);
+  }, o.fn = function (t, e) {
+    n.prototype[t] = e, i.prototype[t] = i.__extend(t), s.prototype[t] = s.__extend(t);for (var r in i.lib) {
+      i.lib[r].prototype[t] || (i.lib[r].prototype[t] = i.prototype[t]);
+    }
+  }, o.getElementById = function (t) {
+    var e = void 0,
+        r = void 0;return o.id[t] ? o.id[t] : (e = document.getElementById(t), r = e && o(e), e && (o.id[t] = r), r);
+  }, o.getComponentById = function (t) {
+    return i.id[t];
+  }, o.mapChildren = function (t) {
+    for (var e = [], r = t.childNodes, n = -1, i = r.length; ++n < i;) {
+      u(r[n]) && e.push(o(r[n]));
+    }return e;
+  }, o.id = n.id, o.create = i.create, t.exports = o;
+}, function (t, e, r) {
+  "use strict";
+  var o = r(0).MOUNTED;t.exports = function t(e) {
+    var r = e.childNodes;if (document.body.contains(e) && -1 === o.indexOf(e)) {
+      o.push(e), e.dispatchEvent(new Event("mount", { bubbles: !1 }));for (var n = 0, i = r.length; n < i; n++) {
+        t(r[n]);
       }
     }
-    return this;
   };
-
-  El.prototype.after = function (target) {
-    var targetNode = target.getRoot();
-    var parent = targetNode.parentNode;
-    var index = -1;
-    var i = -1;
-
-    var childNodes = void 0;
-    var length = void 0;
-
-    if (parent) {
-      childNodes = parent.childNodes;
-      length = parent.childNodes.length;
-
-      while (++i < length) {
-        if (childNodes[i] === targetNode) {
-          index = i + 1;
-        }
-      }
-
-      if (childNodes[index]) {
-        parent.insertBefore(this.node, childNodes[index]);
-      } else {
-        parent.appendChild(this.node);
-      }
-    }
-
-    return this;
-  };
-
-  El.prototype.prepend = function (element) {
-    var first = this.node.childNodes[0];
-    var children = [].concat(element);
-    var i = 0,
-        n = 0;
-    if (first) {
-      for (i = 0, n = children.length; i < n; i++) {
-        first.parentNode.insertBefore(children[i].getRoot(), first);
-        setRefs.call(this, children[i]);
-      }
-    } else {
-      for (i = 0, n = children.length; i < n; i++) {
-        this.node.appendChild(children[i].getRoot());
-        setRefs.call(this, children[i]);
+}, function (t, e, r) {
+  "use strict";
+  var o = r(0).MOUNTED;t.exports = function t(e) {
+    var r = e.childNodes,
+        n = o.indexOf(e);if (-1 !== n) {
+      o.splice(n, 1), e.dispatchEvent(new Event("unmount", { bubbles: !1 }));for (var i = 0, s = r.length; i < s; i++) {
+        t(r[i]);
       }
     }
   };
-
-  El.prototype.attr = function (attr) {
-    var x;
-
-    if (typeof attr === "string") {
-      return this.node.getAttribute(attr);
-    }
-
-    if (attr.id) {
-      El.id[attr.id] = this;
-    }
-
-    for (var k in attr) {
-      x = k.toLowerCase();
-      if (k === "ref") {
-        this.ref = attr[k];
-      } else if (El.__onAttr[x]) {
-        El.__onAttr[x].call(this, attr[k]);
-      } else if (k === "style") {
-        this.setStyle(attr[k]);
-      } else if (k.substring(0, 4) === "once") {
-        this.once(k.substring(4), attr[k]);
-      } else if (k.substring(0, 2) === "on") {
-        this.on(k.substring(2), attr[k]);
-      } else if (k === "class") {
-        if (typeof attr[k] === "string") {
-          this.node.setAttribute("class", attr[k].split(" ").filter(function (a) {
-            return a.length;
-          }).map(function (a) {
-            return a.trim();
-          }).join(" "));
-        }
-      } else if (attr[k] && _typeof(attr[k]) !== "object" && typeof attr[k] !== "function") {
-        if (this.isSvg) {
-          this.node.setAttributeNS(k === "href" ? XLINK_NS : SVG_NS, k, attr[k]);
-        } else {
-          this.node.setAttribute(k, attr[k].toString());
-        }
-      }
-    }
-    return this;
+}, function (t, e, r) {
+  "use strict";
+  var o = "function" == typeof Symbol && "symbol" == _typeof(Symbol.iterator) ? function (t) {
+    return typeof t === "undefined" ? "undefined" : _typeof(t);
+  } : function (t) {
+    return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t === "undefined" ? "undefined" : _typeof(t);
+  },
+      n = r(5);t.exports = function (t, e) {
+    var r = [];return "object" === (void 0 === e ? "undefined" : o(e)) ? (e.x && r.push(n(t, e.x)), e.y && r.push(n(t, e.y)), e.z && r.push(n(t, e.z))) : r.push(n(t, e)), t + "(" + r.join(", ") + ")";
   };
-
-  El.prototype.closest = function (selector) {
-    var node = this.node.closest(selector);
-    return new El(node);
+}, function (t, e, r) {
+  "use strict";
+  t.exports = function (t) {
+    return "px" === t.slice(-2) ? Number(t.slice(0, -2)) : t;
   };
-
-  El.prototype.find = function (selector) {
-    var node = this.node.querySelector(selector);
-    return new El(node);
-  };
-
-  El.prototype.findAll = function (selector) {
-    var result = [];
-    var nodes = this.node.querySelectorAll(selector);
-
-    for (var i = 0, n = nodes.length; i < n; i++) {
-      result.push(new El(nodes[i]));
-    }
-
-    return result;
-  };
-
-  El.prototype.children = function (index) {
-    var children = [];
-    var childNodes = this.node.childNodes;
-    for (var i = 0, n = childNodes.length; i < n; i++) {
-      if (isNode(childNodes[i])) {
-        children.push(new El(childNodes[i]));
-        if (children[index]) {
-          return children[index];
-        }
-      }
-    }
-    return children;
-  };
-
-  El.prototype.html = function (value) {
-    if (typeof value === "undefined") {
-      return this.node.innerHTML;
-    }
-    Array.prototype.forEach.call(this.node.childNodes, unmount);
-    this.node.innerHTML = value;
-    return this;
-  };
-
-  El.prototype.remove = function () {
-    if (this.node.parentNode) {
-      unmount(this.node);
-      this.node.parentNode.removeChild(this.node);
-    }
-    return this;
-  };
-
-  El.prototype.replaceWith = function (child) {
-    var childNode = child.getRoot();
-    this.node.parentNode.replaceChild(childNode, this.node);
-    unmount(this.node);
-    mount(childNode);
-    return this;
-  };
-
-  El.prototype.on = function (name, callback) {
-    var self = this;
-    var nameLower = name.toLowerCase();
-
-    if (typeof callback === "function") {
-      this.bus.on(nameLower, callback);
-      if (nameLower === "load") {
-        this.node.onload = function (e) {
-          self.trigger(nameLower, e);
-        };
-      } else if (this.bus.subscribers[nameLower].length === 1) {
-        this.node.addEventListener(nameLower, function (e) {
-          self.trigger(nameLower, e);
-        }, false);
-      }
-    }
-
-    return this;
-  };
-
-  El.prototype.once = function (a, b) {
-    var once = function once() {
-      b.call(this);
-      this.off(a, once);
+}, function (t, e, r) {
+  "use strict";
+  function o() {}var n = r(2),
+      i = r(4),
+      s = r(6),
+      u = r(1);o.__extend = function (t) {
+    return function (e, r, o) {
+      var n = this.node ? this.node[t](e, r, o) : u.prototype[t].call(null, e, r, o);return n === this.node ? this : n;
     };
-    this.on(a, once);
-    return this;
-  };
-
-  El.prototype.off = function (a, b) {
-    var al = a.toLowerCase();
-    if (!b) {
-      for (var i = this.bus.subscribers.length - 1; i >= 0; i--) {
-        this.node.removeEventListener(al, this.bus.subscribers[i], false);
-      }
-    } else {
-      this.node.removeEventListener(al, b, false);
-    }
-    this.bus.off(al, b);
-    return this;
-  };
-
-  El.prototype.trigger = function (a, b) {
-    this.bus.trigger(a, b);
-    return this;
-  };
-
-  El.prototype.contains = function (element) {
-    return this.node.contains(isNode(element) ? element : element.getRoot());
-  };
-
-  module.exports = El;
-
-  /***/
-},
-/* 2 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  module.exports = function isObject(a) {
-    return Object.prototype.toString.call(a) === "[object Object]";
-  };
-
-  /***/
-},
-/* 3 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  module.exports = function isNode(node) {
-    var str = (node ? Object.prototype.toString.call(node) : "").substring(8);
-    return str.indexOf("HTML") === 0 || str.indexOf("SVG") === 0;
-  };
-
-  /***/
-},
-/* 4 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  module.exports = function setRefs(child) {
-    var cr = child.ref;
-    if (cr && !this.refs[cr]) {
-      this.refs[cr] = child;
-    }
-    for (var k in child.refs) {
-      if (!this.refs[k]) {
-        this.refs[k] = child.refs[k];
-      }
-    }
-  };
-
-  /***/
-},
-/* 5 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  var _require = __webpack_require__(0),
-      IS_VALUE_PX = _require.IS_VALUE_PX,
-      IS_VALUE_DEG = _require.IS_VALUE_DEG;
-
-  module.exports = function propertyUnit(property, a) {
-    if (IS_VALUE_PX.indexOf(property) > -1) {
-      return typeof a === "number" ? a + "px" : a;
-    } else if (IS_VALUE_DEG.indexOf(property) > -1) {
-      return typeof a === "number" ? a + "deg" : a;
-    }
-
-    return a && a.toString();
-  };
-
-  /***/
-},
-/* 6 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  function Bus(props) {
-    this.target = props.target || this;
-    this.subscribers = {};
-  }
-
-  Bus.prototype.once = function (name, callback) {
-    var _this = this;
-
-    var _once = void 0;
-
-    if (typeof callback === "undefined") {
-      throw new Error("Once cannot be used without a valid callback");
-    }
-
-    _once = function once(a) {
-      _this.off(name, _once);
-      callback.call(_this.target, a);
-    };
-
-    return this.on(name, _once);
-  };
-
-  Bus.prototype.off = function (name, callback) {
-    var nameLower = name.toLowerCase().trim();
-    var index = (this.subscribers[nameLower] || []).indexOf(callback);
-    if (index > -1) {
-      this.subscribers[nameLower].splice(index, 1);
-    } else if (typeof callback === "undefined") {
-      this.subscribers[nameLower] = [];
-    }
-    return this.target;
-  };
-
-  Bus.prototype.on = function (name, callback) {
-    var nameLower = name.toLowerCase().trim();
-    if (typeof callback === "function") {
-      this.subscribers[nameLower] = (this.subscribers[nameLower] || []).concat(callback);
-    }
-    return this.target;
-  };
-
-  Bus.prototype.trigger = function (name, value) {
-    var nameLower = name.toLowerCase().trim();
-    var list = (this.subscribers[nameLower] || []).slice();
-
-    for (var i = 0, n = list.length; i < n; i++) {
-      list[i].call(this.target, value);
-    }
-
-    return this.target;
-  };
-
-  module.exports = Bus;
-
-  /***/
-},
-/* 7 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  var El = __webpack_require__(1);
-  var Component = __webpack_require__(12);
-  var And = __webpack_require__(13);
-  var isNode = __webpack_require__(3);
-
-  var body = el(document.body);
-
-  function el(a, b, c) {
-    if (Component.lib[a]) {
-      return new Component.lib[a](b, c);
-    } else if (a instanceof Text || a instanceof Comment) {
-      return a;
-    } else if (a === "body") {
-      return body;
-    } else {
-      return new El(a, b, c);
-    }
-  }
-
-  el.and = function (x) {
-    return new And(x);
-  };
-
-  el.onAttr = function (name, callback) {
-    El.__onAttr[name.toLowerCase()] = callback;
-  };
-
-  el.defaultProps = function (props) {
-    Object.assign(El.__defaultProps, props);
-  };
-
-  el.onCreate = function (callback) {
-    El.__onCreate.push(callback);
-  };
-
-  el.fn = function (name, callback) {
-    El.prototype[name] = callback;
-    Component.prototype[name] = Component.__extend(name);
-    And.prototype[name] = And.__extend(name);
-
-    for (var k in Component.lib) {
-      if (!Component.lib[k].prototype[name]) {
-        Component.lib[k].prototype[name] = Component.prototype[name];
-      }
-    }
-  };
-
-  el.getElementById = function (id) {
-    var node = void 0;
-    var element = void 0;
-
-    if (el.id[id]) {
-      return el.id[id];
-    }
-
-    node = document.getElementById(id);
-    element = node && el(node);
-    if (node) {
-      el.id[id] = element;
-    }
-    return element;
-  };
-
-  el.getComponentById = function (id) {
-    return Component.id[id];
-  };
-
-  el.mapChildren = function (node) {
-    var res = [];
-    var children = node.childNodes;
-
-    var i = -1;
-    var n = children.length;
-
-    while (++i < n) {
-      if (isNode(children[i])) {
-        res.push(el(children[i]));
-      }
-    }
-
-    return res;
-  };
-
-  el.id = El.id;
-  el.create = Component.create;
-
-  module.exports = el;
-
-  /***/
-},
-/* 8 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  var _require = __webpack_require__(0),
-      MOUNTED = _require.MOUNTED;
-
-  module.exports = function mount(node) {
-    var children = node.childNodes;
-
-    if (document.body.contains(node) && MOUNTED.indexOf(node) === -1) {
-      MOUNTED.push(node);
-
-      node.dispatchEvent(new Event("mount", { bubbles: false }));
-
-      for (var i = 0, n = children.length; i < n; i++) {
-        mount(children[i]);
-      }
-    }
-  };
-
-  /***/
-},
-/* 9 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  var _require = __webpack_require__(0),
-      MOUNTED = _require.MOUNTED;
-
-  module.exports = function unmount(node) {
-    var children = node.childNodes;
-    var indexOf = MOUNTED.indexOf(node);
-    if (indexOf !== -1) {
-      MOUNTED.splice(indexOf, 1);
-
-      node.dispatchEvent(new Event("unmount", { bubbles: false }));
-
-      for (var i = 0, n = children.length; i < n; i++) {
-        unmount(children[i]);
-      }
-    }
-  };
-
-  /***/
-},
-/* 10 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
-    return typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
-  };
-
-  var propertyUnit = __webpack_require__(5);
-
-  module.exports = function transformValue(name, value) {
-    var result = [];
-
-    if ((typeof value === "undefined" ? "undefined" : _typeof(value)) === "object") {
-      if (value.x) {
-        result.push(propertyUnit(name, value.x));
-      }
-
-      if (value.y) {
-        result.push(propertyUnit(name, value.y));
-      }
-
-      if (value.z) {
-        result.push(propertyUnit(name, value.z));
-      }
-    } else {
-      result.push(propertyUnit(name, value));
-    }
-
-    return name + "(" + result.join(", ") + ")";
-  };
-
-  /***/
-},
-/* 11 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  module.exports = function toUnit(a) {
-    return a.slice(-2) === "px" ? Number(a.slice(0, -2)) : a;
-  };
-
-  /***/
-},
-/* 12 */
-/***/function (module, exports, __webpack_require__) {
-
-  "use strict";
-
-  var isObject = __webpack_require__(2);
-  var setRefs = __webpack_require__(4);
-  var Bus = __webpack_require__(6);
-  var El = __webpack_require__(1);
-
-  function Component() {}
-
-  Component.__extend = function (name) {
-    return function (a, b, c) {
-      var o = this.node ? this.node[name](a, b, c) : El.prototype[name].call(null, a, b, c);
-      return o === this.node ? this : o;
-    };
-  };
-
-  Component.lib = {};
-  Component.id = {};
-
-  for (var k in El.prototype) {
-    Component.prototype[k] = Component.__extend(k);
-  }
-
-  Component.prototype.append = function (children) {
-    this.node.append(children);
-
-    for (var k in this.node.refs) {
-      if (!this.refs[k]) {
-        this.refs[k] = this.node.refs[k];
-      }
-    }
-
-    return this;
-  };
-
-  Component.prototype.attr = function (x) {
-    if (x && x.id) {
-      Component.id[x.id] = this;
-    }
-    return Component.__extend("attr").call(this, x);
-  };
-
-  Component.prototype.on = function (a, b) {
-    return this.bus.on(a, b);
-  };
-
-  Component.prototype.once = function (a, b) {
-    return this.bus.once(a, b);
-  };
-
-  Component.prototype.off = function (a, b) {
-    return this.bus.off(a, b);
-  };
-
-  Component.prototype.trigger = function (a, b) {
-    return this.bus.trigger(a, b);
-  };
-
-  Component.prototype.getEl = function () {
+  }, o.lib = {}, o.id = {};for (var f in u.prototype) {
+    o.prototype[f] = o.__extend(f);
+  }o.prototype.append = function (t) {
+    this.node.append(t);for (var e in this.node.refs) {
+      this.refs[e] || (this.refs[e] = this.node.refs[e]);
+    }return this;
+  }, o.prototype.attr = function (t) {
+    return t && t.id && (o.id[t.id] = this), o.__extend("attr").call(this, t);
+  }, o.prototype.on = function (t, e) {
+    return this.bus.on(t, e);
+  }, o.prototype.once = function (t, e) {
+    return this.bus.once(t, e);
+  }, o.prototype.off = function (t, e) {
+    return this.bus.off(t, e);
+  }, o.prototype.trigger = function (t, e) {
+    return this.bus.trigger(t, e);
+  }, o.prototype.getEl = function () {
     return this.node.getEl();
-  };
-
-  Component.create = function (name, obj) {
-    function C(a, b) {
-      var children = Array.isArray(a) ? a : b || [];
-
-      this.props = isObject(a) ? a : {};
-      this.bus = new Bus({ target: this });
-      this.refs = {};
-      this.ref = this.props.ref;
-      this.tagName = name;
-
-      for (var k in El.__defaultProps) {
-        if (!this.props[k]) {
-          this.props[k] = El.__defaultProps[k];
+  }, o.create = function (t, e) {
+    function r(r, i) {
+      var f = Array.isArray(r) ? r : i || [];this.props = n(r) ? r : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var p in u.__defaultProps) {
+        this.props[p] || (this.props[p] = u.__defaultProps[p]);
+      }if (e.constructor && e.constructor.call(this, this.props), e.render) {
+        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var a in this.refs) {
+          for (var h in this.refs[a].refs) {
+            this.refs[h] || (this.refs[h] = this.refs[a].refs[h]);
+          }this.refs[a].ref && !this.refs[this.refs[a].ref] && (this.refs[this.refs[a].ref] = this.refs[a].ref);
+        }for (var c in this.node.refs) {
+          this.refs[c] || (this.refs[c] = this.node.refs[c]);
+        }this.append(f);
+      }this.props.id && (o.id[this.props.id] = this);
+    }for (var f in o.prototype) {
+      r.prototype[f] = o.prototype[f];
+    }e.append && (r.prototype.append = function (t) {
+      if (t) {
+        t = [].concat(t), e.append.call(this, t);for (var r = 0, o = t.length; r < o; r++) {
+          i.call(this, t[r]);
         }
       }
-
-      if (obj.constructor) {
-        obj.constructor.call(this, this.props);
-      }
-
-      if (obj.render) {
-        this.node = obj.render.call(this, this.props);
-
-        if (typeof this.node === "undefined") {
-          throw new Error("Component \"" + name + "\" does not return a valid element.");
-        }
-
-        this.ref = this.props.ref || this.node.ref;
-
-        for (var _k in this.refs) {
-          for (var j in this.refs[_k].refs) {
-            if (!this.refs[j]) {
-              this.refs[j] = this.refs[_k].refs[j];
-            }
-          }
-
-          if (this.refs[_k].ref && !this.refs[this.refs[_k].ref]) {
-            this.refs[this.refs[_k].ref] = this.refs[_k].ref;
-          }
-        }
-
-        for (var _k2 in this.node.refs) {
-          if (!this.refs[_k2]) {
-            this.refs[_k2] = this.node.refs[_k2];
-          }
-        }
-
-        this.append(children);
-      }
-
-      if (this.props.id) {
-        Component.id[this.props.id] = this;
-      }
-    }
-
-    for (var k in Component.prototype) {
-      C.prototype[k] = Component.prototype[k];
-    }
-
-    if (obj.append) {
-      C.prototype.append = function (children) {
-        if (children) {
-          children = [].concat(children);
-          obj.append.call(this, children);
-          for (var i = 0, n = children.length; i < n; i++) {
-            setRefs.call(this, children[i]);
-          }
-        }
-      };
-    }
-
-    for (k in obj) {
-      if (k !== "render" && k !== "append") {
-        C.prototype[k] = obj[k];
-      }
-    }
-
-    Component.lib[name] = C;
-    return C;
-  };
-
-  module.exports = Component;
-
-  /***/
-},
-/* 13 */
-/***/function (module, exports, __webpack_require__) {
-
+    });for (f in e) {
+      "render" !== f && "append" !== f && (r.prototype[f] = e[f]);
+    }return o.lib[t] = r, r;
+  }, t.exports = o;
+}, function (t, e, r) {
   "use strict";
-
-  var El = __webpack_require__(1);
-
-  function And(group) {
-    this.group = [].concat(group);
-  }
-
-  And.prototype.and = function (x) {
-    this.group = this.group.concat(x);
-    return this;
-  };
-
-  And.__extend = function (key) {
-    return function (a, b, c) {
-      for (var i = 0, n = this.group.length; i < n; i++) {
-        this.group[i][key](a, b, c);
-      }
-      return this;
+  function o(t) {
+    this.group = [].concat(t);
+  }var n = r(1);o.prototype.and = function (t) {
+    return this.group = this.group.concat(t), this;
+  }, o.__extend = function (t) {
+    return function (e, r, o) {
+      for (var n = 0, i = this.group.length; n < i; n++) {
+        this.group[n][t](e, r, o);
+      }return this;
     };
-  };
-
-  for (var k in El.prototype) {
-    And.prototype[k] = And.__extend(k);
-  }
-
-  module.exports = And;
-
-  /***/
-}]
-/******/);
-//# sourceMappingURL=index.js.map
+  };for (var i in n.prototype) {
+    o.prototype[i] = o.__extend(i);
+  }t.exports = o;
+}]);
 
 /***/ }),
 /* 1 */

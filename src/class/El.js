@@ -60,7 +60,9 @@ function El() {
   }
 
   if (IS_NODE) {
-    mount(self.node);
+    setTimeout(() => {
+      mount(self.node);
+    }, 0);
   }
 }
 
