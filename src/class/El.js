@@ -314,7 +314,7 @@ El.prototype.closest = function (selector) {
 
 El.prototype.find = function (selector) {
   var node = this.node.querySelector(selector);
-  return new El(node);
+  return node && new El(node);
 };
 
 El.prototype.findAll = function (selector) {

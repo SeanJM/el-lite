@@ -193,7 +193,7 @@ module.exports = function (t) {
   }, o.prototype.closest = function (t) {
     return new o(this.node.closest(t));
   }, o.prototype.find = function (t) {
-    return new o(this.node.querySelector(t));
+    var e = this.node.querySelector(t);return e && new o(e);
   }, o.prototype.findAll = function (t) {
     for (var e = [], r = this.node.querySelectorAll(t), n = 0, i = r.length; n < i; n++) {
       e.push(new o(r[n]));
