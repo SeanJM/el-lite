@@ -57,8 +57,11 @@ el.getElementById = function (id) {
   return element;
 };
 
-el.id          = El.id;
-el.create      = Component.create;
-el.componentId = Component.id;
+el.getComponentById = function (id) {
+  return Component.id[id];
+};
+
+el.id               = El.id;
+el.create           = Component.create;
 
 module.exports = el;
