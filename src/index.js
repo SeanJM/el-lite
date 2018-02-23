@@ -1,6 +1,8 @@
 const El        = require("./class/El");
 const Component = require("./class/Component");
 const And       = require("./class/And");
+const isNode    = require("./isNode");
+
 const body      = el(document.body);
 
 function el(a, b, c) {
@@ -59,6 +61,24 @@ el.getElementById = function (id) {
 
 el.getComponentById = function (id) {
   return Component.id[id];
+};
+
+el.mapChildren = function (node) {
+  const res      = [];
+  const children = node.childNodes;
+
+  let i          = -1;
+  let n          = children.length;
+
+  while (++i < n) {
+    if (isNode(children[i])) {
+      res.push(
+        el(children[i])
+      );
+    }
+  }
+
+  return res;
 };
 
 el.id               = El.id;
