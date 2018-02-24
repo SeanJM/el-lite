@@ -42,6 +42,8 @@ function El() {
     this.node = args[0];
   } else if (this.isSvg) {
     this.node = document.createElementNS(SVG_NS, this.tagName);
+  } else if (this.tagName === "fragment") {
+    this.node = new DocumentFragment();
   } else {
     this.node = document.createElement(this.tagName);
   }
