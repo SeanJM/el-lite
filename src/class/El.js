@@ -247,6 +247,17 @@ El.prototype.after = function (target) {
   return this;
 };
 
+El.prototype.before = function (target) {
+  const targetNode = target.getRoot();
+  const parent     = targetNode.parentNode;
+
+  if (parent) {
+    parent.insertBefore(this.node, targetNode);
+  }
+
+  return this;
+};
+
 El.prototype.prepend = function (element) {
   var first    = this.node.childNodes[0];
   var children = [].concat(element);

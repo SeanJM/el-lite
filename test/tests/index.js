@@ -1,5 +1,6 @@
 import "./addClass";
 import "./after";
+import "./before";
 import "./and";
 import "./componentAppend";
 import "./componentRef";

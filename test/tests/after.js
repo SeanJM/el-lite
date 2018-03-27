@@ -15,6 +15,4 @@ e.append([ f ]);
 c.after(b);
 g.after(f);
 
-console.log(a);
-
 log("After", a.children()[1].node === c.node && e.children()[1].node === g.node);
