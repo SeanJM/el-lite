@@ -1413,4 +1413,3 @@ body.append((0, _index2.default)("Icon", { type: "eye" }));
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map

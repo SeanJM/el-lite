@@ -1,9 +1,9 @@
-const El        = require("./class/El");
+const El = require("./class/El");
 const Component = require("./class/Component");
-const And       = require("./class/And");
-const isNode    = require("./isNode");
+const And = require("./class/And");
+const isNode = require("./isNode");
 
-const body      = el(document.body);
+const body = el(document.body);
 
 function el(a, b, c) {
   if (Component.lib[a]) {
@@ -34,9 +34,9 @@ el.onCreate = function (callback) {
 };
 
 el.fn = function (name, callback) {
-  El.prototype[name]        = callback;
+  El.prototype[name] = callback;
   Component.prototype[name] = Component.__extend(name);
-  And.prototype[name]       = And.__extend(name);
+  And.prototype[name] = And.__extend(name);
 
   for (var k in Component.lib) {
     if (!Component.lib[k].prototype[name]) {
@@ -64,11 +64,11 @@ el.getComponentById = function (id) {
 };
 
 el.mapChildren = function (node) {
-  const res      = [];
+  const res = [];
   const children = node.childNodes;
 
-  let i          = -1;
-  let n          = children.length;
+  let i = -1;
+  let n = children.length;
 
   while (++i < n) {
     if (isNode(children[i])) {
@@ -81,7 +81,8 @@ el.mapChildren = function (node) {
   return res;
 };
 
-el.id               = El.id;
-el.create           = Component.create;
+el.id = El.id;
+el.create = Component.create;
+el.lib = Component.lib;
 
 module.exports = el;
