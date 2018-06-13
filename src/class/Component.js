@@ -1,9 +1,9 @@
 const isObject = require("../isObject");
-const setRefs  = require("../setRefs");
-const Bus      = require("./Bus");
-const El       = require("./El");
+const setRefs = require("../setRefs");
+const Bus = require("./Bus");
+const El = require("./El");
 
-function Component() {}
+function Component() { }
 
 Component.__extend = function (name) {
   return function (a, b, c) {
@@ -15,7 +15,7 @@ Component.__extend = function (name) {
 };
 
 Component.lib = {};
-Component.id  = {};
+Component.id = {};
 
 for (var k in El.prototype) {
   Component.prototype[k] = Component.__extend(k);
@@ -64,10 +64,10 @@ Component.create = function (name, obj) {
   function C(a, b) {
     let children = Array.isArray(a) ? a : b || [];
 
-    this.props   = isObject(a) ? a : {};
-    this.bus     = new Bus({ target: this });
-    this.refs    = {};
-    this.ref     = this.props.ref;
+    this.props = isObject(a) ? a : {};
+    this.bus = new Bus({ target: this });
+    this.refs = {};
+    this.ref = this.props.ref;
     this.tagName = name;
 
     for (var k in El.__defaultProps) {
@@ -80,8 +80,8 @@ Component.create = function (name, obj) {
       obj.constructor.call(this, this.props);
     }
 
-    if (obj.render) {
-      this.node = obj.render.call(this, this.props);
+    if (C.prototype.render) {
+      this.node = C.prototype.render.call(this, this.props);
 
       if (typeof this.node === "undefined") {
         throw new Error("Component \"" + name + "\" does not return a valid element.");
@@ -132,7 +132,7 @@ Component.create = function (name, obj) {
   }
 
   for (k in obj) {
-    if (k !== "render" && k !== "append") {
+    if (k !== "append") {
       C.prototype[k] = obj[k];
     }
   }

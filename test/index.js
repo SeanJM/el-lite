@@ -97,14 +97,14 @@ module.exports = function (t) {
     var t = this,
         e = [arguments[0], arguments[1], arguments[2]],
         r = s(e[0]),
-        n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new d({ target: this }), this.refs = {}, this.props = {};for (var u = 0, p = e.length; u < p; u++) {
+        n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new d({ target: this }), this.refs = {}, this.props = {};for (var u = 0, f = e.length; u < f; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (n = e[u]);
     }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : "fragment" === this.tagName ? this.node = new DocumentFragment() : this.node = document.createElement(this.tagName);for (var a in o.__defaultProps) {
       this.props[a] || (this.props[a] = o.__defaultProps[a]);
-    }for (this.append(n), this.attr(this.props), u = 0, p = o.__onCreate.length; u < p; u++) {
+    }for (this.append(n), this.attr(this.props), u = 0, f = o.__onCreate.length; u < f; u++) {
       o.__onCreate[u].call(this);
     }r && setTimeout(function () {
-      f(t.node);
+      p(t.node);
     }, 0);
   }var n = "function" == typeof Symbol && "symbol" == _typeof(Symbol.iterator) ? function (t) {
     return typeof t === "undefined" ? "undefined" : _typeof(t);
@@ -114,8 +114,8 @@ module.exports = function (t) {
       i = r(2),
       s = r(3),
       u = r(4),
-      f = r(8),
-      p = r(9),
+      p = r(8),
+      f = r(9),
       a = r(10),
       h = r(5),
       c = r(11),
@@ -134,8 +134,8 @@ module.exports = function (t) {
           r.transform.push(a(u, t[s][u]));
         } else r.transform.push(a(s, t[s]));
       } else o.push({ name: s, value: h(s, t[s]) });
-    }r.transform.length && o.push({ name: "transform", value: r.transform.join(" ") });for (var f = 0, p = o.length; f < p; f++) {
-      e = b[o[f].name] || o[f].name, this.node.style[e] = o[f].value, i[e] = o[f].value;
+    }r.transform.length && o.push({ name: "transform", value: r.transform.join(" ") });for (var p = 0, f = o.length; p < f; p++) {
+      e = b[o[p].name] || o[p].name, this.node.style[e] = o[p].value, i[e] = o[p].value;
     }this.trigger("style", { list: o, value: i });
   }, o.prototype.style = function (t) {
     return "object" === (void 0 === t ? "undefined" : n(t)) ? (this.setStyle(t), this) : "string" == typeof t ? c(window.getComputedStyle(this.node)[b[t] || t]) : window.getComputedStyle(this.node);
@@ -160,7 +160,7 @@ module.exports = function (t) {
     return this.node.focus(), this;
   }, o.prototype.append = function (t) {
     var e;if (t) for (var r = 0, o = (t = [].concat(t)).length; r < o; r++) {
-      e = t[r].getRoot ? t[r].getRoot() : new Text(t[r]), this.getRoot().appendChild(e), f(e), u.call(this, t[r]);
+      e = t[r].getRoot ? t[r].getRoot() : new Text(t[r]), this.getRoot().appendChild(e), p(e), u.call(this, t[r]);
     }return this;
   }, o.prototype.after = function (t) {
     var e = t.getRoot(),
@@ -206,11 +206,11 @@ module.exports = function (t) {
       if (s(r[n]) && (e.push(new o(r[n])), e[t])) return e[t];
     }return e;
   }, o.prototype.html = function (t) {
-    return void 0 === t ? this.node.innerHTML : (Array.prototype.forEach.call(this.node.childNodes, p), this.node.innerHTML = t, this);
+    return void 0 === t ? this.node.innerHTML : (Array.prototype.forEach.call(this.node.childNodes, f), this.node.innerHTML = t, this);
   }, o.prototype.remove = function () {
-    return this.node.parentNode && (p(this.node), this.node.parentNode.removeChild(this.node)), this;
+    return this.node.parentNode && (f(this.node), this.node.parentNode.removeChild(this.node)), this;
   }, o.prototype.replaceWith = function (t) {
-    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), p(this.node), f(e), this;
+    var e = t.getRoot();return this.node.parentNode.replaceChild(e, this.node), f(this.node), p(e), this;
   }, o.prototype.on = function (t, e) {
     var r = this,
         o = t.toLowerCase();return "function" == typeof e && (this.bus.on(o, e), "load" === o ? this.node.onload = function (t) {
@@ -277,12 +277,12 @@ module.exports = function (t) {
 }, function (t, e, r) {
   "use strict";
   function o(t, e, r) {
-    return i.lib[t] ? new i.lib[t](e, r) : t instanceof Text || t instanceof Comment ? t : "body" === t ? f : new n(t, e, r);
+    return i.lib[t] ? new i.lib[t](e, r) : t instanceof Text || t instanceof Comment ? t : "body" === t ? p : new n(t, e, r);
   }var n = r(1),
       i = r(12),
       s = r(13),
       u = r(3),
-      f = o(document.body);o.and = function (t) {
+      p = o(document.body);o.and = function (t) {
     return new s(t);
   }, o.onAttr = function (t, e) {
     n.__onAttr[t.toLowerCase()] = e;
@@ -303,7 +303,7 @@ module.exports = function (t) {
     for (var e = [], r = t.childNodes, n = -1, i = r.length; ++n < i;) {
       u(r[n]) && e.push(o(r[n]));
     }return e;
-  }, o.id = n.id, o.create = i.create, t.exports = o;
+  }, o.id = n.id, o.create = i.create, o.lib = i.lib, t.exports = o;
 }, function (t, e, r) {
   "use strict";
   var o = r(0).MOUNTED;t.exports = function t(e) {
@@ -347,8 +347,8 @@ module.exports = function (t) {
     return function (e, r, o) {
       var n = this.node ? this.node[t](e, r, o) : u.prototype[t].call(null, e, r, o);return n === this.node ? this : n;
     };
-  }, o.lib = {}, o.id = {};for (var f in u.prototype) {
-    o.prototype[f] = o.__extend(f);
+  }, o.lib = {}, o.id = {};for (var p in u.prototype) {
+    o.prototype[p] = o.__extend(p);
   }o.prototype.append = function (t) {
     this.node.append(t);for (var e in this.node.refs) {
       this.refs[e] || (this.refs[e] = this.node.refs[e]);
@@ -366,28 +366,28 @@ module.exports = function (t) {
   }, o.prototype.getEl = function () {
     return this.node.getEl();
   }, o.create = function (t, e) {
-    function r(r, i) {
-      var f = Array.isArray(r) ? r : i || [];this.props = n(r) ? r : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var p in u.__defaultProps) {
-        this.props[p] || (this.props[p] = u.__defaultProps[p]);
-      }if (e.constructor && e.constructor.call(this, this.props), e.render) {
-        if (this.node = e.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var a in this.refs) {
-          for (var h in this.refs[a].refs) {
-            this.refs[h] || (this.refs[h] = this.refs[a].refs[h]);
-          }this.refs[a].ref && !this.refs[this.refs[a].ref] && (this.refs[this.refs[a].ref] = this.refs[a].ref);
-        }for (var c in this.node.refs) {
-          this.refs[c] || (this.refs[c] = this.node.refs[c]);
+    function r(i, p) {
+      var f = Array.isArray(i) ? i : p || [];this.props = n(i) ? i : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var a in u.__defaultProps) {
+        this.props[a] || (this.props[a] = u.__defaultProps[a]);
+      }if (e.constructor && e.constructor.call(this, this.props), r.prototype.render) {
+        if (this.node = r.prototype.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var h in this.refs) {
+          for (var c in this.refs[h].refs) {
+            this.refs[c] || (this.refs[c] = this.refs[h].refs[c]);
+          }this.refs[h].ref && !this.refs[this.refs[h].ref] && (this.refs[this.refs[h].ref] = this.refs[h].ref);
+        }for (var d in this.node.refs) {
+          this.refs[d] || (this.refs[d] = this.node.refs[d]);
         }this.append(f);
       }this.props.id && (o.id[this.props.id] = this);
-    }for (var f in o.prototype) {
-      r.prototype[f] = o.prototype[f];
+    }for (var p in o.prototype) {
+      r.prototype[p] = o.prototype[p];
     }e.append && (r.prototype.append = function (t) {
       if (t) {
         t = [].concat(t), e.append.call(this, t);for (var r = 0, o = t.length; r < o; r++) {
           i.call(this, t[r]);
         }
       }
-    });for (f in e) {
-      "render" !== f && "append" !== f && (r.prototype[f] = e[f]);
+    });for (p in e) {
+      "append" !== p && (r.prototype[p] = e[p]);
     }return o.lib[t] = r, r;
   }, t.exports = o;
 }, function (t, e, r) {
