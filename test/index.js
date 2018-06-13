@@ -366,17 +366,18 @@ module.exports = function (t) {
   }, o.prototype.getEl = function () {
     return this.node.getEl();
   }, o.create = function (t, e) {
-    function r(i, p) {
-      var f = Array.isArray(i) ? i : p || [];this.props = n(i) ? i : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var a in u.__defaultProps) {
+    function r(r, i) {
+      var p = Array.isArray(r) ? r : i || [],
+          f = o.lib[t];this.props = n(r) ? r : {}, this.bus = new s({ target: this }), this.refs = {}, this.ref = this.props.ref, this.tagName = t;for (var a in u.__defaultProps) {
         this.props[a] || (this.props[a] = u.__defaultProps[a]);
-      }if (e.constructor && e.constructor.call(this, this.props), r.prototype.render) {
-        if (this.node = r.prototype.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var h in this.refs) {
+      }if (e.constructor && e.constructor.call(this, this.props), f.prototype.render) {
+        if (this.node = f.prototype.render.call(this, this.props), void 0 === this.node) throw new Error('Component "' + t + '" does not return a valid element.');this.ref = this.props.ref || this.node.ref;for (var h in this.refs) {
           for (var c in this.refs[h].refs) {
             this.refs[c] || (this.refs[c] = this.refs[h].refs[c]);
           }this.refs[h].ref && !this.refs[this.refs[h].ref] && (this.refs[this.refs[h].ref] = this.refs[h].ref);
         }for (var d in this.node.refs) {
           this.refs[d] || (this.refs[d] = this.node.refs[d]);
-        }this.append(f);
+        }this.append(p);
       }this.props.id && (o.id[this.props.id] = this);
     }for (var p in o.prototype) {
       r.prototype[p] = o.prototype[p];
