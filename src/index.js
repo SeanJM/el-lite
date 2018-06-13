@@ -7,7 +7,7 @@ const body = el(document.body);
 
 function el(a, b, c) {
   if (Component.lib[a]) {
-    return new Component.lib[a](b, c);
+    return new Component.lib[a].constructor(b, c);
   } else if (a instanceof Text || a instanceof Comment) {
     return a;
   } else if (a === "body") {
@@ -39,8 +39,8 @@ el.fn = function (name, callback) {
   And.prototype[name] = And.__extend(name);
 
   for (var k in Component.lib) {
-    if (!Component.lib[k].prototype[name]) {
-      Component.lib[k].prototype[name] = Component.prototype[name];
+    if (!Component.lib[k].constructor.prototype[name]) {
+      Component.lib[k].constructor.prototype[name] = Component.prototype[name];
     }
   }
 };

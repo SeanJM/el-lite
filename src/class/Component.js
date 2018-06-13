@@ -60,10 +60,11 @@ Component.prototype.getEl = function () {
   return this.node.getEl();
 };
 
-Component.create = function (name, obj) {
+Component.create = function (name, body) {
   function C(a, b) {
     let children = Array.isArray(a) ? a : b || [];
-    let CM = Component.lib[name]; // Just in case a plugin has modified it
+    let ClassConstructor = Component.lib[name].constructor; // Just in case a plugin has modified it
+    let ClassBody = Component.lib[name].body; // Just in case a plugin has modified it
 
     this.props = isObject(a) ? a : {};
     this.bus = new Bus({ target: this });
@@ -77,12 +78,12 @@ Component.create = function (name, obj) {
       }
     }
 
-    if (obj.constructor) {
-      obj.constructor.call(this, this.props);
+    if (ClassBody.constructor) {
+      ClassBody.constructor.call(this, this.props);
     }
 
-    if (CM.prototype.render) {
-      this.node = CM.prototype.render.call(this, this.props);
+    if (ClassConstructor.prototype.render) {
+      this.node = ClassConstructor.prototype.render.call(this, this.props);
 
       if (typeof this.node === "undefined") {
         throw new Error("Component \"" + name + "\" does not return a valid element.");
@@ -120,11 +121,11 @@ Component.create = function (name, obj) {
     C.prototype[k] = Component.prototype[k];
   }
 
-  if (obj.append) {
+  if (body.append) {
     C.prototype.append = function (children) {
       if (children) {
         children = [].concat(children);
-        obj.append.call(this, children);
+        body.append.call(this, children);
         for (var i = 0, n = children.length; i < n; i++) {
           setRefs.call(this, children[i]);
         }
@@ -132,13 +133,16 @@ Component.create = function (name, obj) {
     };
   }
 
-  for (k in obj) {
+  for (k in body) {
     if (k !== "append") {
-      C.prototype[k] = obj[k];
+      C.prototype[k] = body[k];
     }
   }
 
-  Component.lib[name] = C;
+  Component.lib[name] = {
+    constructor: C,
+    body: body,
+  };
   return C;
 };
 
