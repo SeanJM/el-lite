@@ -63,8 +63,7 @@ Component.prototype.getEl = function () {
 Component.create = function (name, body) {
   function C(a, b) {
     let children = Array.isArray(a) ? a : b || [];
-    let ClassConstructor = Component.lib[name].constructor; // Just in case a plugin has modified it
-    let ClassBody = Component.lib[name].body; // Just in case a plugin has modified it
+    let body = Component.lib[name].body; // Just in case a plugin has modified it
 
     this.props = isObject(a) ? a : {};
     this.bus = new Bus({ target: this });
@@ -78,12 +77,12 @@ Component.create = function (name, body) {
       }
     }
 
-    if (ClassBody.constructor) {
-      ClassBody.constructor.call(this, this.props);
+    if (body.constructor) {
+      body.constructor.call(this, this.props);
     }
 
-    if (ClassConstructor.prototype.render) {
-      this.node = ClassConstructor.prototype.render.call(this, this.props);
+    if (body.render) {
+      this.node = body.render.call(this, this.props);
 
       if (typeof this.node === "undefined") {
         throw new Error("Component \"" + name + "\" does not return a valid element.");
