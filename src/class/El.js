@@ -83,38 +83,42 @@ El.prototype.setStyle = function (props) {
   var value = {};
   var name;
 
-  for (var k in props) {
-    if (IS_TRANSFORM.indexOf(k) > -1) {
-      if (typeof props[k] === "object") {
-        for (var j in props[k]) {
+  if (typeof props === "string") {
+    this.node.style = props;
+  } else {
+    for (var k in props) {
+      if (IS_TRANSFORM.indexOf(k) > -1) {
+        if (typeof props[k] === "object") {
+          for (var j in props[k]) {
+            values.transform.push(
+              transformValue(j, props[k][j])
+            );
+          }
+        } else {
           values.transform.push(
-            transformValue(j, props[k][j])
+            transformValue(k, props[k])
           );
         }
       } else {
-        values.transform.push(
-          transformValue(k, props[k])
-        );
+        list.push({
+          name: k,
+          value: propertyUnit(k, props[k])
+        });
       }
-    } else {
+    }
+
+    if (values.transform.length) {
       list.push({
-        name: k,
-        value: propertyUnit(k, props[k])
+        name: "transform",
+        value: values.transform.join(" ")
       });
     }
-  }
 
-  if (values.transform.length) {
-    list.push({
-      name: "transform",
-      value: values.transform.join(" ")
-    });
-  }
-
-  for (var i = 0, n = list.length; i < n; i++) {
-    name = STYLE_NAME[list[i].name] || list[i].name;
-    this.node.style[name] = list[i].value;
-    value[name] = list[i].value;
+    for (var i = 0, n = list.length; i < n; i++) {
+      name = STYLE_NAME[list[i].name] || list[i].name;
+      this.node.style[name] = list[i].value;
+      value[name] = list[i].value;
+    }
   }
 
   this.trigger("style", {

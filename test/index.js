@@ -128,14 +128,16 @@ module.exports = function (t) {
     var e,
         r = { transform: [], default: [] },
         o = [],
-        i = {};for (var s in t) {
-      if (v.indexOf(s) > -1) {
-        if ("object" === n(t[s])) for (var u in t[s]) {
-          r.transform.push(a(u, t[s][u]));
-        } else r.transform.push(a(s, t[s]));
-      } else o.push({ name: s, value: h(s, t[s]) });
-    }r.transform.length && o.push({ name: "transform", value: r.transform.join(" ") });for (var f = 0, p = o.length; f < p; f++) {
-      e = b[o[f].name] || o[f].name, this.node.style[e] = o[f].value, i[e] = o[f].value;
+        i = {};if ("string" == typeof t) this.node.style = t;else {
+      for (var s in t) {
+        if (v.indexOf(s) > -1) {
+          if ("object" === n(t[s])) for (var u in t[s]) {
+            r.transform.push(a(u, t[s][u]));
+          } else r.transform.push(a(s, t[s]));
+        } else o.push({ name: s, value: h(s, t[s]) });
+      }r.transform.length && o.push({ name: "transform", value: r.transform.join(" ") });for (var f = 0, p = o.length; f < p; f++) {
+        e = b[o[f].name] || o[f].name, this.node.style[e] = o[f].value, i[e] = o[f].value;
+      }
     }this.trigger("style", { list: o, value: i });
   }, o.prototype.style = function (t) {
     return "object" === (void 0 === t ? "undefined" : n(t)) ? (this.setStyle(t), this) : "string" == typeof t ? c(window.getComputedStyle(this.node)[b[t] || t]) : window.getComputedStyle(this.node);
