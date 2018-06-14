@@ -1,12 +1,12 @@
-const isObject       = require("../isObject");
-const isNode         = require("../isNode");
-const setRefs        = require("../setRefs");
-const mount          = require("../mount");
-const unmount        = require("../unmount");
+const isObject = require("../isObject");
+const isNode = require("../isNode");
+const setRefs = require("../setRefs");
+const mount = require("../mount");
+const unmount = require("../unmount");
 const transformValue = require("../transformValue");
-const propertyUnit   = require("../propertyUnit");
-const toUnit         = require("../toUnit");
-const Bus            = require("./Bus");
+const propertyUnit = require("../propertyUnit");
+const toUnit = require("../toUnit");
+const Bus = require("./Bus");
 
 const {
   XLINK_NS,
@@ -16,15 +16,15 @@ const {
 } = require("../CONSTANTS");
 
 function El() {
-  var self     = this;
-  var args     = [ arguments[0], arguments[1], arguments[2] ];
-  var IS_NODE  = isNode(args[0]);
+  var self = this;
+  var args = [arguments[0], arguments[1], arguments[2]];
+  var IS_NODE = isNode(args[0]);
   var children = [];
 
   this.tagName = IS_NODE ? arguments[0].tagName.toLowerCase() : "div";
-  this.bus     = new Bus({ target: this });
-  this.refs    = {};
-  this.props   = {};
+  this.bus = new Bus({ target: this });
+  this.refs = {};
+  this.props = {};
 
   for (var i = 0, n = args.length; i < n; i++) {
     if (typeof args[i] === "string") {
@@ -36,7 +36,7 @@ function El() {
     }
   }
 
-  this.isSvg = [ "use", "svg" ].indexOf(this.tagName) !== -1;
+  this.isSvg = ["use", "svg"].indexOf(this.tagName) !== -1;
 
   if (IS_NODE) {
     this.node = args[0];
@@ -68,18 +68,18 @@ function El() {
   }
 }
 
-El.id             = {};
-El.__onAttr       = {};
+El.id = {};
+El.__onAttr = {};
 El.__defaultProps = {};
-El.__onCreate     = [];
+El.__onCreate = [];
 
 El.prototype.setStyle = function (props) {
   var values = {
-    transform : [],
-    default   : []
+    transform: [],
+    default: []
   };
 
-  var list  = [];
+  var list = [];
   var value = {};
   var name;
 
@@ -98,28 +98,28 @@ El.prototype.setStyle = function (props) {
       }
     } else {
       list.push({
-        name  : k,
-        value : propertyUnit(k, props[k])
+        name: k,
+        value: propertyUnit(k, props[k])
       });
     }
   }
 
   if (values.transform.length) {
     list.push({
-      name  : "transform",
-      value : values.transform.join(" ")
+      name: "transform",
+      value: values.transform.join(" ")
     });
   }
 
   for (var i = 0, n = list.length; i < n; i++) {
     name = STYLE_NAME[list[i].name] || list[i].name;
     this.node.style[name] = list[i].value;
-    value[name]           = list[i].value;
+    value[name] = list[i].value;
   }
 
   this.trigger("style", {
-    list  : list,
-    value : value
+    list: list,
+    value: value
   });
 };
 
@@ -147,10 +147,10 @@ El.prototype.value = function (value) {
 El.prototype.offset = function () {
   const offset = this.node.getBoundingClientRect();
   return {
-    top    : offset.top,
-    left   : offset.left,
-    width  : offset.width,
-    height : offset.height,
+    top: offset.top,
+    left: offset.left,
+    width: offset.width,
+    height: offset.height,
   };
 };
 
@@ -159,9 +159,13 @@ El.prototype.classList = function () {
   return className ? className.split(" ") : [];
 };
 
+El.prototype.hasClass = function (className) {
+  return this.classList().indexOf(className) > -1;
+};
+
 El.prototype.removeClass = function (x) {
   var classList = this.classList();
-  var index     = classList.indexOf(x);
+  var index = classList.indexOf(x);
 
   if (index > -1) {
     classList.splice(index, 1);
@@ -207,7 +211,7 @@ El.prototype.append = function (children) {
     children = [].concat(children);
 
     for (var i = 0, n = children.length; i < n; i++) {
-      isEl  = children[i].getRoot;
+      isEl = children[i].getRoot;
       child = isEl ? children[i].getRoot() : new Text(children[i]);
       this.getRoot().appendChild(child);
       mount(child);
@@ -220,16 +224,16 @@ El.prototype.append = function (children) {
 
 El.prototype.after = function (target) {
   const targetNode = target.getRoot();
-  const parent     = targetNode.parentNode;
-  let index        = -1;
-  let i            = -1;
+  const parent = targetNode.parentNode;
+  let index = -1;
+  let i = -1;
 
   let childNodes;
   let length;
 
   if (parent) {
     childNodes = parent.childNodes;
-    length     = parent.childNodes.length;
+    length = parent.childNodes.length;
 
     while (++i < length) {
       if (childNodes[i] === targetNode) {
@@ -249,7 +253,7 @@ El.prototype.after = function (target) {
 
 El.prototype.before = function (target) {
   const targetNode = target.getRoot();
-  const parent     = targetNode.parentNode;
+  const parent = targetNode.parentNode;
 
   if (parent) {
     parent.insertBefore(this.node, targetNode);
@@ -259,7 +263,7 @@ El.prototype.before = function (target) {
 };
 
 El.prototype.prepend = function (element) {
-  var first    = this.node.childNodes[0];
+  var first = this.node.childNodes[0];
   var children = [].concat(element);
   var i = 0, n = 0;
   if (first) {
@@ -332,7 +336,7 @@ El.prototype.find = function (selector) {
 
 El.prototype.findAll = function (selector) {
   var result = [];
-  var nodes  = this.node.querySelectorAll(selector);
+  var nodes = this.node.querySelectorAll(selector);
 
   for (var i = 0, n = nodes.length; i < n; i++) {
     result.push(
@@ -344,7 +348,7 @@ El.prototype.findAll = function (selector) {
 };
 
 El.prototype.children = function (index) {
-  const children   = [];
+  const children = [];
   const childNodes = this.node.childNodes;
   for (var i = 0, n = childNodes.length; i < n; i++) {
     if (isNode(childNodes[i])) {
@@ -383,7 +387,7 @@ El.prototype.replaceWith = function (child) {
 };
 
 El.prototype.on = function (name, callback) {
-  var self      = this;
+  var self = this;
   var nameLower = name.toLowerCase();
 
   if (typeof callback === "function") {

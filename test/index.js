@@ -99,7 +99,7 @@ module.exports = function (t) {
         r = s(e[0]),
         n = [];this.tagName = r ? arguments[0].tagName.toLowerCase() : "div", this.bus = new d({ target: this }), this.refs = {}, this.props = {};for (var u = 0, p = e.length; u < p; u++) {
       "string" == typeof e[u] ? this.tagName = e[u] : i(e[u]) ? this.props = e[u] : Array.isArray(e[u]) && (n = e[u]);
-    }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(y, this.tagName) : "fragment" === this.tagName ? this.node = new DocumentFragment() : this.node = document.createElement(this.tagName);for (var a in o.__defaultProps) {
+    }this.isSvg = -1 !== ["use", "svg"].indexOf(this.tagName), r ? this.node = e[0] : this.isSvg ? this.node = document.createElementNS(g, this.tagName) : "fragment" === this.tagName ? this.node = new DocumentFragment() : this.node = document.createElement(this.tagName);for (var a in o.__defaultProps) {
       this.props[a] || (this.props[a] = o.__defaultProps[a]);
     }for (this.append(n), this.attr(this.props), u = 0, p = o.__onCreate.length; u < p; u++) {
       o.__onCreate[u].call(this);
@@ -121,8 +121,8 @@ module.exports = function (t) {
       c = r(11),
       d = r(6),
       l = r(0),
-      g = l.XLINK_NS,
-      y = l.SVG_NS,
+      y = l.XLINK_NS,
+      g = l.SVG_NS,
       v = l.IS_TRANSFORM,
       b = l.STYLE_NAME;o.id = {}, o.__onAttr = {}, o.__defaultProps = {}, o.__onCreate = [], o.prototype.setStyle = function (t) {
     var e,
@@ -145,6 +145,8 @@ module.exports = function (t) {
     var t = this.node.getBoundingClientRect();return { top: t.top, left: t.left, width: t.width, height: t.height };
   }, o.prototype.classList = function () {
     var t = this.node.getAttribute("class");return t ? t.split(" ") : [];
+  }, o.prototype.hasClass = function (t) {
+    return this.classList().indexOf(t) > -1;
   }, o.prototype.removeClass = function (t) {
     var e = this.classList(),
         r = e.indexOf(t);return r > -1 && e.splice(r, 1), this.node.setAttribute("class", e.join(" ")), this;
@@ -191,7 +193,7 @@ module.exports = function (t) {
         return t.length;
       }).map(function (t) {
         return t.trim();
-      }).join(" ")) : t[r] && "object" !== n(t[r]) && "function" != typeof t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? g : y, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
+      }).join(" ")) : t[r] && "object" !== n(t[r]) && "function" != typeof t[r] && (this.isSvg ? this.node.setAttributeNS("href" === r ? y : g, r, t[r]) : this.node.setAttribute(r, t[r].toString()));
     }return this;
   }, o.prototype.closest = function (t) {
     return new o(this.node.closest(t));
